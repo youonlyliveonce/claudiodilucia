@@ -1,0 +1,34 @@
+title: Section Clients
+
+pages: false
+
+
+
+fields:
+  title: title
+  section: section
+  navigation: navigation
+  scrollable: scrollable
+
+  clients:
+    label: Kunden
+    type: structure
+    style: table
+    modalsize: large
+    required: true
+    entry: >
+      <u>Logo</u> : {{logo}}<br/>
+      <u>Alt Text</u> : {{alttext}}<br/>
+      <u>Link</u> : {{link}}<br/>
+    fields:
+      logo:
+        label: Logo
+        type: image
+        required: true
+      alttext:
+        label: Alt Text
+        type: text
+        required: true
+      link:
+        label: Link
+        type: url

@@ -1,0 +1,32 @@
+.Row
+	&__body
+		overflow: hidden
+		+clearfix
+		div
+			position: relative
+			padding: $gap-size-large 0
+			float: left
+			+bp('large')
+				/* one item */
+				&:first-child:nth-last-child(1)
+					width: 100%
+
+				/* two items */
+				&:first-child:nth-last-child(2),
+				&:first-child:nth-last-child(2) ~ div
+					width: +unit(6)
+
+				/* three items */
+				&:first-child:nth-last-child(3),
+				&:first-child:nth-last-child(3) ~ div
+					width: +unit(4)
+
+				/* four items */
+				&:first-child:nth-last-child(4),
+				&:first-child:nth-last-child(4) ~ div
+					width: +unit(3)
+
+				/* five items */
+				&:first-child:nth-last-child(5),
+				&:first-child:nth-last-child(5) ~ div
+					width: +unit(2)

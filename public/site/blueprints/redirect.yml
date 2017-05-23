@@ -1,0 +1,14 @@
+title: Redirect
+
+pages: false
+
+files: false
+
+fields:
+  title:
+    label: Title
+    type: title
+  redirect:
+    label: Weiterleitungsziel
+    type: url
+  navigation: navigation

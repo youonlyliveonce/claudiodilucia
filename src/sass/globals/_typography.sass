@@ -1,0 +1,54 @@
+body
+	color: $color-text
+	+fontregular()
+	font-size: 100%
+	line-height: ms(1.7)
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+
+p
+	line-height: ms(1.7)
+	+bp(larger)
+		font-size: 1.1em
+		line-height: 1.8em
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+	margin: 0
+	font-size: inherit
+	font-weight: inherit
+	line-height: inherit
+	line-height: ms(1.7)
+	+fontbold()
+	text-transform: uppercase
+	letter-spacing: 0.1em
+
+h2, h3
+	text-transform: uppercase
+	letter-spacing: 0.1em
+
+ul,
+ol
+	margin: 0
+	padding: 0
+	list-style: none
+	font-weight: normal
+
+a
+	color: inherit
+	outline: 0
+	text-decoration: none
+	&,
+	&:active,
+	&:hover,
+	&:focus,
+	&:visited
+		outline: 0
+		text-decoration: none
+
+strong
+	+fontbold()

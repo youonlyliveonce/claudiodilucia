@@ -1,0 +1,21 @@
+title: Section Videobox
+
+pages: false
+
+fields:
+  title: title
+  section: section
+  navigation: navigation
+
+  videoid:
+    label: Video ID
+    type: text
+    help: Add Youtube ID
+  awards:
+    label: Awards
+    type: structure
+    modalsize: large
+    fields:
+      image:
+        label: Bild (.png)
+        type: image

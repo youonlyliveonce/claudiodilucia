@@ -1,0 +1,10 @@
+title: Route
+
+pages:
+  template:
+    - expose
+
+fields:
+  title:
+    label: Title
+    type:  text

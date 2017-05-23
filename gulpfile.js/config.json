@@ -1,0 +1,54 @@
+{
+	"root": {
+		"domain": "http://24-1.de",
+		"appName": "24-1",
+		"appDescription": "-",
+		"src": "./src",
+		"dest": "./public/assets",
+		"assets": "/"
+	},
+
+	"tasks": {
+		"browserSync": {
+			"proxy": "24-1.dev"
+		},
+
+		"js": {
+			"src": "javascript",
+			"dest": "js",
+			"extractSharedJs": false,
+			"entries": {
+				"app": ["./app.js"],
+				"loader": ["./loader.js"],
+				"analytics": ["./analytics.js"],
+				"shim": ["./shim.js"]
+			},
+			"extensions": ["js"]
+		},
+
+		"css": {
+			"src": "sass",
+			"dest": "css",
+			"autoprefixer": {
+				"browsers": ["last 5 version"]
+			},
+			"sass": {
+				"indentedSyntax": true
+			},
+			"extensions": ["sass", "scss", "css"]
+		},
+
+		"favicons": {
+			"src": "/favicons/favicon.png",
+			"dest": "/favicons",
+			"background" :"#FFF"
+		},
+
+		"production": {
+			"cssSrc": "./public/assets/*.css",
+			"jsSrc": "./public/assets/*.js",
+			"dest": "./public/assets/"
+		}
+
+	}
+}

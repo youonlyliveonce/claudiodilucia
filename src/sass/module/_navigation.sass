@@ -1,0 +1,142 @@
+.Page--single
+	.Navigation
+		+bp('large')
+			.desktop &
+				opacity: 0
+				+transform(translateX(0%) translateY(-100%))
+				visibility: hidden
+.Page--multi
+	.Navigation
+		+bp('large')
+			.desktop &
+				visibility: visible
+				opacity: 1
+				+transform(translateX(0%) translateY(0%))
+
+.Navigation--home
+	+bp('large')
+		&.desktop
+			.Navigation
+				opacity: 0
+				+transform(translateX(0%) translateY(5%))
+
+.Navigation--show
+	.Button--toggle
+		span
+			+transform(rotate(90deg))
+			&:before
+				+transform(rotate(90deg))
+			&:after
+				+transform(rotate(90deg))
+	.Navigation
+		+transform(translateX(0%))
+
+
+
+.Navigation
+	z-index: 9999
+	position: absolute
+	+transition(all, 0.25s)
+	+transform(translateX(100%))
+	background-color: $color-content
+	top: 0%
+	bottom: 0%
+	left: 50%
+	right: 0%
+	+bp('large')
+		.desktop &
+			+transform(translateX(0%) translateY(-100%))
+			width: 100%
+			background-color: transparent
+			top: 0
+			right: 0
+			left: 0
+			bottom: inherit
+			z-index: 1
+			opacity: 0
+	ul
+		text-align: left
+		position: absolute
+		top: 50%
+		left: 50%
+		+transform(translateX(-50%) translateY(-50%))
+		overflow: hidden
+		+bp('large')
+			.desktop &
+				position: relative
+				height: auto
+				text-align: center
+				margin: 50px 0 0 0
+				top: 0
+				padding: 0
+		li
+			// letter-spacing: 0.1rem
+			cursor: pointer
+			// padding-left: 1.85em
+			margin: 0 auto
+			text-align: center
+			padding: 0px 10px
+			+noselect
+			+bp('large')
+				.desktop &
+					position: relative
+					display: inline-block
+					margin: 0
+					padding: 0 20px
+			a
+				cursor: pointer
+				+fontbold
+				color: white
+				display: block
+				position: relative
+				text-transform: uppercase
+				font-size: 0.9em
+				line-height: 1.2
+				+transition(color, 0.25s)
+				padding: 10px 0.1em
+				position: relative
+				overflow: hidden
+				+bp(large)
+					.desktop &
+						padding: 0 0.1em
+				span
+					position: relative
+					z-index: 10
+				&:before
+					content: ''
+					position: absolute
+					top: 50%
+					left: 0
+					right: 0
+					width: 100%
+					height: 0%
+					z-index: 1
+					+transition(all, 0.25s)
+					background-color: white
+				&.active
+					color: black
+					&:before
+						top: 0
+						height: 100%
+				+bp(large)
+					&:hover
+						color: black
+						&:before
+							top: 0
+							height: 100%
+	&__third
+		.Navigation &
+			position: absolute
+			top: 90%
+			+bp(large)
+				.desktop &
+					position: absolute
+					top: 5px
+					right: 0px
+					left: auto
+					bottom: auto
+					margin: 0
+					+transform(none)
+			margin: 0
+			font-size: 0.8em
+			opacity: 0.5

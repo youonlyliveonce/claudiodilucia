@@ -1,0 +1,67 @@
+title: Section Slider
+
+pages: false
+
+fields:
+  title: title
+  section: section
+  navigation: navigation
+  animation:
+    label: Animation
+    type: select
+    default: standard
+    options:
+      standard: Standard
+      swosh: Swosh
+  slider:
+    label: Slideelemente
+    type: structure
+    required: true
+    modalsize: large
+    entry: >
+      Label : {{label}}<br/>
+      <u>Titel</u> : {{title}}<br/>
+      <u>Subtitle 01</u> : {{subtitle01}}<br/>
+      <u>Subtitle 02</u> : {{subtitle02}}<br/>
+      <u>Subtitle 03</u> : {{subtitle03}}<br/>
+      <u>Textbox</u> : {{textbox}}<br/>
+      <u>Image</u> : {{background}}<br/>
+    fields:
+      label:
+        label: Navigationtitle
+        type: text
+      title:
+        label: Titel
+        help: $ ist ein Leerzeichen und % ist ein Umbruch
+        type: text
+        required: true
+
+      subtitle01:
+        label: Subtitel 01
+        type: text
+        help: $ ist ein Leerzeichen
+      subtitle02:
+        label: Subtitel 02
+        type: text
+        help: $ ist ein Leerzeichen
+      subtitle03:
+        label: Subtitel 03
+        type: text
+        help: $ ist ein Leerzeichen
+      textbox:
+        label: Textbox
+        type: textarea
+        buttons:
+          - italic
+          - bold
+          - link
+          - email
+      svg:
+        label: svg
+        type: textarea
+      background:
+        label: Hintergrund-Bild
+        type: image
+      paralaxe:
+        label: Vordergrund-Bild
+        type: image

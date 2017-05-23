@@ -1,0 +1,19 @@
+title: Page
+
+pages:
+  template:
+    - section_videobox
+    - section_portfolio
+    - section_slider
+    - section_clients
+    - section_textbox
+    - redirect
+
+fields:
+  title: title
+
+  info:
+    label: Hint
+    type: info
+    text: >
+      Die Inhalte werden durch die einzelnen Unterseiten definiert.

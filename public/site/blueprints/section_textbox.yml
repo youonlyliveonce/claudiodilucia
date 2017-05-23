@@ -1,0 +1,21 @@
+title: Section Textbox
+
+pages: false
+
+fields:
+  title: title
+  section: section
+  navigation: navigation
+
+  leftbar:
+    label: Linke Spalte
+    type: textarea
+    buttons:
+      - link
+      - email
+  rightbar:
+    label: Rechte Spalte
+    type: textarea
+    buttons:
+      - link
+      - email

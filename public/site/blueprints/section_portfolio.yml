@@ -1,0 +1,17 @@
+title: Section Portfolio
+
+pages:
+  template:
+    - case
+
+fields:
+  title: title
+  headline:
+    label: Filter und Inhalte definieren sich durch die Unterseiten
+    type: headline
+  section: section
+  navigation: navigation
+  scrollable: scrollable
+  availablefilter:
+    label: Verfügbare Filter
+    type: tags

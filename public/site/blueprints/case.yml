@@ -1,0 +1,111 @@
+title: Case
+
+pages: false
+
+files: true
+
+fields:
+  title:
+    label: Title
+    type: title
+  filtertags:
+    label: Tags
+    type: multiselect
+    required: true
+    options: field
+    field:
+      page: ../
+      name: availablefilter
+      seperator: ,
+
+  teaserimage:
+    label: Teaserbild
+    type: image
+    required: true
+
+  teasersize:
+    label: Teasergröße
+    type: select
+    options:
+      tiny: winzig
+      small: klein
+      medium: mittel
+      xmedium: mittel-breit
+      large: gross
+
+  section1:
+    label: Herobereich
+    type: headline
+
+  videoid:
+    label: Video ID
+    type: text
+    width: 1/2
+    help: Youtube ID eintragen oder Bilder unter Dateien hochladen
+
+  slideshow:
+    label: Bildergalerie
+    type: structure
+    width: 1/2
+    help: Bilder aus den Dateien auswählen
+    entry: >
+      <u>Image</u> : {{img}}
+    fields:
+      img:
+        label: Image
+        type: image
+
+  section2:
+    label: Beschreibung
+    type: headline
+
+  headline:
+    label: Überschrift
+    type: text
+    required: true
+
+  subline:
+    label: Unterüberschrift
+    type: text
+
+  description:
+    label: Beschreibung
+    type: textarea
+    size: large
+    required: true
+
+  section3:
+    label: Moodboard
+    type: headline
+
+  moodboard:
+    label: Moodboard
+    type: structure
+    help: Bilder aus Dateien auswählen. Oder Youtube ID eintragen. Das erste Element wird in der vollen Breite angezeigt. Alle folgenden immer mit der halben Breite.
+    entry: >
+      <u>Image</u> : {{img}}<br/>
+      <u>Caption</u> : {{caption}}<br/>
+      oder<br/>
+      <u>Youtube</u> : {{videoid}}<br/>
+      oder<br/>
+      <u>Headline</u> : {{headline}}<br/>
+      <u>Text</u> : {{copy}}<br/>
+    fields:
+      img:
+        label: Image
+        type: image
+      caption:
+        label: Caption
+        type: text
+      videoid:
+        label: Youtube ID
+        type: text
+      headline:
+        label: Überschrift Textbox
+        type: text
+        help: Nur als Alternative zu einem Bild
+      copy:
+        label: Inhalt Textbox
+        type: textarea
+        size: large
+        help: Nur als Alternative zu einem Bild

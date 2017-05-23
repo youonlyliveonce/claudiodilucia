@@ -1,0 +1,25 @@
+.Page
+	width: 100%
+	-webkit-overflow-scrolling: touch
+	position: absolute
+	height: 100%
+	overflow: hidden
+	&--single
+	&--multi
+
+	&__inner
+		-webkit-overflow-scrolling: touch
+		position: absolute
+		height: 100%
+		width: 100%
+		// overflow: scroll
+		z-index: 1
+		.run &
+			overflow: scroll
+		+bp('large')
+			.desktop &
+				position: relative
+				z-index: 0
+				height: auto
+				overflow: auto
+				min-height: 50%
