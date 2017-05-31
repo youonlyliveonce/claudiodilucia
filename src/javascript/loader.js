@@ -15,11 +15,10 @@ class Loader {
 		window.CM.Loader.mobile = window.mobilecheck();
 		let scope = this;
 		head.ready(document, function() {
-				head.load([	"/assets/css/app.css",
-										"https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js",
+				head.load([	"https://fonts.googleapis.com/css?family=Work+Sans:400,800,.css",
+										"/assets/css/app.css",
 										"/assets/js/app.js",
-										"/assets/js/shim.js",
-										"//fast.fonts.com/cssapi/6536d2ad-a624-4b33-9405-4c303cfb6253.css"
+										"/assets/js/shim.js"
 								], CM.Loader.startApplication);
 		});
 	}
@@ -33,17 +32,16 @@ class Loader {
 	}
 	startApplication (){
 		if(window.CM.App == undefined){
-				setTimeout(CM.Loader.startApplication, 500);
+				setTimeout(CM.Loader.startApplication, 250);
 		} else {
-				CM.App.blastoff({mobile:CM.Loader.mobile});
+				CM.App.blastoff();
 				document.body.setAttribute("class", document.body.getAttribute("class").split("loading").join("loaded") );
-				if(!CM.Loader.mobile) {
-					document.body.setAttribute("class", document.body.getAttribute("class").split("loaded").join("loaded desktop"));
-				}
-				setTimeout(function(){
-				 document.body.setAttribute("class", document.body.getAttribute("class").split("loaded").join("hideloader") );
-				}, 500);
-				setTimeout(function(){ CM.Loader.removeGFX(); }, 1750);
+				setTimeout(function() {
+					document.body.setAttribute("class", document.body.getAttribute("class").split("loaded").join("hideloader") );
+				}, 50);
+				setTimeout(function() {
+					CM.Loader.removeGFX();
+				}, 750);
 		}
 	}
 };

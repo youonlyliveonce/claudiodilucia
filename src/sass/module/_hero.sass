@@ -1,0 +1,22 @@
+.Hero
+	position: relative
+	background-color: #ababab
+	&__headline
+		@extend .Section__headline
+		position: absolute
+		z-index: 999
+	&__body
+		position: relative
+		width: 100%
+		+bp(medium)
+			width: 90%
+			margin-left: 10%
+			padding-bottom: +unit(8,16)
+	&__slide
+		width: 100%
+		min-height: 320px
+		+bp(large)
+			min-height: 600px
+		height: 100%
+		background-position: center
+		background-size: cover

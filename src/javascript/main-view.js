@@ -12,11 +12,7 @@ import "TweenMax";
 var MainView = View.extend({
 
 		/* Set Properties */
-		props: {
-			isSticky: ['boolean', true, false],
-			isSwiping: ['boolean', true, false],
-			hammerSwipe: ['object', true, function(){ return []; } ],
-		},
+		props: { },
 
 		/* Bind basic Events, all link clicks, toggle Navigation, etc. */
 		events: {
@@ -46,7 +42,6 @@ var MainView = View.extend({
 
 				// Init and configure our page switcher
 				this.pageSwitcher = new ViewSwitcher(this.main, {
-						waitForRemove: true,
 						hide: function (oldView, cb) {
 								// Set scope for callback of TweenMax
 								var inSwitcher = this;
@@ -54,29 +49,15 @@ var MainView = View.extend({
 								// Hide oldView if oldView exits
 								if(oldView && oldView.el){
 										oldView.hookBeforeHide();
+										self.scrollTo(0);
 										TweenMax.to(oldView.el, 0.4, {opacity:0, onComplete:function(){
-												// scroll to top
-												// TweenMax.to(window, 0.3, {scrollTo:{y:0}});
-												// cb triggers the show function in ViewSwitcher
 												cb.apply(inSwitcher);
 										}});
 								}
 						},
 						show: function (newView) {
-
 								TweenMax.set(newView.el, {opacity:0});
-								// Set newView opacity to 0
-								// Handle resize
-								if(!CM.App._mobile){
-									newView.handleResize();
-								}
-								self.scrollTo(0);
-
-								TweenMax.to(newView.el, 0.8, {opacity:1, onComplete:function(){
-									// Scroll to paramter 'section'
-									self.scrollTo(0);
-									newView.hookAfterShow();
-								}, delay:0.3});
+								newView.hookToShow();
 						}
 				});
 				return this;
@@ -107,11 +88,6 @@ var MainView = View.extend({
 
 				// Set current view of page switcher (silent)
 				this.pageSwitcher.current = view;
-
-				// Handle resize
-				// if(!CM.App._mobile){
-				// 	view.handleResize();
-				// }
 
 				// Scroll to paramter 'section'
 				TweenMax.delayedCall(0.15, function(){ self.handleUpdateView() });
@@ -148,6 +124,10 @@ var MainView = View.extend({
 
 		},
 
+		scrollTo: function(value) {
+			TweenMax.to(window, 0.3, {scrollTo:{y:value}});
+		},
+
 		/*
 			Updates current View if something changes but no url
 		*/
@@ -176,16 +156,6 @@ var MainView = View.extend({
 		handleClickOpen: function (e){
 			var body = document.body;
 			dom.addClass(body, 'Navigation--show');
-		},
-
-		handleResize: function(e){
-			if(CM.App.mainView && CM.App.mainView.pageSwitcher.current){
-				CM.App.mainView.pageSwitcher.current.handleResize();
-			}
-			if (CM.App._params != {} && CM.App._params.section != null){
-					let id = CM.App.mainView.query('#'+CM.App._params.section);
-					TweenMax.set(CM.App.mainView.main, {y:-1*id.offsetTop, overwrite:true});
-			}
 		},
 
 		handleKeyDown: function(event){
@@ -225,29 +195,27 @@ var MainView = View.extend({
 
 
 		updateActiveNav: function () {
-				let path = window.location.pathname.slice(1),
-						topnavi = this.queryAll('.Navigation a[href]'),
-						if (CM.App._params != {} && CM.App._params.section != null){
-							path = `${path}?section=${CM.App._params.section}`;
-						}
-				if(path == this.pageSwitcher.current.model.lang + "/"){
-
-					topnavi.forEach(function (aTag) {
-						dom.removeClass(aTag, 'active')
-					});
-
-					dom.addClass(topnavi[0], 'active')
-				} else {
-					topnavi.forEach(function (aTag) {
-						if(aTag.href.indexOf(path) != -1){
-							dom.addClass(aTag, 'active')
-						}else {
-							dom.removeClass(aTag, 'active')
-						}
-					});
-
-				}
-
+				// let path = window.location.pathname.slice(1),
+				// 		topnavi = this.queryAll('.Navigation a[href]');
+				//
+				// if (CM.App._params != {} && CM.App._params.section != null){
+				// 	path = `${path}?section=${CM.App._params.section}`;
+				// }
+				//
+				// if(path == this.pageSwitcher.current.model.lang + "/"){
+				// 	topnavi.forEach(function (aTag) {
+				// 		dom.removeClass(aTag, 'active')
+				// 	});
+				// 	dom.addClass(topnavi[0], 'active')
+				// } else {
+				// 	topnavi.forEach(function (aTag) {
+				// 		if(aTag.href.indexOf(path) != -1){
+				// 			dom.addClass(aTag, 'active')
+				// 		} else {
+				// 			dom.removeClass(aTag, 'active')
+				// 		}
+				// 	});
+				// }
 		}
 
 });

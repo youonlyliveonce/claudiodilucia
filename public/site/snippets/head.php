@@ -55,17 +55,8 @@
 				height: 100%;
 				z-index: 111110;
 			}
-			.Page {
-				-ms-transform: scale(.75, .75);
-				-webkit-transform: scale(.75, .75);
-				-moz-transform: scale(.75, .75);
-				transform: scale(.75, .75);
-			}
-			.Header__logo {
-				opacity: 0;
-			}
 			.preloader .curtain {
-				background-color: #000;
+				background-color: #fff;
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -79,33 +70,8 @@
 				-ms-transition: all 0.75s cubic-bezier(0.395, 0.060, 0.610, 0.925);
 				transition: all 0.75s cubic-bezier(0.395, 0.060, 0.610, 0.925);
 			}
-			.run .Page {
-				/*-webkit-transition: all 0.45s cubic-bezier(0.250, 0.250, 0.195, 1.085) 0.35s;
-				-moz-transition: all 0.45s cubic-bezier(0.250, 0.250, 0.195, 1.085) 0.35s;
-				-ms-transition: all 0.45s cubic-bezier(0.250, 0.250, 0.195, 1.085) 0.35s;
-				transition: all 0.45s cubic-bezier(0.250, 0.250, 0.195, 1.085) 0.35s;
-				-ms-transform: scale(1, 1);
-				-webkit-transform: scale(1, 1);
-				-moz-transform: scale(1, 1);
-				transform: scale(1, 1);*/
-			}
-			.run .Scrollnavigation {
-				/*right: 0px;*/
-			}
-			.run .Header__logo {
-				/*opacity: 1;*/
-			}
 			.newload {
 				overflow: hidden
-			}
-			.newload .Page,
-			.loading .Page,
-			.hideloader .Page,
-			.loaded .Page {
-				-ms-transform: scale(.75, .75);
-				-webkit-transform: scale(.75, .75);
-				-moz-transform: scale(.75, .75);
-				transform: scale(.75, .75);
 			}
 			.newload .preloader,
 			.loading .preloader,
@@ -119,7 +85,6 @@
 				opacity: 1;
 			}
 			.hideloader .preloader .curtain {
-				/*opacity: 0;*/
 				left: 100%;
 				width: 0%;
 
@@ -135,12 +100,10 @@
 				vertical-align: top;
 				position: absolute;
 				display: block;
-				/*top: 33.333%;
-				height: 33.333%;*/
 				top: 50%;
 				height: 1px;
 
-				background-color: #fff;
+				background-color: #000;
 				animation: loader-inner 8s infinite ease;
 				-webkit-animation: loader-inner 8s infinite ease;
 				-moz-animation: loader-inner 8s infinite ease;

@@ -1,7 +1,7 @@
 {
 	"root": {
-		"domain": "http://24-1.de",
-		"appName": "24-1",
+		"domain": "http://claudio.24-1.de",
+		"appName": "claudiodilucia",
 		"appDescription": "-",
 		"src": "./src",
 		"dest": "./public/assets",
@@ -10,7 +10,7 @@
 
 	"tasks": {
 		"browserSync": {
-			"proxy": "24-1.dev"
+			"proxy": "claudio.24-1.dev"
 		},
 
 		"js": {

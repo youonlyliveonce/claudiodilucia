@@ -1,9 +1,20 @@
 .Navigation--show
 
 .Header
-	+bp(large)
-		position: initial
-		top: auto
-		left: auto
-		width: auto
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	text-align: center
+	z-index: 999
+
 	&__body
+	&__logo
+		position: relative
+		margin: 60px auto
+		svg
+			height: 70px
+			width: 380px
+		a
+			position: relative
+			display: inline-block

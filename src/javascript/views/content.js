@@ -33,6 +33,7 @@ let Content = PageView.extend({
 
 				let view = {};
 				switch(element.dataset.view){
+					
 					case "SliderView" :
 						view = new SliderView({el:element, id:element.getAttribute('id'), parentview:self});
 						view.render();
@@ -47,7 +48,7 @@ let Content = PageView.extend({
 				self.subViews.push({id:view.id, view:view});
 			});
 		}
-		this.updateActiveView();
+
 	},
 
 	handleResize: function(){

@@ -36,8 +36,8 @@ let Base = View.extend({
 				// additional Stuff in Render
 		},
 
-		hookAfterShow: function(){
-				// additional Stuff after Transition
+		hookToShow: function(){
+				// additional Stuff for Transition
 		},
 
 		cleanup: function(){
