@@ -3,7 +3,6 @@ title: Page
 pages:
   template:
     - section_hero
-    - redirect
 
 fields:
   title: title

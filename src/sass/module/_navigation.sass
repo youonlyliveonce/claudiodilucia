@@ -1,59 +1,23 @@
-.Page--single
-	.Navigation
-		+bp('large')
-			.desktop &
-				opacity: 0
-				+transform(translateX(0%) translateY(-100%))
-				visibility: hidden
-.Page--multi
-	.Navigation
-		+bp('large')
-			.desktop &
-				visibility: visible
-				opacity: 1
-				+transform(translateX(0%) translateY(0%))
-
-.Navigation--home
-	+bp('large')
-		&.desktop
-			.Navigation
-				opacity: 0
-				+transform(translateX(0%) translateY(5%))
-
 .Navigation--show
-	.Button--toggle
-		span
-			+transform(rotate(90deg))
-			&:before
-				+transform(rotate(90deg))
-			&:after
-				+transform(rotate(90deg))
 	.Navigation
 		+transform(translateX(0%))
 
-
-
 .Navigation
-	z-index: 9999
 	position: absolute
+	z-index: 9999
+	// position: absolute
 	+transition(all, 0.25s)
-	+transform(translateX(100%))
-	background-color: $color-content
-	top: 0%
-	bottom: 0%
-	left: 50%
-	right: 0%
-	+bp('large')
-		.desktop &
-			+transform(translateX(0%) translateY(-100%))
-			width: 100%
-			background-color: transparent
-			top: 0
-			right: 0
-			left: 0
-			bottom: inherit
-			z-index: 1
-			opacity: 0
+	background-color: rgba(255,255,255,0.5)
+	top: 0
+	left: 0
+	overflow: hidden
+	&__inner
+		position: absolute
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
+		+transform(translateX(100%))
 	ul
 		text-align: left
 		position: absolute

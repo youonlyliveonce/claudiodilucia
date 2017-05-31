@@ -6,7 +6,7 @@
 		left: 60px
 		z-index: 99999
 		cursor: pointer
-		// +transition(all, 0.5s)
+		+noselect()
 		span
 			display: block
 			height: 1px
@@ -15,13 +15,13 @@
 			width: 100%
 			+transition(all, 0.25s)
 		&:hover
-			// color: black
 			span
-				// width: 0%
-				// margin-left: 50%
 				margin-top: -8px
 				height: 20px
-				// background-color: black
+		.Navigation--show &
+			span
+				margin-top: -58px
+				height: 40px
 	&--close
 		position: absolute
 		display: block
