@@ -1,0 +1,15 @@
+  label: Galerie Elemente
+  type: structure
+  style: table
+  modalsize: large
+  entry: >
+    <u>Bild</u> : {{image}}<br/>oder<br/>
+    <u>Video</u> : {{videoid}}
+  fields:
+    image:
+      label: Bild
+      type: image
+      required: true
+    videoid:
+      label: Video ID (YouTube)
+      type: text

@@ -1,0 +1,11 @@
+  label: Galerie oder Einzelbild?
+  type: fieldtoggle
+  options:
+    yes: "Galerie"
+    no: "Einzelbild"
+  show:
+    yes: galleryfield
+    no: imagefield
+  hide:
+    yes: imagefield
+    no: galleryfield

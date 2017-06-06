@@ -4,24 +4,68 @@
 		position: absolute
 		top: 60px
 		left: 60px
-		z-index: 99999
+		z-index: 99999999
 		cursor: pointer
 		+noselect()
+		font-size: 0.75em
+		letter-spacing: 0.1em
 		span
 			display: block
-			height: 1px
-			background-color: white
-			margin-top: -5px
-			width: 100%
-			+transition(all, 0.25s)
+			visibility: hidden
+			position: absolute
+			top: 0
+			left: 0
+			+transition(all, 0.35s)
+			&:first-child
+				visibility: visible
+				opacity: 1
+				+transform(translateY(0%))
+				.Navigation--show &
+					visibility: hidden
+					opacity: 0
+					+transform(translateY(80%))
+			&:last-child
+				visibility: hidden
+				color: black
+				opacity: 0
+				+transform(translateY(-80%))
+				&:after
+					background-color: black
+				&:before
+					background-color: black
+				.Navigation--show &
+					opacity: 1
+					+transform(translateY(0%))
+					visibility: visible
+			&:before
+				position: absolute
+				content: ''
+				left: 0
+				bottom: 4px
+				height: 1px
+				background-color: white
+				width: 100%
+				+transition(all, 0.25s)
+			&:after
+				position: absolute
+				content: ''
+				left: 50%
+				bottom: 9px
+				height: 1px
+				background-color: white
+				width: 0%
+				margin: 0
+				+transition(all, 0.25s)
+
 		&:hover
 			span
-				margin-top: -8px
-				height: 20px
-		.Navigation--show &
-			span
-				margin-top: -58px
-				height: 40px
+				&:after
+					left: 0%
+					width: 140%
+					margin: 0 -20%
+				&:before
+					left: 50%
+					width: 0%
 	&--close
 		position: absolute
 		display: block

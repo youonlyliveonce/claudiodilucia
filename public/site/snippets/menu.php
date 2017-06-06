@@ -1,27 +1,49 @@
+<?php
+	$mostsub = 0;
+	foreach($site->children()->visible() as $count) {
+		if( $count->hasVisibleChildren() ){
+			$children = $count->children()->visible()->count();
+			if($children > $mostsub){
+				$mostsub = $children;
+			}
+		}
+	}
+?>
+
 <nav class="Navigation" role="navigation">
 	<div class="Navigation__inner">
 		<ul>
-			<?php foreach($site->page('home')->children()->visible() as $item): ?>
-				<?php if($item->navigation() == "main"): ?>
+			<?php foreach($site->children()->visible() as $item): ?>
 					<?php if($item->intendedTemplate() == 'redirect'): ?>
 						<li>
-							<a href="<?= $item->redirect(); ?>" target="_blank"><span><?= $item->title()->html() ?><span></a>
+							<a href="<?= $item->redirect(); ?>" target="_blank"><span><?= $item->title()->html() ?></span></a>
 						</li>
 					<?php else : ?>
 						<li>
-							<a href="/<?= $site->language() ?>/?section=<?= $item->slug(); ?>"><span><?= $item->title()->html() ?><span></a>
+							<div>
+							<a href="/<?= $site->language() ?>/<?= $item->slug() ?>/"><span><?= $item->title()->html() ?></span></a>
+								<?php if( $item->hasVisibleChildren() ) : ?>
+									<ul class="Navigation__sub">
+											<?php $children = $item->children()->visible(); ?>
+												<?php foreach($children as $subitem): ?>
+													<li>
+														<a href="/<?= $site->language() ?>/<?= $subitem->slug() ?>/"><span><?= $subitem->title()->html() ?></span></a>
+													</li>
+												<?php endforeach; ?>
+
+												<?php if($children->count() < $mostsub): ?>
+													<?php $div = $mostsub - $children->count(); ?>
+													<?php for($x=0; $x<$div; $x++):?>
+														<li><span>&nbsp;</span></li>
+													<?php endfor; ?>
+												<?php endif; ?>
+
+
+									</ul>
+								<?php endif; ?>
+							</div>
 						</li>
 					<?php endif; ?>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		</ul>
-		<ul class="Navigation__third">
-			<?php foreach($site->page('home')->children()->visible() as $item): ?>
-				<?php if($item->navigation() == "third"): ?>
-					<li>
-						<a href="/<?= $site->language() ?>/?section=<?= $item->slug(); ?>"><span><?= $item->title()->html() ?><span></a>
-					</li>
-				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
 	</div>

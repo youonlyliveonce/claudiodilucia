@@ -1,0 +1,11 @@
+title: Overview Page
+
+pages:
+  template:
+    - gallery
+
+fields:
+  title: title
+  typetoggle: typetoggle
+  imagefield: imagefield
+  galleryfield: galleryfield

@@ -1,106 +1,91 @@
-.Navigation--show
-	.Navigation
-		+transform(translateX(0%))
-
 .Navigation
 	position: absolute
 	z-index: 9999
-	// position: absolute
-	+transition(all, 0.25s)
 	background-color: rgba(255,255,255,0.5)
 	top: 0
 	left: 0
 	overflow: hidden
+	visibility: hidden
+	opacity: 0
+	+transition(all, 0.75s, ease-out)
+	.Navigation--show &
+		width: 100%
+		height: 100%
+		visibility: visible
+		opacity: 1
+	a
+		cursor: pointer
+		color: black
+		display: block
+		position: relative
+		text-transform: uppercase
+		+transition(color, 0.25s)
+		position: relative
+		overflow: hidden
+	li
+		span
+			position: relative
+			display: inline-block
+			font-size: 0.75em
+			letter-spacing: 0.1em
+			line-height: 1.2
+
+			z-index: 10
 	&__inner
 		position: absolute
 		top: 0
 		left: 0
 		bottom: 0
 		right: 0
-		+transform(translateX(100%))
-	ul
-		text-align: left
-		position: absolute
-		top: 50%
-		left: 50%
-		+transform(translateX(-50%) translateY(-50%))
-		overflow: hidden
-		+bp('large')
-			.desktop &
-				position: relative
-				height: auto
-				text-align: center
-				margin: 50px 0 0 0
-				top: 0
-				padding: 0
+		+transform(translateX(-50%))
+		.Navigation--show &
+			+transition(all, 0.75s)
+			+transform(translateX(0%))
 		li
-			// letter-spacing: 0.1rem
-			cursor: pointer
-			// padding-left: 1.85em
-			margin: 0 auto
-			text-align: center
-			padding: 0px 10px
-			+noselect
-			+bp('large')
-				.desktop &
-					position: relative
-					display: inline-block
-					margin: 0
-					padding: 0 20px
-			a
-				cursor: pointer
-				+fontbold
-				color: white
-				display: block
-				position: relative
-				text-transform: uppercase
-				font-size: 0.9em
-				line-height: 1.2
-				+transition(color, 0.25s)
+			span
 				padding: 10px 0.1em
-				position: relative
-				overflow: hidden
-				+bp(large)
-					.desktop &
-						padding: 0 0.1em
-				span
-					position: relative
-					z-index: 10
-				&:before
-					content: ''
-					position: absolute
-					top: 50%
-					left: 0
-					right: 0
-					width: 100%
-					height: 0%
-					z-index: 1
-					+transition(all, 0.25s)
-					background-color: white
-				&.active
-					color: black
-					&:before
-						top: 0
-						height: 100%
-				+bp(large)
-					&:hover
-						color: black
-						&:before
-							top: 0
-							height: 100%
-	&__third
-		.Navigation &
+		>ul
+			text-align: left
 			position: absolute
-			top: 90%
-			+bp(large)
-				.desktop &
+			top: 0%
+			bottom: 0%
+			left: 10%
+			+clearfix
+			>li
+				cursor: pointer
+				margin: 0 auto
+				text-align: center
+				padding: 0px 10px
+				.Navigation--show &
+					+transition(all, 0.5s, ease-out, 0.45s)
+					padding: 0px 50px
+				height: 100%
+				position: relative
+				+noselect
+				float: left
+				&:after
+					content: ''
+					width: 1px
+					height: 100%
 					position: absolute
-					top: 5px
-					right: 0px
-					left: auto
-					bottom: auto
-					margin: 0
-					+transform(none)
-			margin: 0
-			font-size: 0.8em
-			opacity: 0.5
+					right: 0
+					top: 0
+					overflow: visible
+					background-image: url('/assets/images/menu-divider.gif')
+					background-repeat: repeat-y
+
+				>div
+					position: relative
+					top: 50%
+					+transform(translateY(-50%))
+					>a
+						+fontbold
+	&__sub
+		text-align: left
+		li
+			span
+				padding: 0px 0.1em
+		>li
+			display: list-item
+			a
+				+fontregular()

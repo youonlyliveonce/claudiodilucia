@@ -1,0 +1,10 @@
+title: Home Page
+
+pages:
+  - gallery
+
+fields:
+  title: title
+  typetoggle: typetoggle
+  imagefield: imagefield
+  galleryfield: galleryfield
