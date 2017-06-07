@@ -1,7 +1,14 @@
 .Page
 	&--single
 	&--multi
-
+		position: relative
 	&__inner
 		z-index: 10
 		position: relative
+		.Navigation--show &
+			filter: blur(5px)
+			-webkit-filter: blur(5px)
+			-moz-filter: blur(5px)
+			-o-filter: blur(5px)
+			-ms-filter: blur(5px)
+			// filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='svgMask'><feGaussianBlur stdDeviation='10' /></filter></svg>#svgMask")
