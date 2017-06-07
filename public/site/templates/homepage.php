@@ -16,7 +16,8 @@
 			<?php
 			} else {
 				snippet('section/hero', array('section' => $page));
-				
+				snippet('section/contentmenu', array('section' => $page));
+
 			}
 			?>
 

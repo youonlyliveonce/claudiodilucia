@@ -84,8 +84,7 @@ class App {
 				this.router.history.start();
 		}
 		showPage() {
-			TweenMax.to(this.mainView.page, 0.35, {scale:1, ease:Cubic.easeOut});
-			TweenMax.to(this.mainView.headerlogo, 0.45, {opacity:1, ease:Cubic.easeOut, delay:0.1});
+			console.log("showpage");
 		}
 
 		// This is how you navigate around the app.

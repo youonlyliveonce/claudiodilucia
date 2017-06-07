@@ -22,7 +22,9 @@ let Content = PageView.extend({
 	},
 
 	hookBeforeHide: function() {
-
+		this.subViews.forEach(function(element){
+			element.view.hookToHide();
+		});
 	},
 
 	hookInRender: function () {
@@ -30,10 +32,8 @@ let Content = PageView.extend({
 		let elements = this.queryAll('.Element');
 		if(elements.length > 0){
 			elements.forEach(function(element, index, array){
-
-				let view = {};
+				let view = null;
 				switch(element.dataset.view){
-					
 					case "SliderView" :
 						view = new SliderView({el:element, id:element.getAttribute('id'), parentview:self});
 						view.render();
@@ -44,8 +44,11 @@ let Content = PageView.extend({
 						break;
 					default:
 				}
-				self.registerSubview(view);
-				self.subViews.push({id:view.id, view:view});
+				if(view != null){
+					self.registerSubview(view);
+					self.subViews.push({id:view.id, view:view});
+				}
+
 			});
 		}
 

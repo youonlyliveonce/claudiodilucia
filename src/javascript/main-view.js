@@ -50,13 +50,15 @@ var MainView = View.extend({
 								if(oldView && oldView.el){
 										oldView.hookBeforeHide();
 										self.scrollTo(0);
-										TweenMax.to(oldView.el, 0.4, {opacity:0, onComplete:function(){
-												cb.apply(inSwitcher);
-										}});
+										TweenMax.to(oldView.el, 0.75, {opacity: 0});
+										TweenMax.delayedCall(1, function(){
+											cb.apply(inSwitcher);
+										});
 								}
 						},
 						show: function (newView) {
 								TweenMax.set(newView.el, {opacity:0});
+								TweenMax.to(newView.el, 0.75, {opacity: 1});
 								newView.hookToShow();
 						}
 				});

@@ -39,6 +39,9 @@ let Base = View.extend({
 	},
 	cleanup: function(){
 		console.log("cleanup child");
+	},
+	hookToHide: function(){
+		console.log("hook To Hide Feature");
 	}
 
 })

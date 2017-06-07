@@ -16,7 +16,9 @@
 			<?php foreach($site->children()->visible() as $item): ?>
 					<?php if($item->intendedTemplate() == 'redirect'): ?>
 						<li>
-							<a href="<?= $item->redirect(); ?>" target="_blank"><span><?= $item->title()->html() ?></span></a>
+							<div>
+								<a href="<?= $item->redirect(); ?>" target="_blank"><span><?= $item->title()->html() ?></span></a>
+							</div>
 						</li>
 					<?php else : ?>
 						<li>

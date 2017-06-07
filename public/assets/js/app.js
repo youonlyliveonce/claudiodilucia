@@ -172,8 +172,7 @@
 			}, {
 					key: 'showPage',
 					value: function showPage() {
-							TweenMax.to(this.mainView.page, 0.35, { scale: 1, ease: Cubic.easeOut });
-							TweenMax.to(this.mainView.headerlogo, 0.45, { opacity: 1, ease: Cubic.easeOut, delay: 0.1 });
+							console.log("showpage");
 					}
 	
 					// This is how you navigate around the app.
@@ -7576,17 +7575,19 @@
 			'click .Button--down': 'handleDownClick'
 		},
 	
-		hookBeforeHide: function hookBeforeHide() {},
+		hookBeforeHide: function hookBeforeHide() {
+			this.subViews.forEach(function (element) {
+				element.view.hookToHide();
+			});
+		},
 	
 		hookInRender: function hookInRender() {
 			var self = this;
 			var elements = this.queryAll('.Element');
 			if (elements.length > 0) {
 				elements.forEach(function (element, index, array) {
-	
-					var view = {};
+					var view = null;
 					switch (element.dataset.view) {
-	
 						case "SliderView":
 							view = new _slider2.default({ el: element, id: element.getAttribute('id'), parentview: self });
 							view.render();
@@ -7597,8 +7598,10 @@
 							break;
 						default:
 					}
-					self.registerSubview(view);
-					self.subViews.push({ id: view.id, view: view });
+					if (view != null) {
+						self.registerSubview(view);
+						self.subViews.push({ id: view.id, view: view });
+					}
 				});
 			}
 		},
@@ -19668,6 +19671,9 @@
 		},
 		cleanup: function cleanup() {
 			console.log("cleanup child");
+		},
+		hookToHide: function hookToHide() {
+			console.log("hook To Hide Feature");
 		}
 	
 	});
@@ -23869,13 +23875,15 @@
 									if (oldView && oldView.el) {
 											oldView.hookBeforeHide();
 											self.scrollTo(0);
-											TweenMax.to(oldView.el, 0.4, { opacity: 0, onComplete: function onComplete() {
-															cb.apply(inSwitcher);
-													} });
+											TweenMax.to(oldView.el, 0.75, { opacity: 0 });
+											TweenMax.delayedCall(1, function () {
+													cb.apply(inSwitcher);
+											});
 									}
 							},
 							show: function show(newView) {
 									TweenMax.set(newView.el, { opacity: 0 });
+									TweenMax.to(newView.el, 0.75, { opacity: 1 });
 									newView.hookToShow();
 							}
 					});
