@@ -1,11 +1,11 @@
 title: Gallery
 
-pages:
-  template:
-    - gallery
+pages: false
 
 fields:
   title: title
-  typetoggle: typetoggle
-  imagefield: imagefield
-  galleryfield: galleryfield
+  teaser:
+    label: Teaser Bild
+    type: image
+  gallery:
+    

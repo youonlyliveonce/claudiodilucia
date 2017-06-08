@@ -1,5 +1,0 @@
-  label: Teil welcher Navigation?
-  type: select
-  options:
-    main: Hauptnavigation
-    third: Thirdlevel

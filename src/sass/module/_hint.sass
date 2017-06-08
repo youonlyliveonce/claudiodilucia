@@ -1,0 +1,25 @@
+.Hint
+	position: absolute
+	width: 80px
+	height: 80px
+	background-color: black
+	&--scroll
+		left: 50%
+		margin-top: -40px
+		margin-left: -40px
+		text-align: center
+		svg
+			margin-top: 24px
+			width: 20px
+		line
+			stroke-dasharray: 10
+			stroke-dashoffset: 10
+			animation: wheel 1.5s linear forwards infinite
+
+@keyframes wheel
+	0%
+		stroke-dashoffset: 10
+	50%
+		stroke-dashoffset: 0
+	100%
+		stroke-dashoffset: -10

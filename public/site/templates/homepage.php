@@ -15,9 +15,8 @@
 					</div>
 			<?php
 			} else {
-				snippet('section/hero', array('section' => $page));
+				snippet('section/hero', array('section' => $page, 'scrollhint' => false));
 				snippet('section/contentmenu', array('section' => $page));
-
 			}
 			?>
 
