@@ -26,18 +26,21 @@
 			<span></span>
 			<span></span>
 		</span>
-		<div class="swiper-container">
-			<div class="swiper-wrapper">
-			<?php foreach($slides as $slide): ?>
-				<div class="swiper-slide">
-					<div class="Slider__item">
-						<div class="Slider__crop">
-							<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => true))->url(); ?>" />
+		<div class="Slider__fullscreenInner">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+				<?php foreach($slides as $slide): ?>
+					<div class="swiper-slide">
+						<div class="Slider__item">
+							<div class="Slider__crop">
+								<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => true))->url(); ?>" />
+							</div>
 						</div>
 					</div>
+				<?php endforeach; ?>
 				</div>
-			<?php endforeach; ?>
 			</div>
 		</div>
+		<div class="Slider__fullscreenBackground"></div>
 	</div>
 </div>
