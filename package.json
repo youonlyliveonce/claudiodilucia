@@ -15,8 +15,8 @@
     "production": "gulp production",
     "media": "gulp media",
     "dom": "gulp dom",
-    "init": "git-ftp init --syncroot public -u matteng_de_9  -P - ftp://kontentftp.matteng.de/claudiodiluca/htdocs",
-    "push": "git-ftp push --syncroot public -u matteng_de_9  -P - ftp://kontentftp.matteng.de/claudiodiluca/htdocs",
+    "init": "git-ftp init --syncroot public -u matteng_de_9  -P - ftp://kontentftp.matteng.de/claudiodilucia/htdocs",
+    "push": "git-ftp push --syncroot public -u matteng_de_9  -P - ftp://kontentftp.matteng.de/claudiodilucia/htdocs",
     "initlive": "git-ftp init --syncroot public -u u61206160-matteng  -P - ftp://home349300007.1and1-data.host/claudiodiluca",
     "pushlive": "git-ftp push --syncroot public -u u61206160-matteng  -P - ftp://home349300007.1and1-data.host/claudiodiluca"
   },
