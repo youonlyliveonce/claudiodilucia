@@ -57,6 +57,7 @@ var MainView = View.extend({
 								}
 						},
 						show: function (newView) {
+								self.page.setAttribute('class', newView.model.pageClass);
 								TweenMax.set(newView.el, {opacity:0});
 								TweenMax.to(newView.el, 0.75, {opacity: 1});
 								newView.hookToShow();

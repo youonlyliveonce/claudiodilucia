@@ -7684,24 +7684,6 @@
 	
 			cleanup: function cleanup() {
 					console.log("cleanup");
-			},
-	
-			bindSlider: function bindSlider(items, settings) {
-					var el = document.querySelectorAll(items);
-					if (el.length <= 0) return false;
-					var opt = {};
-					if (settings == 'basic') {
-							opt = {
-									pagination: '.swiper-pagination',
-									paginationClickable: true,
-									nextButton: '.swiper-button-next',
-									prevButton: '.swiper-button-prev',
-									spaceBetween: 30,
-									hashnav: false,
-									hashnavWatchState: true
-							};
-					}
-					var swiper = new _swiper2.default(items, opt);
 			}
 	
 	}); /*global $*/
@@ -19989,10 +19971,6 @@
 	var Slider = _boxbase2.default.extend({
 		props: {
 			id: ['string', true, ''],
-			filter: ['object', true, function () {
-				return {};
-			}],
-			isscrollable: ['boolean', true, true],
 			active: ['boolean', true, false],
 			parentview: ['object', true, function () {
 				return {};
@@ -20000,38 +19978,31 @@
 			swiper: ['object', true, function () {
 				return undefined;
 			}],
+			swiperFullscreen: ['object', true, function () {
+				return undefined;
+			}],
 			activeindex: ['number', true, -1],
-			activebackground: ['object', true, function () {
-				return { value: false };
-			}],
-			paralaxe: ['object', true, function () {
-				return { value: false };
-			}],
-			layer: ['array', true, function () {
-				return [];
-			}],
-			navigation: ['array', true, function () {
-				return [];
-			}],
-			textbox: ['object', true, function () {
-				return undefined;
-			}],
-			textboxhandler: ['object', true, function () {
-				return undefined;
-			}],
-			textboxbar: ['object', true, function () {
-				return undefined;
-			}],
-			textboxfaktor: ['number', true, function () {
-				return 0;
-			}],
-			textboxes: ['array', true, function () {
-				return [];
-			}],
 			settings: ['object', true, function () {
 				return {
 					speed: 600,
 					loop: false,
+					slidesPerView: 1.5,
+					centeredSlides: true,
+					keyboardControl: true,
+					spaceBetween: "0%",
+					pagination: '.Slider .swiper-pagination',
+					paginationClickable: true,
+					grabCursor: true,
+					touchEventsTarget: 'container'
+				};
+			}],
+			settingsFullscreen: ['object', true, function () {
+				return {
+					speed: 600,
+					loop: false,
+					slidesPerView: 1,
+					centeredSlides: true,
+					spaceBetween: "0%",
 					pagination: '.Slider .swiper-pagination',
 					paginationClickable: true,
 					grabCursor: true,
@@ -20041,176 +20012,28 @@
 		},
 	
 		events: {
-			'click .Button--right': 'handleRightClick',
-			'click .Button--left': 'handleLeftClick',
-			'mousemove .Slider__body': 'handleMouseMove',
-			'click .Contentnavigation li': 'handleClickContentnaviItem',
-			// 'click .Contentnavigation':'handleClickContentnavi',
-			'click .Contentnavigation__background': 'handleClickContentnaviClose',
-			'click .Button--contentnavi': 'handleClickContentnavi'
+			'click .Slider__body .Slider__item': 'handleClickItem',
+			'click .Slider__fullscreen .Button--close': 'handleClickClose'
 		},
 	
 		render: function render() {
 			this.cacheElements({
 				'navigationContainer': '.Contentnavigation'
 			});
-			this.on('change:active', this.onActiveChange, this);
 			TweenMax.delayedCall(0.15, function () {
-				this.swiper = new Swiper('#' + this.id + ' .swiper-container', this.settings);
-				// if(this.active){
-				// 	this.bindChangeStart();
-				// }
+				this.swiper = new Swiper('#' + this.id + ' .Slider__body .swiper-container', this.settings);
+				this.swiperFullscreen = new Swiper('#' + this.id + ' .Slider__fullscreen .swiper-container', this.settingsFullscreen);
+				this.swiper.params.control = this.swiperFullscreen;
+				this.swiperFullscreen.params.control = this.swiper;
 			}, [], this);
-			this.layer = this.queryAll('#' + this.id + ' .Slider__layer > div');
-			this.navigation = this.queryAll('#' + this.id + ' .Contentnavigation li');
-			for (var i = 0; i < this.layer.length; i++) {
-				var scrollbar = this.layer[i].getElementsByClassName('Textbox__scroller')[0] || [];
-				var boxbody = this.layer[i].getElementsByClassName('Textbox__body')[0] || [];
-				var handler = typeof scrollbar.getElementsByTagName == 'function' ? scrollbar.getElementsByTagName('span')[0] : [];
-				this.textboxes.push({ scrollbar: scrollbar, body: boxbody, handler: handler, faktor: 0 });
-			}
 			this.once('remove', this.cleanup, this);
 			return this;
 		},
-	
-		onActiveChange: function onActiveChange(view, value) {
-			if (value) {
-				TweenMax.delayedCall(1.25, function () {
-					if (this.active) {
-						this.bindChangeStart();
-						if (!CM.App._mobile) {
-							this.handleResize();
-						}
-					}
-				}, [], this);
-			} else {
-				this.layer[this.swiper.realIndex].classList.remove('active');
-				this.navigation[this.swiper.realIndex].classList.remove('active');
-				this.swiper.off('slideChangeStart');
-			}
+		handleClickItem: function handleClickItem() {
+			document.body.classList.add('Slider--fullscreen');
 		},
-	
-		bindChangeStart: function bindChangeStart() {
-			var self = this;
-			if (self.swiper != undefined) {
-				self.setActiveIndex(self.swiper.realIndex);
-				self.swiper.on('slideChangeStart', function (event) {
-					self.setActiveIndex(event.realIndex);
-				});
-			}
-		},
-	
-		gfxIn: function gfxIn() {
-			this.layer[this.activeindex].classList.add('active');
-			this.navigation[this.activeindex].classList.add('active');
-			this.gfxLinesIn(this.layer[this.activeindex]);
-		},
-	
-		gfxLinesIn: function gfxLinesIn(node) {
-			var lines = node.getElementsByTagName('line');
-			if (lines.length > 0) {
-				TweenMax.set(lines, { drawSVG: "0% 0%" });
-				TweenMax.staggerTo(lines, 0.5, { drawSVG: "0% 100%", delay: 0.5, onComplete: function onComplete() {
-						TweenMax.to(this.target, 0.5, { drawSVG: "100% 100%", onComplete: function onComplete() {
-								var tlength = Math.random() * 100;
-								TweenMax.set(this.target, { drawSVG: "0% 0%" });
-								TweenMax.to(this.target, 1.2, { drawSVG: '0% ' + tlength + '%' });
-							} });
-					} }, 0.15);
-			}
-		},
-	
-		setActiveIndex: function setActiveIndex(newIndex) {
-	
-			if (this.activeindex != -1) {
-				this.layer[this.activeindex].classList.remove('active');
-				this.navigation[this.activeindex].classList.remove('active');
-			}
-			this.activeindex = newIndex;
-			this.gfxIn();
-			if (this.query('.swiper-slide-active .Slider__paralax') != undefined) {
-				this.paralaxe.value = this.query('.swiper-slide-active .Slider__paralax');
-			} else {
-				this.paralaxe.value = false;
-			}
-			this.activebackground.value = this.query('.swiper-slide-active .Slider__background');
-	
-			this.textbox = this.textboxes[this.activeindex].body == undefined ? [] : this.textboxes[this.activeindex].body;
-			this.textboxhandler = this.textboxes[this.activeindex].handler == undefined ? [] : this.textboxes[this.activeindex].handler;
-			this.textboxbar = this.textboxes[this.activeindex].scrollbar == undefined ? [] : this.textboxes[this.activeindex].scrollbar;
-			this.textboxfaktor = this.textboxes[this.activeindex].faktor;
-		},
-	
-		handleResize: function handleResize() {
-			var newWidth = document.body.clientHeight / 9 * 16,
-			    newHeight = document.body.clientHeight;
-			if (newWidth < document.body.clientWidth) {
-				newWidth = document.body.clientWidth, newHeight = document.body.clientWidth / 16 * 9;
-			}
-			this.el.setAttribute("style", "height:" + document.body.clientHeight + "px");
-			// resize all textboxen
-			TweenMax.delayedCall(0.25, function () {
-				for (var i = 0; i < this.textboxes.length; i++) {
-					if (this.textboxes[i].scrollbar.clientHeight != undefined) {
-						var tbh = this.textboxes[i].scrollbar.clientHeight;
-						var tbbh = this.textboxes[i].body.clientHeight;
-						var handlerHeight = tbh / (tbbh / 100) * (tbh / 100);
-						var faktor = tbh / (tbbh / 100) / 100;
-						if (handlerHeight >= tbh) {
-							TweenMax.to(this.textboxes[i].scrollbar, 0.25, { opacity: 0 });
-							TweenMax.to(this.textboxes[i].body, 0.25, { y: 0 });
-							TweenMax.to(this.textboxes[i].handler, 0.25, { y: 0 });
-						} else {
-							TweenMax.to(this.textboxes[i].scrollbar, 0.25, { opacity: 1 });
-							TweenMax.to(this.textboxes[i].handler, 0.25, { height: handlerHeight });
-						}
-						this.textboxes[i].faktor = faktor;
-					}
-				}
-				if (this.textboxfaktor != 0) {
-					this.textboxfaktor = this.textboxes[this.activeindex].faktor;
-				}
-			}, [], this);
-		},
-	
-		handleRightClick: function handleRightClick() {
-			this.swiper.slideNext();
-		},
-	
-		handleLeftClick: function handleLeftClick() {
-			this.swiper.slidePrev();
-		},
-		handleMouseMove: function handleMouseMove(event) {
-			if (this.active) {
-				var faktor = event.clientX - document.body.clientWidth / 2;
-				TweenMax.set(this.activebackground.value, { x: -0.008 * faktor });
-				if (this.paralaxe.value != false) {
-					TweenMax.set(this.paralaxe.value, { css: { 'z-index': 10, x: -0.016 * faktor } });
-				}
-				/* TYPO LAYER */
-				// TweenMax.set(this.layer[this.activeindex].children, {x:0.015*faktor});
-			}
-		},
-		handleClickContentnavi: function handleClickContentnavi(event) {
-			event.preventDefault();
-			this.navigationContainer.classList.add('open');
-		},
-		handleClickContentnaviClose: function handleClickContentnaviClose(event) {
-			this.navigationContainer.classList.remove('open');
-		},
-		handleKeyDown: function handleKeyDown(direction) {
-			if (direction == "left") {
-				this.swiper.slidePrev();
-			} else {
-				this.swiper.slideNext();
-			}
-		},
-		handleClickContentnaviItem: function handleClickContentnaviItem(event) {
-			var newIndex = Number(event.delegateTarget.getAttribute('data-index')) + 1;
-			TweenMax.delayedCall(1.25, function () {
-				this.navigationContainer.classList.remove('open');
-			}, [], this);
-			this.swiper.slideTo(newIndex);
+		handleClickClose: function handleClickClose() {
+			document.body.classList.remove('Slider--fullscreen');
 		}
 	});
 	
@@ -23882,6 +23705,7 @@
 									}
 							},
 							show: function show(newView) {
+									self.page.setAttribute('class', newView.model.pageClass);
 									TweenMax.set(newView.el, { opacity: 0 });
 									TweenMax.to(newView.el, 0.75, { opacity: 1 });
 									newView.hookToShow();

@@ -1,13 +1,3 @@
-<?php
-	$gallery = false;
-	if($section->typetoggle() == 'yes'){
-		$gallery = true;
-		$slides = $section->galleryfield()->toStructure();
-	} else {
-		$slide = $section->imagefield();
-	}
-?>
-
 <div class="Hero [ Element ]" id="<?php echo $section->slug(); ?>_hero"  data-view="HeroView">
 	<div class="Hero__headline"><h1><?= $section->title(); ?></h1></div>
 	<div class="Hero__body">

@@ -11,7 +11,7 @@
 					<?php else : ?>
 						<li>
 							<div>
-								<a href="/<?= $site->language() ?>/<?= $item->slug() ?>/"><span><?= $item->title()->html() ?></span></a>
+								<a href="/<?= $site->language() ?>/<?= $item->uri($site->language()) ?>/"><span><?= $item->title()->html() ?></span></a>
 							</div>
 						</li>
 					<?php endif; ?>
@@ -25,7 +25,7 @@
 					<?php $children = $item->children()->visible(); ?>
 					<?php foreach($children as $subitem): ?>
 						<li>
-							<a href="/<?= $site->language() ?>/<?= $subitem->slug() ?>/"><span><?= $subitem->title()->html() ?></span></a>
+							<a href="/<?= $site->language() ?>/<?= $subitem->uri($site->language()) ?>/"><span><?= $subitem->title()->html() ?></span></a>
 						</li>
 					<?php endforeach; ?>
 				</ul>

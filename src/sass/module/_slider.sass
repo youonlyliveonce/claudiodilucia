@@ -1,0 +1,106 @@
+.Slider
+	position: relative
+	// overflow: hidden
+	&__fullscreen
+		visibility: hidden
+		opacity: 0
+		+transition(opacity, 0.75s)
+		background-color: black
+		margin: 0
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		min-height: 100vH
+		z-index: 2999
+		width: 100%
+		.Slider--fullscreen &
+			visibility: visible
+			opacity: 1
+			padding: 0
+			.Slider__crop
+				top: 0
+				bottom: 0
+		.Slider__item
+			padding-bottom: 60%
+			height: 0
+			+transition(all, 0.75s)
+			.Slider--fullscreen &
+				padding: 0
+				height: 100vH
+		.Slider__crop
+			position: absolute
+			left: 5%
+			width: 90%
+			top: 160px
+			bottom: 0%
+			+bph(medium)
+				top: 20vH
+				// bottom: 15%
+			overflow: hidden
+			+transition(all, 0.75s)
+			img
+				position: absolute
+				left: 50%
+				+transform(translateX(-50%))
+				width: auto
+				height: 100%
+	&__body
+		padding-top: 160px
+		padding-bottom: 5%
+		+bph(medium)
+			padding-top: 20vH
+		.Slider__item
+			padding-bottom: 60%
+			max-height: 100%
+		.Slider__crop
+			position: absolute
+			left: 15%
+			width: 70%
+			height: 100%
+			overflow: hidden
+			img
+				position: absolute
+				left: 50%
+				+transform(translateX(-50%))
+				width: auto
+				height: 100%
+	&__background
+		width: 100%
+		min-height: 320px
+		+bp(large)
+			min-height: 600px
+		height: 100%
+		background-position: center
+		background-size: cover
+	&__item
+		position: relative
+		text-align: center
+		overflow: hidden
+	&__icon--zoom
+		display: block
+		line-height: 0
+		width: 10px
+		height: 10px
+		right: 15px
+		bottom: 15px
+		position: absolute
+		background-color: black
+		padding: 16px
+		cursor: pointer
+		+transition(all, 0.25s)
+		svg
+			+transition(all, 0.25s)
+			width: 10px
+			height: 10px
+		&:hover
+			background-color: white
+			width: 18px
+			height: 18px
+			padding: 12px
+			svg
+				width: 18px
+				height: 18px
+				path
+					fill: black

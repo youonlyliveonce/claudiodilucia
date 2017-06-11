@@ -22,6 +22,12 @@ $max-width: (
 	hugest: 120.9375em
 );
 
+$min-height: (
+	medium: 800px,
+);
+$max-height: (
+	medium: 799px,
+);
 
 @mixin bp($min, $max: null) {
 	$min-value: map-get($min-width, $min);
@@ -50,6 +56,37 @@ $max-width: (
 			@media (max-width: $max-value) { @content; }
 		}
 		@else if $max-value > map-get($max-width, large) {
+			@content;
+		}
+	}
+}
+@mixin bph($min, $max: null) {
+	$min-value: map-get($min-height, $min);
+	$max-value: map-get($max-height, $max);
+
+	@if $min-value {
+		@if $max-value {
+			@if $use-mediaqueries {
+				@media (min-height: $min-value) and (max-height: $max-value) { @content; }
+			}
+			@else if $max-value > map-get($max-height, large) {
+				@content;
+			}
+		}
+		@else {
+			@if $use-mediaqueries {
+				@media (min-height: $min-value) { @content; }
+			}
+			@else if $min-value <= map-get($min-height, large) {
+				@content;
+			}
+		}
+	}
+	@else if $max-value {
+		@if $use-mediaqueries {
+			@media (max-height: $max-value) { @content; }
+		}
+		@else if $max-value > map-get($max-height, large) {
 			@content;
 		}
 	}

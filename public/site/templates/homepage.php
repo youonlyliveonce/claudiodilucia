@@ -1,6 +1,6 @@
 <?php snippet('head') ?>
 
-<?php snippet('view-start', array('pageclass' => " Page--multi"))?>
+<?php snippet('view-start', array('pageclass' => " Page--single"))?>
 
 			<?php
 				if($page->isErrorPage()){

@@ -1,6 +1,6 @@
 <?php snippet('head') ?>
 
-<?php snippet('view-start', array('pageclass' => " Page--multi"))?>
+<?php snippet('view-start', array('pageclass' => " Page--single"))?>
 
 			<?php
 				if($page->isErrorPage()){
@@ -15,11 +15,8 @@
 					</div>
 			<?php
 			} else {
-				$sections = $page->children()->visible();
-				foreach($sections as $section):
-						$snippet = implode("/", explode("_", $section->intendedTemplate()));
-						snippet($snippet, array('section' => $section));
-				endforeach;
+				snippet('section/hero', array('section' => $page, 'scrollhint' => false));
+				snippet('section/contentmenu', array('section' => $page));
 			}
 			?>
 

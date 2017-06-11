@@ -8,4 +8,22 @@ fields:
     label: Teaser Bild
     type: image
   gallery:
-    
+      label: Gallery
+      type: structure
+      modalsize: large
+      required: true
+      entry: >
+        <u>Image</u> : {{image}}<br/>
+        <u>VideoID</u> : {{videoid}}<br/>
+        <u>Alt Text</u> : {{alttext}}<br/>
+      fields:
+        image:
+          label: Bild
+          type: image
+        alttext:
+          label: Alt Text
+          type: text
+          required: true
+        videoid:
+          label: Video ID
+          type: text
