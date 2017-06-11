@@ -40,7 +40,7 @@ let Hero = Base.extend({
 		this.el.classList.remove('show');
 	},
 	cleanup: function(){
-		this.swiper.kill();
+		this.swiper.destroy();
 		console.log("cleanup hero");
 	}
 })

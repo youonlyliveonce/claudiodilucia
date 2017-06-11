@@ -19535,9 +19535,9 @@
 			this.el.classList.remove('show');
 		},
 		cleanup: function cleanup() {
-			this.swiper.kill();
-			this.swiperFullscreen.kill();
 			console.log("cleanup slider");
+			this.swiper.destroy();
+			this.swiperFullscreen.destroy();
 		}
 	});
 	
@@ -19654,7 +19654,7 @@
 			this.el.classList.remove('show');
 		},
 		cleanup: function cleanup() {
-			this.swiper.kill();
+			this.swiper.destroy();
 			console.log("cleanup hero");
 		}
 	});

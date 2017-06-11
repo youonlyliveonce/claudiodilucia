@@ -69,9 +69,9 @@ let Slider = Base.extend({
 		this.el.classList.remove('show');
 	},
 	cleanup: function(){
-		this.swiper.kill();
-		this.swiperFullscreen.kill();
 		console.log("cleanup slider");
+		this.swiper.destroy();
+		this.swiperFullscreen.destroy();
 	}
 })
 
