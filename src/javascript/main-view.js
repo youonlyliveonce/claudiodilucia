@@ -50,8 +50,7 @@ var MainView = View.extend({
 								if(oldView && oldView.el){
 										oldView.hookBeforeHide();
 										self.scrollTo(0);
-										TweenMax.to(oldView.el, 0.75, {opacity: 0});
-										TweenMax.delayedCall(1, function(){
+										TweenMax.delayedCall(0.5, function(){
 											cb.apply(inSwitcher);
 										});
 								}
@@ -59,8 +58,10 @@ var MainView = View.extend({
 						show: function (newView) {
 								self.page.setAttribute('class', newView.model.pageClass);
 								TweenMax.set(newView.el, {opacity:0});
-								TweenMax.to(newView.el, 0.75, {opacity: 1});
 								newView.hookToShow();
+								TweenMax.to(newView.el, 0.45, {opacity: 1, onComplete:function(){
+
+								}});
 						}
 				});
 				return this;
@@ -87,7 +88,7 @@ var MainView = View.extend({
 				view.render();
 
 				// After transition Stuff
-				view.hookAfterShow();
+				view.hookToShow(1);
 
 				// Set current view of page switcher (silent)
 				this.pageSwitcher.current = view;
@@ -161,12 +162,6 @@ var MainView = View.extend({
 			dom.addClass(body, 'Navigation--show');
 		},
 
-		handleKeyDown: function(event){
-			event.preventDefault ? event.preventDefault() : (event.returnValue = false);
-			if(CM.App.mainView.pageSwitcher.current){
-				CM.App.mainView.pageSwitcher.current.handleKeyDown(event);
-			}
-		},
 		/*
 
 		Click Handler for each a[href]

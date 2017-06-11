@@ -18,6 +18,26 @@
 					</div>
 				</div>
 			<?php endforeach; ?>
+			<div class="swiper-slide">
+				<div class="Slider__navitem">
+					<ul>
+						<li>
+							<span>WHAT'S NEXT?</span><br/>
+							<a href="/<?= $site->language() ?>/<?= $section->parent()->uri($site->language()) ?>/"><span><?= $section->parent()->title()->html() ?></span></a>
+								<?php if( $section->parent()->hasVisibleChildren() ) : ?>
+									<ul class="Navigation__sub">
+										<?php $children = $section->parent()->children()->visible(); ?>
+										<?php foreach($children as $subitem): ?>
+											<li>
+												<a class="<?php if($subitem->slug() === $section->slug()){ echo 'active'; } ?>" href="/<?= $site->language() ?>/<?= $subitem->uri($site->language()) ?>/"><span><?= $subitem->title()->html() ?></span></a>
+											</li>
+										<?php endforeach; ?>
+									</ul>
+								<?php endif; ?>
+						</li>
+					</ul>
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>

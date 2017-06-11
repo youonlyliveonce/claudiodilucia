@@ -14,34 +14,18 @@ let Base = View.extend({
 		this.once('remove', this.cleanup, this);
 		return this;
 	},
-	handleResize: function(){
-		this.el.setAttribute("style", "height:"+document.body.clientHeight+"px");
-	},
+
 	onActiveChange: function(value){
 		console.log(value)
-	},
-	handleKeyDown: function(direction){
-	},
-	handleMouseWheel: function(event){
-		let e = window.event || event || event.originalEvent;
-		let delta = e.deltaY || -1*e.wheelDelta;
-
-		// FF Y-Achse
-		if(e.axis == 2){
-			delta = e.detail*e.detail*e.detail;
-		}
-
-		if(delta < -17){
-			this.parentview.previousSlide()
-		} else if(delta > 17) {
-			this.parentview.nextSlide()
-		}
 	},
 	cleanup: function(){
 		console.log("cleanup child");
 	},
 	hookToHide: function(){
 		console.log("hook To Hide Feature");
+	},
+	hookToShow: function(){
+		console.log("hook To Show Feature");
 	}
 
 })

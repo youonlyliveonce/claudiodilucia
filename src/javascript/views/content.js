@@ -1,11 +1,8 @@
 import PageView from './base';
 import View from 'ampersand-view';
-import YoutubeView from '../features/youtube/youtube';
-import FilterGridView from '../features/filtergrid/filtergrid';
-import LinkGridView from '../features/linkgrid/linkgrid';
 import SliderView from '../features/slider/slider';
-import CaseView from '../features/case/case';
-import TextpageView from '../features/textbox/textbox';
+import HeroView from '../features/hero/hero';
+import TeaserView from '../features/teaser/teaser';
 import dom from 'ampersand-dom';
 import _ from 'underscore';
 
@@ -34,12 +31,16 @@ let Content = PageView.extend({
 			elements.forEach(function(element, index, array){
 				let view = null;
 				switch(element.dataset.view){
-					case "SliderView" :
-						view = new SliderView({el:element, id:element.getAttribute('id'), parentview:self});
+					case "HeroView" :
+						view = new HeroView({el:element, id:element.getAttribute('id'), parentview:self});
 						view.render();
 						break;
-					case "TextpageView" :
-						view = new TextpageView({el:element, id:element.getAttribute('id'), parentview:self});
+					case "TeaserView" :
+						view = new TeaserView({el:element, id:element.getAttribute('id'), parentview:self});
+						view.render();
+						break;
+					case "SliderView" :
+						view = new SliderView({el:element, id:element.getAttribute('id'), parentview:self});
 						view.render();
 						break;
 					default:
@@ -53,14 +54,16 @@ let Content = PageView.extend({
 		}
 
 	},
-
-	handleResize: function(){
-		this.subViews.forEach(function(element){
-			element.view.handleResize();
-		});
-	},
 	hookAfterShow: function(){
 
+	},
+	hookToShow: function(delay){
+		console.log("hookToShow view");
+		TweenMax.delayedCall(delay, function(){
+			this.subViews.forEach(function(element){
+				element.view.hookToShow();
+			});
+		}, [], this);
 	},
 	cleanup: function(){
 		console.log("cleanup");

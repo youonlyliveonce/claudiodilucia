@@ -1,4 +1,4 @@
-import Base from '../boxbase';
+import Base from '../base';
 
 let Slider = Base.extend({
 	props: {
@@ -41,9 +41,7 @@ let Slider = Base.extend({
 	},
 
 	render: function(){
-		this.cacheElements({
-			'navigationContainer': '.Contentnavigation'
-		});
+
 		TweenMax.delayedCall(0.15, function(){
 				this.swiper = new Swiper('#'+this.id+' .Slider__body .swiper-container', this.settings);
 				this.swiperFullscreen = new Swiper('#'+this.id+' .Slider__fullscreen .swiper-container', this.settingsFullscreen);
@@ -52,12 +50,28 @@ let Slider = Base.extend({
 		}, [], this);
 		this.once('remove', this.cleanup, this);
 		return this;
+
 	},
 	handleClickItem: function(){
 		document.body.classList.add('Slider--fullscreen')
 	},
 	handleClickClose: function(){
-		document.body.classList.remove('Slider--fullscreen')
+		document.body.classList.add('Slider--hidefullscreen')
+		TweenMax.delayedCall(0.5, function(){
+				document.body.classList.remove('Slider--fullscreen')
+				document.body.classList.remove('Slider--hidefullscreen')
+		})
+	},
+	hookToShow: function(){
+		this.el.classList.add('show');
+	},
+	hookToHide: function(){
+		this.el.classList.remove('show');
+	},
+	cleanup: function(){
+		this.swiper.kill();
+		this.swiperFullscreen.kill();
+		console.log("cleanup slider");
 	}
 })
 

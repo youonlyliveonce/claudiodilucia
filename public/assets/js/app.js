@@ -7528,29 +7528,17 @@
 	
 	var _ampersandView2 = _interopRequireDefault(_ampersandView);
 	
-	var _youtube = __webpack_require__(279);
-	
-	var _youtube2 = _interopRequireDefault(_youtube);
-	
-	var _filtergrid = __webpack_require__(281);
-	
-	var _filtergrid2 = _interopRequireDefault(_filtergrid);
-	
-	var _linkgrid = __webpack_require__(283);
-	
-	var _linkgrid2 = _interopRequireDefault(_linkgrid);
-	
 	var _slider = __webpack_require__(284);
 	
 	var _slider2 = _interopRequireDefault(_slider);
 	
-	var _case = __webpack_require__(286);
+	var _hero = __webpack_require__(325);
 	
-	var _case2 = _interopRequireDefault(_case);
+	var _hero2 = _interopRequireDefault(_hero);
 	
-	var _textbox = __webpack_require__(287);
+	var _teaser = __webpack_require__(326);
 	
-	var _textbox2 = _interopRequireDefault(_textbox);
+	var _teaser2 = _interopRequireDefault(_teaser);
 	
 	var _ampersandDom = __webpack_require__(276);
 	
@@ -7588,12 +7576,16 @@
 				elements.forEach(function (element, index, array) {
 					var view = null;
 					switch (element.dataset.view) {
-						case "SliderView":
-							view = new _slider2.default({ el: element, id: element.getAttribute('id'), parentview: self });
+						case "HeroView":
+							view = new _hero2.default({ el: element, id: element.getAttribute('id'), parentview: self });
 							view.render();
 							break;
-						case "TextpageView":
-							view = new _textbox2.default({ el: element, id: element.getAttribute('id'), parentview: self });
+						case "TeaserView":
+							view = new _teaser2.default({ el: element, id: element.getAttribute('id'), parentview: self });
+							view.render();
+							break;
+						case "SliderView":
+							view = new _slider2.default({ el: element, id: element.getAttribute('id'), parentview: self });
 							view.render();
 							break;
 						default:
@@ -7605,13 +7597,15 @@
 				});
 			}
 		},
-	
-		handleResize: function handleResize() {
-			this.subViews.forEach(function (element) {
-				element.view.handleResize();
-			});
-		},
 		hookAfterShow: function hookAfterShow() {},
+		hookToShow: function hookToShow(delay) {
+			console.log("hookToShow view");
+			TweenMax.delayedCall(delay, function () {
+				this.subViews.forEach(function (element) {
+					element.view.hookToShow();
+				});
+			}, [], this);
+		},
 		cleanup: function cleanup() {
 			console.log("cleanup");
 			_underscore2.default.each(this.subViews, function (item) {
@@ -19450,154 +19444,7 @@
 
 
 /***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _base = __webpack_require__(280);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	var _ampersandDom = __webpack_require__(276);
-	
-	var _ampersandDom2 = _interopRequireDefault(_ampersandDom);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var YoutubePlayer = _base2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			videoid: ['string', true, ''],
-			player: ['object', true, function () {
-				return {};
-			}],
-			active: ['boolean', true, false],
-			ready: ['boolean', true, false],
-			isscrollable: ['boolean', true, false],
-			parentview: ['object', true, function () {
-				return {};
-			}],
-			mute: ['boolean', true, false]
-		},
-		events: {
-			'click .Button--mute': 'handleMuteClick'
-		},
-	
-		render: function render() {
-			var self = this;
-			this.cacheElements({
-				videobox: '.Videobox__background',
-				mutebutton: '.Button--mute'
-			});
-			if (window.YT === undefined) {
-				window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
-				// INSERT YOUTUBE API
-				var tag = document.createElement('script');
-				tag.src = "https://www.youtube.com/iframe_api";
-				tag.id = "youtubeapi";
-				var firstScriptTag = document.getElementsByTagName('script')[0];
-				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-			} else {
-				TweenMax.delayedCall(0.25, function () {
-					self.onYouTubeIframeAPIReady();
-				});
-			}
-			this.on('change:active', this.onActiveChange, this);
-			this.on('change:mute', this.onMuteChange, this);
-			this.once('remove', this.cleanup, this);
-	
-			return this;
-		},
-	
-		onYouTubeIframeAPIReady: function onYouTubeIframeAPIReady() {
-			this.player = new YT.Player(this.videoid, {
-				events: {
-					'onReady': this.onPlayerReady.bind(this),
-					'onStateChange': this.onPlayerStateChange.bind(this)
-				}
-			});
-			if (this.player.B) {
-				this.onPlayerReady();
-			};
-		},
-	
-		onPlayerReady: function onPlayerReady() {
-			this.ready = true;
-			if (this.active && !CM.App._mobile) {
-				this.player.playVideo();
-			}
-		},
-	
-		playVideo: function playVideo() {
-			if (typeof this.player.playVideo == 'function') {
-				this.player.playVideo();
-			}
-		},
-		pauseVideo: function pauseVideo() {
-			if (typeof this.player.pauseVideo == 'function') {
-				this.player.pauseVideo();
-			}
-		},
-		muteVideo: function muteVideo() {
-			if (typeof this.player.mute == 'function') {
-				this.player.mute();
-			}
-		},
-		unmuteVideo: function unmuteVideo() {
-			if (typeof this.player.unMute == 'function') {
-				this.player.unMute();
-			}
-		},
-	
-		onMuteChange: function onMuteChange(model, value) {
-			if (value) {
-				this.muteVideo();
-				_ampersandDom2.default.addClass(this.mutebutton, 'mute');
-			} else {
-				if (this.ready) {
-					this.unmuteVideo();
-					_ampersandDom2.default.removeClass(this.mutebutton, 'mute');
-				}
-			}
-		},
-		onActiveChange: function onActiveChange(model, value) {
-			if (!value) {
-				this.pauseVideo();
-			} else {
-				if (this.ready && !CM.App._mobile) {
-					this.playVideo();
-				}
-			}
-		},
-		onPlayerStateChange: function onPlayerStateChange(event) {
-			console.log("onPlayerStateChange", event);
-		},
-		cleanup: function cleanup() {
-			this.player.destroy();
-		},
-		handleMuteClick: function handleMuteClick(event) {
-			this.mute = !this.mute;
-		},
-		handleResize: function handleResize() {
-			var newWidth = document.body.clientHeight / 9 * 16,
-			    newHeight = document.body.clientHeight;
-			if (newWidth < document.body.clientWidth) {
-				newWidth = document.body.clientWidth, newHeight = document.body.clientWidth / 16 * 9;
-			}
-			this.el.setAttribute("style", "height:" + document.body.clientHeight + "px");
-			this.videobox.setAttribute("style", "width:" + newWidth + "px; height:" + newHeight + "px;");
-		}
-	
-	});
-	
-	exports.default = YoutubePlayer;
-
-/***/ }),
+/* 279 */,
 /* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19629,33 +19476,18 @@
 			this.once('remove', this.cleanup, this);
 			return this;
 		},
-		handleResize: function handleResize() {
-			this.el.setAttribute("style", "height:" + document.body.clientHeight + "px");
-		},
+	
 		onActiveChange: function onActiveChange(value) {
 			console.log(value);
-		},
-		handleKeyDown: function handleKeyDown(direction) {},
-		handleMouseWheel: function handleMouseWheel(event) {
-			var e = window.event || event || event.originalEvent;
-			var delta = e.deltaY || -1 * e.wheelDelta;
-	
-			// FF Y-Achse
-			if (e.axis == 2) {
-				delta = e.detail * e.detail * e.detail;
-			}
-	
-			if (delta < -17) {
-				this.parentview.previousSlide();
-			} else if (delta > 17) {
-				this.parentview.nextSlide();
-			}
 		},
 		cleanup: function cleanup() {
 			console.log("cleanup child");
 		},
 		hookToHide: function hookToHide() {
 			console.log("hook To Hide Feature");
+		},
+		hookToShow: function hookToShow() {
+			console.log("hook To Show Feature");
 		}
 	
 	});
@@ -19663,137 +19495,10 @@
 	exports.default = Base;
 
 /***/ }),
-/* 281 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _longbase = __webpack_require__(282);
-	
-	var _longbase2 = _interopRequireDefault(_longbase);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Filtergrid = _longbase2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			filter: ['object', true, function () {
-				return {};
-			}],
-			filteritems: ['array', true, function () {
-				return [];
-			}],
-			isscrollable: ['boolean', true, true],
-			parentview: ['object', true, function () {
-				return {};
-			}],
-			topend: ['boolean', true, true],
-			bottomend: ['boolean', true, false],
-			mousebreak: ['boolean', true, false],
-			timeto: ['array', true, function () {
-				return [];
-			}],
-			iso: ['object', true, function () {
-				return {};
-			}]
-		},
-		events: {
-			'click .Portfolio__filter ul li': 'handleClickFilter'
-		},
-		render: function render() {
-			this.cacheElements({
-				gridBackground: '.Portfolio__background',
-				gridBody: '.Portfolio__body',
-				gridHead: '.Portfolio__filter'
-			});
-			this.filteritems = this.queryAll('.Portfolio__filter li');
-			this.on('change:active', this.onActiveChange, this);
-			TweenMax.to('.check-grey', 0.25, { drawSVG: "0% 0%" });
-			TweenMax.delayedCall(0.25, function () {
-				this.iso = new Isotope('.Portfolio__mansry', {
-					itemSelector: '.Portfolio__item',
-					percentPosition: true,
-					stagger: 30,
-					masonry: {
-						columnWidth: '.Portfolio__sizer'
-					}
-				});
-			}, [], this);
-			this.once('remove', this.cleanup, this);
-	
-			return this;
-		},
-		handleClickFilter: function handleClickFilter(event) {
-			var target = event.delegateTarget,
-			    whiteSVGs = event.delegateTarget.getElementsByClassName('check-white'),
-			    greySVGs = event.delegateTarget.getElementsByClassName('check-grey'),
-			    _filter = event.delegateTarget.dataset.filter,
-			    self = this;
-			if (_filter == "all") {
-				for (var i = 0; i < this.filteritems.length; i++) {
-					this.filteritems[i].classList.remove('active');
-					this.filteritems[i].classList.add('active');
-					if (this.filteritems[i].dataset.filter != "all") {
-						// this.gridBody.classList.add(this.filteritems[i].dataset.filter);
-						this.showWhiteArrow(this.filteritems[i].getElementsByClassName('check-white'), this.filteritems[i].getElementsByClassName('check-grey'));
-					}
-				}
-				this.iso.arrange({
-					filter: function filter(itemElem) {
-						return true;
-					}
-				});
-			} else {
-				/* ISOLATE */
-				for (var _i = 0; _i < this.filteritems.length; _i++) {
-					this.filteritems[_i].classList.remove('active');
-					// this.filteritems[i].classList.add('active');
-					if (this.filteritems[_i].dataset.filter != "all") {
-						// this.gridBody.classList.remove(this.filteritems[i].dataset.filter);
-						this.showGreyArrow(this.filteritems[_i].getElementsByClassName('check-white'), this.filteritems[_i].getElementsByClassName('check-grey'));
-					}
-				}
-				this.iso.arrange({
-					filter: function filter(itemElem) {
-						return itemElem.classList.contains(_filter);
-					}
-				});
-				TweenMax.delayedCall(0.35, function () {
-					if (-1 * this.gridBody._gsTransform.y > this.gridBody.clientHeight) {
-						TweenMax.to(this.gridBody, 1.25, { y: 0 });
-					}
-				}, [], this);
-				target.classList.add('active');
-				this.showWhiteArrow(whiteSVGs, greySVGs);
-	
-				/* REDUCE */
-				// this.gridBody.classList.toggle(filter);
-				// target.classList.toggle('active');
-				// if(target.classList.contains('active')){
-				// 	this.showWhiteArrow(whiteSVGs, greySVGs);
-				// } else {
-				// 	this.showGreyArrow(whiteSVGs, greySVGs);
-				// }
-			}
-		},
-		showGreyArrow: function showGreyArrow(white, grey) {
-			TweenMax.to(white[0], 0.25, { drawSVG: "100% 100%" });
-			TweenMax.to(grey[0], 0.25, { drawSVG: "100% 0%", delay: 0.25 });
-		},
-		showWhiteArrow: function showWhiteArrow(white, grey) {
-			TweenMax.to(white[0], 0.25, { drawSVG: "0% 100%", delay: 0.25 });
-			TweenMax.to(grey[0], 0.25, { drawSVG: "0% 0%" });
-		}
-	});
-	
-	exports.default = Filtergrid;
-
-/***/ }),
-/* 282 */
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19808,167 +19513,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Longbase = _base2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			isscrollable: ['boolean', true, true],
-			parentview: ['object', true, function () {
-				return {};
-			}],
-			topend: ['boolean', true, true],
-			bottomend: ['boolean', true, false],
-			mousebreak: ['boolean', true, false],
-			timeto: ['array', true, function () {
-				return [];
-			}]
-		},
-		events: {},
-		onActiveChange: function onActiveChange(view, value) {
-			this.mousebreak = false;
-			this.topend = false;
-			this.bottomend = false;
-		},
-		delayMouseWheelBreak: function delayMouseWheelBreak(delay) {
-			this.mousebreak = false;
-			TweenMax.killDelayedCallsTo(this.setMouseWheelBreak);
-			TweenMax.delayedCall(delay, this.setMouseWheelBreak, [], this);
-		},
-		setMouseWheelBreak: function setMouseWheelBreak() {
-			this.mousebreak = true;
-		},
-		flashBackground: function flashBackground() {
-			TweenMax.to(this.gridBackground, 0.15, { css: { 'opacity': 0.1 }, yoyo: true, repeat: 1 });
-		},
-		handleMouseWheel: function handleMouseWheel(event) {
-			var self = this;
-			var e = window.event || event || event.originalEvent;
-			var delta = e.deltaY || -1 * e.wheelDelta;
-			var breakDelay = 0.1;
-	
-			// FF Y-Achse
-			if (e.axis == 2) {
-				delta = e.detail * e.detail * (e.detail / 2);
-				breakDelay = 0.3;
-			}
-			// let now = Math.floor(Date.now());
-			// if(this.timeto.length != 0){
-			// 	this.timeto.push(this.timeto[0] - now);
-			// }
-			// this.timeto[0] = now;
-	
-			// console.log(this.timeto);
-	
-			if (delta < 0) {
-				self.bottomend = false;
-				if (self.gridBody._gsTransform && self.gridBody._gsTransform.y - delta > 0) {
-					if (self.topend) {
-						if (self.mousebreak) {
-							self.parentview.previousSlide();
-						} else {
-							self.delayMouseWheelBreak(breakDelay);
-						}
-					} else if (!self.topend) {
-						self.delayMouseWheelBreak(breakDelay);
-						TweenMax.set(this.gridBody, { y: 0 });
-						self.flashBackground();
-						self.topend = true;
-					}
-				} else {
-					self.mousebreak = false;
-					TweenMax.set(this.gridBody, { y: '-=' + delta });
-				}
-			} else if (delta > 0) {
-				// console.log("scroll gen bottom", self.topend);
-				self.topend = false;
-				var cH = document.body.clientHeight - self.gridHead.clientHeight,
-				    bH = self.gridBody.clientHeight,
-				    dH = cH - bH;
-	
-				if (self.gridBody._gsTransform && self.gridBody._gsTransform.y - delta <= cH - bH) {
-					if (self.bottomend) {
-						if (self.mousebreak) {
-							self.parentview.nextSlide();
-						} else {
-							self.delayMouseWheelBreak(breakDelay);
-						}
-					} else if (!self.bottomend) {
-						self.delayMouseWheelBreak(breakDelay);
-						self.bottomend = true;
-						TweenMax.set(self.gridBody, { y: dH });
-						self.flashBackground();
-					}
-				} else {
-					self.mousebreak = false;
-					TweenMax.set(self.gridBody, { y: '-=' + delta });
-				}
-			}
-		}
-	});
-	
-	exports.default = Longbase;
-
-/***/ }),
-/* 283 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _longbase = __webpack_require__(282);
-	
-	var _longbase2 = _interopRequireDefault(_longbase);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Linkgrid = _longbase2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			isscrollable: ['boolean', true, true],
-			parentview: ['object', true, function () {
-				return {};
-			}],
-			topend: ['boolean', true, true],
-			bottomend: ['boolean', true, false],
-			mousebreak: ['boolean', true, false],
-			timeto: ['array', true, function () {
-				return [];
-			}]
-		},
-		events: {},
-		render: function render() {
-			this.cacheElements({
-				gridBackground: '.Linkgrid__background',
-				gridBody: '.Linkgrid__body',
-				gridHead: '.Linkgrid__header'
-			});
-			this.on('change:active', this.onActiveChange, this);
-			this.once('remove', this.cleanup, this);
-			return this;
-		}
-	});
-	
-	exports.default = Linkgrid;
-
-/***/ }),
-/* 284 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _boxbase = __webpack_require__(285);
-	
-	var _boxbase2 = _interopRequireDefault(_boxbase);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Slider = _boxbase2.default.extend({
+	var Slider = _base2.default.extend({
 		props: {
 			id: ['string', true, ''],
 			active: ['boolean', true, false],
@@ -20017,9 +19562,7 @@
 		},
 	
 		render: function render() {
-			this.cacheElements({
-				'navigationContainer': '.Contentnavigation'
-			});
+	
 			TweenMax.delayedCall(0.15, function () {
 				this.swiper = new Swiper('#' + this.id + ' .Slider__body .swiper-container', this.settings);
 				this.swiperFullscreen = new Swiper('#' + this.id + ' .Slider__fullscreen .swiper-container', this.settingsFullscreen);
@@ -20033,439 +19576,31 @@
 			document.body.classList.add('Slider--fullscreen');
 		},
 		handleClickClose: function handleClickClose() {
-			document.body.classList.remove('Slider--fullscreen');
+			document.body.classList.add('Slider--hidefullscreen');
+			TweenMax.delayedCall(0.5, function () {
+				document.body.classList.remove('Slider--fullscreen');
+				document.body.classList.remove('Slider--hidefullscreen');
+			});
+		},
+		hookToShow: function hookToShow() {
+			this.el.classList.add('show');
+		},
+		hookToHide: function hookToHide() {
+			this.el.classList.remove('show');
+		},
+		cleanup: function cleanup() {
+			this.swiper.kill();
+			this.swiperFullscreen.kill();
+			console.log("cleanup slider");
 		}
 	});
 	
 	exports.default = Slider;
 
 /***/ }),
-/* 285 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _base = __webpack_require__(280);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var BoxBase = _base2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			active: ['boolean', true, true],
-			isscrollable: ['boolean', true, false],
-			parentview: ['object', true, function () {
-				return {};
-			}]
-		},
-		events: {},
-	
-		handleMouseWheel: function handleMouseWheel(event) {
-			var e = window.event || event || event.originalEvent;
-			var delta = e.deltaY || -1 * e.wheelDelta;
-	
-			// FF Y-Achse
-			if (e.axis == 2) {
-				delta = e.detail * e.detail * (e.detail / 2);
-			}
-	
-			if (event.target && event.target.offsetParent && (event.target.offsetParent.classList.contains('Textbox__wrapper') || event.target.offsetParent.classList.contains('Textbox__body') || event.target.classList.contains('Textbox__body') || event.target.classList.contains('Textbox__wrapper'))) {
-	
-				var cH = this.textboxbar.clientHeight,
-				    bH = this.textbox.clientHeight,
-				    dH = cH - bH;
-				if (bH > cH) {
-					if (delta < 0) {
-						if (this.textbox._gsTransform && this.textbox._gsTransform.y - delta > 0) {
-							TweenMax.set(this.textbox, { y: 0 });
-							TweenMax.set(this.textboxhandler, { y: 0 });
-						} else {
-							TweenMax.set(this.textbox, { y: '-=' + delta });
-							TweenMax.set(this.textboxhandler, { y: '+=' + delta * this.textboxfaktor });
-						}
-					} else if (delta > 0) {
-						if (this.textbox._gsTransform && this.textbox._gsTransform.y - delta < dH) {
-							TweenMax.set(this.textbox, { y: dH });
-							TweenMax.set(this.textboxhandler, { y: -1 * dH * this.textboxfaktor });
-						} else {
-							TweenMax.set(this.textbox, { y: '-=' + delta });
-							TweenMax.set(this.textboxhandler, { y: '+=' + delta * this.textboxfaktor });
-						}
-					}
-				}
-			} else {
-				if (delta < -19) {
-					this.parentview.previousSlide();
-				} else if (delta > 19) {
-					this.parentview.nextSlide();
-				}
-			}
-		}
-	
-	});
-	
-	exports.default = BoxBase;
-
-/***/ }),
-/* 286 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _base = __webpack_require__(280);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	var _ampersandDom = __webpack_require__(276);
-	
-	var _ampersandDom2 = _interopRequireDefault(_ampersandDom);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Case = _base2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			isscrollable: ['boolean', true, true],
-			parentview: ['object', true, function () {
-				return {};
-			}],
-			player: ['object', true, function () {
-				return {};
-			}],
-			swiper: ['object', true, function () {
-				return undefined;
-			}],
-			settings: ['object', true, function () {
-				return {
-					speed: 600,
-					// effect: 'fade',
-					pagination: '.Case .swiper-pagination',
-					paginationClickable: true,
-					nextButton: '.Case .swiper-button-next',
-					prevButton: '.Case .swiper-button-prev',
-					loop: true
-				};
-			}],
-			topend: ['boolean', true, true],
-			bottomend: ['boolean', true, false],
-			watchvideo: ['number', true, 0],
-			caseBoardVideo: ['object', true, function () {
-				return undefined;
-			}],
-			mute: ['boolean', true, false]
-		},
-	
-		events: {
-			'click .Playbar': '_handlePlayerClick',
-			'click .Controlbar__state--clickzone': '_handleStateClick',
-			'click .Controlbar__play': '_handlePlayerClick',
-			'click .Controlbar__audio': '_handleAudioClick'
-	
-		},
-	
-		render: function render() {
-			var self = this;
-			this.cacheElements({
-				caseBody: '.Case__body',
-				caseVideo: '.Videobox__background',
-				totalTime: '[data-hook=total-time]',
-				currentTime: '[data-hook=current-time]',
-				statePlayed: '.Controlbar__state--played',
-				stateLoaded: '.Controlbar__state--loaded'
-			});
-			if (this.queryAll('#' + this.id + ' .swiper-slide').length > 1) {
-				TweenMax.delayedCall(0.15, function () {
-					this.swiper = new Swiper('#' + this.id + ' .swiper-container', this.settings);
-				}, [], this);
-			}
-			if (this.caseVideo != undefined) {
-				if (window.YT === undefined) {
-					window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
-					// INSERT YOUTUBE API
-					var tag = document.createElement('script');
-					tag.src = "https://www.youtube.com/iframe_api";
-					tag.id = "youtubeapi";
-					var firstScriptTag = document.getElementsByTagName('script')[0];
-					firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-				} else {
-					TweenMax.delayedCall(0.25, function () {
-						self.onYouTubeIframeAPIReady();
-					});
-				}
-				TweenMax.set(this.stateLoaded, { transformOrigin: "0% 0%" });
-				TweenMax.set(this.statePlayed, { transformOrigin: "0% 0%" });
-				this.caseBoardVideo = this.queryAll('.Case__item--youtube > div');
-				this.on('change:mute', this.onMuteChange, this);
-			}
-			this.once('remove', this.cleanup, this);
-	
-			return this;
-		},
-	
-		onYouTubeIframeAPIReady: function onYouTubeIframeAPIReady() {
-			this.player = new YT.Player('casevideo', {
-				events: {
-					'onReady': this.onPlayerReady.bind(this),
-					'onStateChange': this.onPlayerStateChange.bind(this)
-				}
-			});
-			if (this.player.B) {
-				this.onPlayerReady();
-			};
-		},
-		onPlayerReady: function onPlayerReady() {
-			this.ready = true;
-			this.totalTime.innerHTML = this.player.getDuration().toHHMMSS();
-			this.currentTime.innerHTML = Number(0).toHHMMSS();
-			if (this.active && !CM.App._mobile) {
-				this.playVideo();
-			}
-		},
-		playVideo: function playVideo() {
-			if (typeof this.player.playVideo == 'function') {
-				_ampersandDom2.default.addClass(this.caseVideo, 'playing');
-				this.player.playVideo();
-				this.watchvideo = setInterval(this._watchVideo.bind(this), 100);
-			}
-		},
-		pauseVideo: function pauseVideo() {
-			if (typeof this.player.pauseVideo == 'function') {
-				_ampersandDom2.default.removeClass(this.caseVideo, 'playing');
-				this.player.pauseVideo();
-				clearInterval(this.watchvideo);
-			}
-		},
-		muteVideo: function muteVideo() {
-			if (typeof this.player.mute == 'function') {
-				this.player.mute();
-			}
-		},
-		unmuteVideo: function unmuteVideo() {
-			if (typeof this.player.unMute == 'function') {
-				this.player.unMute();
-			}
-		},
-		onMuteChange: function onMuteChange(model, value) {
-			if (value) {
-				this.muteVideo();
-				_ampersandDom2.default.addClass(this.caseVideo, 'muted');
-			} else {
-				if (this.ready) {
-					this.unmuteVideo();
-					_ampersandDom2.default.removeClass(this.caseVideo, 'muted');
-				}
-			}
-		},
-		onPlayerStateChange: function onPlayerStateChange(event) {
-			switch (this.player.getPlayerState()) {
-				case 0:
-					_ampersandDom2.default.removeClass(this.caseVideo, 'playing');
-					break;
-				case 1:
-	
-					break;
-				case 2:
-					_ampersandDom2.default.removeClass(this.caseVideo, 'playing');
-					break;
-				case 3:
-	
-					break;
-				default:
-	
-			}
-		},
-		_watchVideo: function _watchVideo() {
-			var total = this.player.getDuration(),
-			    current = this.player.getCurrentTime(),
-			    loaded = this.player.getVideoLoadedFraction();
-			// this.totalTime.innerHTML = this.player.getDuration().toHHMMSS();
-			this.currentTime.innerHTML = current.toHHMMSS();
-			TweenMax.set(this.stateLoaded, { css: { scaleX: loaded } });
-			TweenMax.set(this.statePlayed, { css: { scaleX: current / total } });
-		},
-		_handleStateClick: function _handleStateClick(e) {
-			var prozent = e.layerX / this.caseVideo.offsetWidth;
-			console.log("prozent:", prozent);
-			console.log("e:", e);
-			console.log("e.offsetX:", e.offsetX);
-			console.log("e.layerX:", e.clientX);
-			console.log("this.caseVideo.offsetWidth:", this.caseVideo.offsetWidth);
-			console.log("this.player.getDuration():", this.player.getDuration());
-	
-			this.player.seekTo(this.player.getDuration() * prozent, true);
-			this.playVideo();
-			e.stopPropagation();
-			e.preventDefault();
-		},
-		_handlePlayerClick: function _handlePlayerClick(e) {
-			switch (this.player.getPlayerState()) {
-				case 0:
-					this.playVideo();
-					break;
-				case 1:
-					this.pauseVideo();
-					break;
-				case 2:
-					this.playVideo();
-					break;
-				case 3:
-					this.pauseVideo();
-					break;
-				default:
-					this.pauseVideo();
-			}
-		},
-		_handleAudioClick: function _handleAudioClick() {
-			this.mute = !this.mute;
-		},
-		cleanup: function cleanup() {
-			clearInterval(this.watchvideo);
-		},
-		handleResize: function handleResize() {
-			if (!CM.App._mobile) {
-				this.el.setAttribute("style", "height:" + document.body.clientHeight + "px");
-				if (this.caseVideo != undefined) {
-					var newWidth = this.caseVideo.clientWidth,
-					    newHeight = newWidth / 16 * 9;
-					this.caseVideo.setAttribute("style", "height:" + newHeight + "px;");
-				}
-				if (this.caseBoardVideo != undefined) {
-					for (var i = 0; i < this.caseBoardVideo.length; i++) {
-						var _newWidth = this.caseBoardVideo[i].clientWidth,
-						    _newHeight = _newWidth / 16 * 9;
-						this.caseBoardVideo[i].setAttribute("style", "height:" + _newHeight + "px;");
-					}
-				}
-			}
-		},
-		handleMouseWheel: function handleMouseWheel(event) {
-			var self = this;
-			var e = window.event || event || event.originalEvent;
-			var delta = e.deltaY || -1 * e.wheelDelta;
-	
-			// FF Y-Achse
-			if (e.axis == 2) {
-				delta = e.detail * e.detail * (e.detail / 2);
-			}
-			if (delta < 0) {
-				self.bottomend = false;
-				if (self.caseBody._gsTransform && self.caseBody._gsTransform.y - delta > 0) {
-					TweenMax.to(self.caseBody, 0.1, { y: 0, overwrite: true });
-				} else {
-					TweenMax.set(this.caseBody, { y: '-=' + delta });
-				}
-			} else if (delta > 0) {
-				self.topend = false;
-				var cH = document.body.clientHeight,
-				    bH = self.caseBody.clientHeight,
-				    dH = cH - bH;
-				if (self.caseBody._gsTransform && self.caseBody._gsTransform.y - delta < cH - bH) {
-					TweenMax.to(self.caseBody, 0.1, { y: dH, overwrite: true });
-				} else {
-					TweenMax.set(self.caseBody, { y: '-=' + delta });
-				}
-			}
-		}
-	});
-	
-	exports.default = Case;
-
-/***/ }),
-/* 287 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _boxbase = __webpack_require__(285);
-	
-	var _boxbase2 = _interopRequireDefault(_boxbase);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Textbox = _boxbase2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			filter: ['object', true, function () {
-				return {};
-			}],
-			isscrollable: ['boolean', true, true],
-			active: ['boolean', true, false],
-			parentview: ['object', true, function () {
-				return {};
-			}],
-			textboxfaktor: ['number', true, 0]
-		},
-	
-		events: {},
-	
-		render: function render() {
-	
-			this.cacheElements({
-				'textbox': '.Textbox__body',
-				'textboxbar': '.Textbox__scroller',
-				'textboxhandler': '.Textbox__scroller span'
-			});
-			this.on('change:active', this.onActiveChange, this);
-			this.once('remove', this.cleanup, this);
-			return this;
-		},
-	
-		onActiveChange: function onActiveChange(view, value) {
-			if (value) {
-				TweenMax.delayedCall(1.25, function () {
-					if (this.active) {
-						if (!CM.App._mobile) {
-							this.handleResize();
-						}
-					}
-				}, [], this);
-			} else {}
-		},
-	
-		handleResize: function handleResize() {
-			var newWidth = document.body.clientHeight / 9 * 16,
-			    newHeight = document.body.clientHeight;
-			if (newWidth < document.body.clientWidth) {
-				newWidth = document.body.clientWidth, newHeight = document.body.clientWidth / 16 * 9;
-			}
-			this.el.setAttribute("style", "height:" + document.body.clientHeight + "px");
-			console.log(this.textboxbar.clientHeight);
-			if (this.textboxbar.clientHeight != undefined) {
-				var tbh = this.textboxbar.clientHeight;
-				var tbbh = this.textbox.clientHeight;
-				var handlerHeight = tbh / (tbbh / 100) * (tbh / 100);
-				var faktor = tbh / (tbbh / 100) / 100;
-				if (handlerHeight >= tbh) {
-					TweenMax.to(this.textboxbar, 0.25, { opacity: 0 });
-					TweenMax.to(this.textbox, 0.25, { y: 0 });
-					TweenMax.to(this.textboxhandler, 0.25, { y: 0 });
-				} else {
-					TweenMax.to(this.textboxbar, 0.25, { opacity: 1 });
-					TweenMax.to(this.textboxhandler, 0.25, { height: handlerHeight });
-				}
-				this.textboxfaktor = faktor;
-			}
-		}
-	
-	});
-	
-	exports.default = Textbox;
-
-/***/ }),
+/* 285 */,
+/* 286 */,
+/* 287 */,
 /* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23698,8 +22833,7 @@
 									if (oldView && oldView.el) {
 											oldView.hookBeforeHide();
 											self.scrollTo(0);
-											TweenMax.to(oldView.el, 0.75, { opacity: 0 });
-											TweenMax.delayedCall(1, function () {
+											TweenMax.delayedCall(0.5, function () {
 													cb.apply(inSwitcher);
 											});
 									}
@@ -23707,8 +22841,8 @@
 							show: function show(newView) {
 									self.page.setAttribute('class', newView.model.pageClass);
 									TweenMax.set(newView.el, { opacity: 0 });
-									TweenMax.to(newView.el, 0.75, { opacity: 1 });
 									newView.hookToShow();
+									TweenMax.to(newView.el, 0.45, { opacity: 1, onComplete: function onComplete() {} });
 							}
 					});
 					return this;
@@ -23732,7 +22866,7 @@
 					view.render();
 	
 					// After transition Stuff
-					view.hookAfterShow();
+					view.hookToShow(1);
 	
 					// Set current view of page switcher (silent)
 					this.pageSwitcher.current = view;
@@ -23805,12 +22939,6 @@
 					_ampersandDom2.default.addClass(body, 'Navigation--show');
 			},
 	
-			handleKeyDown: function handleKeyDown(event) {
-					event.preventDefault ? event.preventDefault() : event.returnValue = false;
-					if (CM.App.mainView.pageSwitcher.current) {
-							CM.App.mainView.pageSwitcher.current.handleKeyDown(event);
-					}
-			},
 			/*
 	  	Click Handler for each a[href]
 	  	*/
@@ -32634,6 +31762,126 @@
 	  }
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module)))
+
+/***/ }),
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _base = __webpack_require__(280);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Hero = _base2.default.extend({
+		props: {
+			id: ['string', true, ''],
+			active: ['boolean', true, false],
+			parentview: ['object', true, function () {
+				return {};
+			}],
+			swiper: ['object', true, function () {
+				return undefined;
+			}],
+			settings: ['object', true, function () {
+				return {
+					speed: 600,
+					loop: false,
+					slidesPerView: 1,
+					centeredSlides: true,
+					keyboardControl: true,
+					spaceBetween: "0%",
+					pagination: '.Hero__body .swiper-pagination',
+					paginationClickable: true,
+					grabCursor: true,
+					touchEventsTarget: 'container'
+				};
+			}]
+		},
+	
+		events: {},
+	
+		render: function render() {
+			this.cacheElements({
+				heroBody: '.Hero__body'
+			});
+			TweenMax.delayedCall(0.15, function () {
+				this.swiper = new Swiper('#' + this.id + ' .Hero__body .swiper-container', this.settings);
+			}, [], this);
+			this.once('remove', this.cleanup, this);
+			return this;
+		},
+		hookToShow: function hookToShow() {
+			this.el.classList.add('show');
+		},
+		hookToHide: function hookToHide() {
+			this.el.classList.remove('show');
+		},
+		cleanup: function cleanup() {
+			this.swiper.kill();
+			console.log("cleanup hero");
+		}
+	});
+	
+	exports.default = Hero;
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _base = __webpack_require__(280);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Teaser = _base2.default.extend({
+		props: {
+			id: ['string', true, ''],
+			active: ['boolean', true, false],
+			parentview: ['object', true, function () {
+				return {};
+			}],
+			tiles: ['array', true, function () {
+				return [];
+			}]
+		},
+	
+		events: {},
+	
+		render: function render() {
+			this.tiles = Array.from(this.queryAll('.Teaser__item'));
+			this.once('remove', this.cleanup, this);
+			return this;
+		},
+		hookToShow: function hookToShow() {
+			this.tiles.forEach(function (item, index) {
+				setTimeout(function () {
+					item.classList.add('show');
+				}, index * 300);
+			});
+		},
+		cleanup: function cleanup() {
+			console.log("cleanup hero");
+		}
+	});
+	
+	exports.default = Teaser;
 
 /***/ })
 /******/ ]);

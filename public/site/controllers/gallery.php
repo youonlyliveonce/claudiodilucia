@@ -1,8 +1,12 @@
 <?php
 
 return function($site, $pages, $page) {
-	// next
+	// slides
 	$slides = $page->gallery()->structure();
+
+	// navigation
+	
+
 
 
 	return compact('slides');
