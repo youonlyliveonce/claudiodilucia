@@ -33,12 +33,6 @@ let Hero = Base.extend({
 		this.once('remove', this.cleanup, this);
 		return this;
 	},
-	hookToShow: function(){
-		this.el.classList.add('show');
-	},
-	hookToHide: function(){
-		this.el.classList.remove('show');
-	},
 	cleanup: function(){
 		this.swiper.destroy();
 		console.log("cleanup hero");

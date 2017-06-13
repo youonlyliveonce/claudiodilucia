@@ -62,12 +62,6 @@ let Slider = Base.extend({
 				document.body.classList.remove('Slider--hidefullscreen')
 		})
 	},
-	hookToShow: function(){
-		this.el.classList.add('show');
-	},
-	hookToHide: function(){
-		this.el.classList.remove('show');
-	},
 	cleanup: function(){
 		console.log("cleanup slider");
 		this.swiper.destroy();

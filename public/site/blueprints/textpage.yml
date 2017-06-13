@@ -1,0 +1,14 @@
+title: Text Page
+
+pages:
+  - textpage
+
+fields:
+  title: title
+  image:
+      label: Text Bild
+      type: image
+  textarea:
+    label: Text
+    type: textarea
+    required: true

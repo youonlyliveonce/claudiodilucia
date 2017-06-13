@@ -1,1 +1,1 @@
-<?php go($page->redirect()); ?>
+<?php go($target); ?>

@@ -3,6 +3,8 @@ title: Site
 pages:
   - default
   - home
+  - overview
+  - textpage
   - redirect
 
 fields:

@@ -1,6 +1,5 @@
 title: Redirect
 
-pages: false
 
 files: false
 
@@ -8,7 +7,9 @@ fields:
   title:
     label: Title
     type: title
+  intern:
+    label: Weiterleitungsziel Intern
+    type: page
   redirect:
     label: Weiterleitungsziel
     type: url
-  navigation: navigation

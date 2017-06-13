@@ -21,11 +21,11 @@ let Base = View.extend({
 	cleanup: function(){
 		console.log("cleanup child");
 	},
-	hookToHide: function(){
-		console.log("hook To Hide Feature");
-	},
 	hookToShow: function(){
-		console.log("hook To Show Feature");
+		this.el.classList.add('show');
+	},
+	hookToHide: function(){
+		this.el.classList.remove('show');
 	}
 
 })

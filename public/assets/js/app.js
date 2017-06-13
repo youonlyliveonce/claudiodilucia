@@ -7540,6 +7540,10 @@
 	
 	var _teaser2 = _interopRequireDefault(_teaser);
 	
+	var _text = __webpack_require__(320);
+	
+	var _text2 = _interopRequireDefault(_text);
+	
 	var _ampersandDom = __webpack_require__(276);
 	
 	var _ampersandDom2 = _interopRequireDefault(_ampersandDom);
@@ -7582,6 +7586,10 @@
 							break;
 						case "TeaserView":
 							view = new _teaser2.default({ el: element, id: element.getAttribute('id'), parentview: self });
+							view.render();
+							break;
+						case "TextView":
+							view = new _text2.default({ el: element, id: element.getAttribute('id'), parentview: self });
 							view.render();
 							break;
 						case "SliderView":
@@ -19528,12 +19536,6 @@
 				document.body.classList.remove('Slider--hidefullscreen');
 			});
 		},
-		hookToShow: function hookToShow() {
-			this.el.classList.add('show');
-		},
-		hookToHide: function hookToHide() {
-			this.el.classList.remove('show');
-		},
 		cleanup: function cleanup() {
 			console.log("cleanup slider");
 			this.swiper.destroy();
@@ -19582,11 +19584,11 @@
 		cleanup: function cleanup() {
 			console.log("cleanup child");
 		},
-		hookToHide: function hookToHide() {
-			console.log("hook To Hide Feature");
-		},
 		hookToShow: function hookToShow() {
-			console.log("hook To Show Feature");
+			this.el.classList.add('show');
+		},
+		hookToHide: function hookToHide() {
+			this.el.classList.remove('show');
 		}
 	
 	});
@@ -19646,12 +19648,6 @@
 			}, [], this);
 			this.once('remove', this.cleanup, this);
 			return this;
-		},
-		hookToShow: function hookToShow() {
-			this.el.classList.add('show');
-		},
-		hookToHide: function hookToHide() {
-			this.el.classList.remove('show');
 		},
 		cleanup: function cleanup() {
 			this.swiper.destroy();
@@ -31872,6 +31868,45 @@
 	  }
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module)))
+
+/***/ }),
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _base = __webpack_require__(280);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Text = _base2.default.extend({
+		props: {
+			id: ['string', true, ''],
+			active: ['boolean', true, false],
+			parentview: ['object', true, function () {
+				return {};
+			}]
+		},
+	
+		events: {},
+	
+		render: function render() {
+			this.cacheElements({});
+			this.once('remove', this.cleanup, this);
+			return this;
+		}
+	});
+	
+	exports.default = Text;
 
 /***/ })
 /******/ ]);
