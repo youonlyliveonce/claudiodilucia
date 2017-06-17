@@ -4,6 +4,7 @@ import SliderView from '../features/slider/slider';
 import HeroView from '../features/hero/hero';
 import TeaserView from '../features/teaser/teaser';
 import TextView from '../features/text/text';
+import InstagramView from '../features/instagram/instagram';
 import dom from 'ampersand-dom';
 import _ from 'underscore';
 
@@ -42,6 +43,10 @@ let Content = PageView.extend({
 						break;
 					case "TextView" :
 						view = new TextView({el:element, id:element.getAttribute('id'), parentview:self});
+						view.render();
+						break;
+					case "InstagramView" :
+						view = new InstagramView({el:element, id:element.getAttribute('id'), parentview:self});
 						view.render();
 						break;
 					case "SliderView" :

@@ -1,0 +1,116 @@
+.Instagram
+	margin-top: 5%
+	position: relative
+
+	&__headline
+		@extend .Section__body
+		text-align: center
+		margin-bottom: 1%
+		h2
+			font-size: 2em
+			color: black
+	&__body
+		padding-top: 5%
+		margin-bottom: 2%
+		@extend .Section__body
+		background-image: url(/assets/images/bg-line-center.gif)
+		background-repeat: repeat-y
+		background-position: center
+	&__image
+		position: relative
+	&__actions
+		span
+			position: relative
+			padding-left: 25px
+			padding-right: 40px
+			&:before
+				content: ''
+				width: 20px
+				display: inline-block
+				position: absolute
+				left: 0
+				top: 15px
+				height: 20px
+			&:first-child
+				&::before
+					background-image: url(/assets/images/instagram_heart.svg)
+					background-repeat: no-repeat
+					background-position: center
+			&:last-child
+				&::before
+					background-image: url(/assets/images/instagram_speechbubble.svg)
+					background-repeat: no-repeat
+					background-position: center
+	&__item
+		position: relative
+		&:after
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			height: 100%
+			width: 0%
+			background-color: white
+			+transition(all, 0.45s, ease-out, 0.0s)
+		&.show
+			&::after
+				left: auto
+				right: 0
+				width: 0%
+		img
+			width: 100%
+			display: block
+		span
+			+fontbold()
+			font-size: 0.8em
+			letter-spacing: 0.05em
+			display: inline-block
+			color: black
+			text-transform: uppercase
+			padding-top: 15px
+			margin-bottom: 60px
+		a
+			.Teaser__image
+				&:before
+					content: ''
+					position: absolute
+					top: 0
+					left: 0
+					height: 100%
+					width: 100%
+					border: 0px solid white
+					+transition(all, 0.25s)
+			&:hover
+				.Teaser__image
+					&:before
+						border: 10px solid white
+		width: 42%
+		float: left
+		&:nth-child(even)
+			float: right
+	&__icon--zoom
+		position: absolute
+		display: block
+		line-height: 0
+		width: 32px
+		height: 32px
+		right: 15px
+		bottom: 15px
+		background-color: rgba(0,0,0,0.5)
+		padding: 11px
+		cursor: pointer
+		+transition(all, 0.25s)
+		svg
+			+transition(all, 0.25s)
+			width: 10px
+			height: 10px
+		&:hover
+			background-color: white
+			width: 32px
+			height: 32px
+			padding: 6px
+			svg
+				width: 20px
+				height: 20px
+				path
+					fill: black

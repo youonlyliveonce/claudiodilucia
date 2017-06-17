@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e03131;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="instagram_heart.svg" class="cls-1" d="M2847.5,5934l-1.33-1.29c-4.94-4.25-8.17-7.12-8.17-10.63a5.082,5.082,0,0,1,5.22-5.08,5.68,5.68,0,0,0,8.55,0,5.084,5.084,0,0,1,5.23,5.08c0,3.51-3.23,6.38-8.17,10.63Z" transform="translate(-2838 -5917)"/>
+</svg>

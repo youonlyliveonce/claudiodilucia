@@ -20,8 +20,7 @@ return function($site, $pages, $page) {
 	} else {
 		$slide = $page->imagefield();
 	}
-
-	return compact('gallery', 'slides', 'slide');
+	return compact('gallery', 'slides', 'slide', 'images');
 };
 
 ?>

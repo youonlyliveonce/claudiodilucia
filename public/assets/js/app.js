@@ -72,15 +72,15 @@
 	
 	var _router2 = _interopRequireDefault(_router);
 	
-	var _mainView = __webpack_require__(309);
+	var _mainView = __webpack_require__(312);
 	
 	var _mainView2 = _interopRequireDefault(_mainView);
 	
-	var _lsRiasMin = __webpack_require__(315);
+	var _lsRiasMin = __webpack_require__(318);
 	
 	var _lsRiasMin2 = _interopRequireDefault(_lsRiasMin);
 	
-	var _lazysizesMin = __webpack_require__(316);
+	var _lazysizesMin = __webpack_require__(319);
 	
 	var _lazysizesMin2 = _interopRequireDefault(_lazysizesMin);
 	
@@ -1792,11 +1792,11 @@
 	
 	var _content2 = _interopRequireDefault(_content);
 	
-	var _content3 = __webpack_require__(283);
+	var _content3 = __webpack_require__(286);
 	
 	var _content4 = _interopRequireDefault(_content3);
 	
-	var _formModel = __webpack_require__(305);
+	var _formModel = __webpack_require__(308);
 	
 	var _formModel2 = _interopRequireDefault(_formModel);
 	
@@ -7540,9 +7540,13 @@
 	
 	var _teaser2 = _interopRequireDefault(_teaser);
 	
-	var _text = __webpack_require__(320);
+	var _text = __webpack_require__(283);
 	
 	var _text2 = _interopRequireDefault(_text);
+	
+	var _instagram = __webpack_require__(284);
+	
+	var _instagram2 = _interopRequireDefault(_instagram);
 	
 	var _ampersandDom = __webpack_require__(276);
 	
@@ -7590,6 +7594,10 @@
 							break;
 						case "TextView":
 							view = new _text2.default({ el: element, id: element.getAttribute('id'), parentview: self });
+							view.render();
+							break;
+						case "InstagramView":
+							view = new _instagram2.default({ el: element, id: element.getAttribute('id'), parentview: self });
 							view.render();
 							break;
 						case "SliderView":
@@ -19713,10 +19721,490 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _base = __webpack_require__(280);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Text = _base2.default.extend({
+		props: {
+			id: ['string', true, ''],
+			active: ['boolean', true, false],
+			parentview: ['object', true, function () {
+				return {};
+			}]
+		},
+	
+		events: {},
+	
+		render: function render() {
+			this.cacheElements({});
+			this.once('remove', this.cleanup, this);
+			return this;
+		}
+	});
+	
+	exports.default = Text;
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _base = __webpack_require__(280);
+	
+	var _base2 = _interopRequireDefault(_base);
+	
+	var _instafeed = __webpack_require__(285);
+	
+	var _instafeed2 = _interopRequireDefault(_instafeed);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Instagram = _base2.default.extend({
+		props: {
+			id: ['string', true, ''],
+			active: ['boolean', true, false],
+			parentview: ['object', true, function () {
+				return {};
+			}],
+			tiles: ['array', true, function () {
+				return [];
+			}]
+		},
+	
+		events: {},
+	
+		render: function render() {
+			this.cacheElements({
+				tilesBody: '.Instagram__body'
+			});
+			// this.tiles = Array.from(this.queryAll('.Teaser__item'));
+			this.once('remove', this.cleanup, this);
+	
+			var feed = new _instafeed2.default({
+				get: 'user',
+				userId: '1298879060',
+				accessToken: '1298879060.1677ed0.ec66e96c845040548e0ade8b1d100c3b',
+				template: '<div class="Instagram__item"><a href="{{link}}"><div class="Instagram__image"><img src="{{image}}" /><div class="Instagram__icon--zoom"><svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 27.21 27.21" xml:space="preserve"><path fill="#FFFFFF" d="M26.53,23.317l-5.908-5.907c-0.029-0.033-0.067-0.054-0.101-0.083c1.162-1.765,1.842-3.876,1.842-6.146,C22.363,5.006,17.356,0,11.182,0C5.006,0,0,5.006,0,11.182c0,6.175,5.006,11.182,11.182,11.182c2.27,0,4.381-0.68,6.146-1.842,c0.026,0.033,0.05,0.071,0.08,0.101l5.91,5.908c0.887,0.889,2.326,0.889,3.213,0C27.419,25.644,27.419,24.204,26.53,23.317z M11.182,18.485c-4.034,0-7.306-3.27-7.306-7.304s3.271-7.306,7.306-7.306s7.304,3.271,7.304,7.306S15.216,18.485,11.182,18.485z"/></svg></div></div><div class="Instagram__actions"><span>{{likes}}</span><span>{{comments}}</span></div></a></div>'
+			});
+			// useId: danielkremin = 1298879060
+			// accessToken: 1298879060.1677ed0.ec66e96c845040548e0ade8b1d100c3b
+	
+			feed.run();
+	
+			return this;
+		},
+		hookToShow: function hookToShow() {
+			// 1298879060.16ded27.9254c7c94d2f4422bb7090da4a44edcc
+			// this.tiles.forEach(function(item, index){
+			// 	setTimeout(function(){ item.classList.add('show'); }, index*300);
+			// })
+		},
+		cleanup: function cleanup() {
+			console.log("cleanup hero");
+		}
+	});
+	
+	exports.default = Instagram;
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Generated by CoffeeScript 1.9.3
+	(function() {
+	  var Instafeed;
+	
+	  Instafeed = (function() {
+	    function Instafeed(params, context) {
+	      var option, value;
+	      this.options = {
+	        target: 'instafeed',
+	        get: 'popular',
+	        resolution: 'thumbnail',
+	        sortBy: 'none',
+	        links: true,
+	        mock: false,
+	        useHttp: false
+	      };
+	      if (typeof params === 'object') {
+	        for (option in params) {
+	          value = params[option];
+	          this.options[option] = value;
+	        }
+	      }
+	      this.context = context != null ? context : this;
+	      this.unique = this._genKey();
+	    }
+	
+	    Instafeed.prototype.hasNext = function() {
+	      return typeof this.context.nextUrl === 'string' && this.context.nextUrl.length > 0;
+	    };
+	
+	    Instafeed.prototype.next = function() {
+	      if (!this.hasNext()) {
+	        return false;
+	      }
+	      return this.run(this.context.nextUrl);
+	    };
+	
+	    Instafeed.prototype.run = function(url) {
+	      var header, instanceName, script;
+	      if (typeof this.options.clientId !== 'string') {
+	        if (typeof this.options.accessToken !== 'string') {
+	          throw new Error("Missing clientId or accessToken.");
+	        }
+	      }
+	      if (typeof this.options.accessToken !== 'string') {
+	        if (typeof this.options.clientId !== 'string') {
+	          throw new Error("Missing clientId or accessToken.");
+	        }
+	      }
+	      if ((this.options.before != null) && typeof this.options.before === 'function') {
+	        this.options.before.call(this);
+	      }
+	      if (typeof document !== "undefined" && document !== null) {
+	        script = document.createElement('script');
+	        script.id = 'instafeed-fetcher';
+	        script.src = url || this._buildUrl();
+	        header = document.getElementsByTagName('head');
+	        header[0].appendChild(script);
+	        instanceName = "instafeedCache" + this.unique;
+	        window[instanceName] = new Instafeed(this.options, this);
+	        window[instanceName].unique = this.unique;
+	      }
+	      return true;
+	    };
+	
+	    Instafeed.prototype.parse = function(response) {
+	      var anchor, childNodeCount, childNodeIndex, childNodesArr, e, eMsg, fragment, header, htmlString, httpProtocol, i, image, imageObj, imageString, imageUrl, images, img, imgHeight, imgOrient, imgUrl, imgWidth, instanceName, j, k, len, len1, len2, node, parsedLimit, reverse, sortSettings, targetEl, tmpEl;
+	      if (typeof response !== 'object') {
+	        if ((this.options.error != null) && typeof this.options.error === 'function') {
+	          this.options.error.call(this, 'Invalid JSON data');
+	          return false;
+	        } else {
+	          throw new Error('Invalid JSON response');
+	        }
+	      }
+	      if (response.meta.code !== 200) {
+	        if ((this.options.error != null) && typeof this.options.error === 'function') {
+	          this.options.error.call(this, response.meta.error_message);
+	          return false;
+	        } else {
+	          throw new Error("Error from Instagram: " + response.meta.error_message);
+	        }
+	      }
+	      if (response.data.length === 0) {
+	        if ((this.options.error != null) && typeof this.options.error === 'function') {
+	          this.options.error.call(this, 'No images were returned from Instagram');
+	          return false;
+	        } else {
+	          throw new Error('No images were returned from Instagram');
+	        }
+	      }
+	      if ((this.options.success != null) && typeof this.options.success === 'function') {
+	        this.options.success.call(this, response);
+	      }
+	      this.context.nextUrl = '';
+	      if (response.pagination != null) {
+	        this.context.nextUrl = response.pagination.next_url;
+	      }
+	      if (this.options.sortBy !== 'none') {
+	        if (this.options.sortBy === 'random') {
+	          sortSettings = ['', 'random'];
+	        } else {
+	          sortSettings = this.options.sortBy.split('-');
+	        }
+	        reverse = sortSettings[0] === 'least' ? true : false;
+	        switch (sortSettings[1]) {
+	          case 'random':
+	            response.data.sort(function() {
+	              return 0.5 - Math.random();
+	            });
+	            break;
+	          case 'recent':
+	            response.data = this._sortBy(response.data, 'created_time', reverse);
+	            break;
+	          case 'liked':
+	            response.data = this._sortBy(response.data, 'likes.count', reverse);
+	            break;
+	          case 'commented':
+	            response.data = this._sortBy(response.data, 'comments.count', reverse);
+	            break;
+	          default:
+	            throw new Error("Invalid option for sortBy: '" + this.options.sortBy + "'.");
+	        }
+	      }
+	      if ((typeof document !== "undefined" && document !== null) && this.options.mock === false) {
+	        images = response.data;
+	        parsedLimit = parseInt(this.options.limit, 10);
+	        if ((this.options.limit != null) && images.length > parsedLimit) {
+	          images = images.slice(0, parsedLimit);
+	        }
+	        fragment = document.createDocumentFragment();
+	        if ((this.options.filter != null) && typeof this.options.filter === 'function') {
+	          images = this._filter(images, this.options.filter);
+	        }
+	        if ((this.options.template != null) && typeof this.options.template === 'string') {
+	          htmlString = '';
+	          imageString = '';
+	          imgUrl = '';
+	          tmpEl = document.createElement('div');
+	          for (i = 0, len = images.length; i < len; i++) {
+	            image = images[i];
+	            imageObj = image.images[this.options.resolution];
+	            if (typeof imageObj !== 'object') {
+	              eMsg = "No image found for resolution: " + this.options.resolution + ".";
+	              throw new Error(eMsg);
+	            }
+	            imgWidth = imageObj.width;
+	            imgHeight = imageObj.height;
+	            imgOrient = "square";
+	            if (imgWidth > imgHeight) {
+	              imgOrient = "landscape";
+	            }
+	            if (imgWidth < imgHeight) {
+	              imgOrient = "portrait";
+	            }
+	            imageUrl = imageObj.url;
+	            httpProtocol = window.location.protocol.indexOf("http") >= 0;
+	            if (httpProtocol && !this.options.useHttp) {
+	              imageUrl = imageUrl.replace(/https?:\/\//, '//');
+	            }
+	            imageString = this._makeTemplate(this.options.template, {
+	              model: image,
+	              id: image.id,
+	              link: image.link,
+	              type: image.type,
+	              image: imageUrl,
+	              width: imgWidth,
+	              height: imgHeight,
+	              orientation: imgOrient,
+	              caption: this._getObjectProperty(image, 'caption.text'),
+	              likes: image.likes.count,
+	              comments: image.comments.count,
+	              location: this._getObjectProperty(image, 'location.name')
+	            });
+	            htmlString += imageString;
+	          }
+	          tmpEl.innerHTML = htmlString;
+	          childNodesArr = [];
+	          childNodeIndex = 0;
+	          childNodeCount = tmpEl.childNodes.length;
+	          while (childNodeIndex < childNodeCount) {
+	            childNodesArr.push(tmpEl.childNodes[childNodeIndex]);
+	            childNodeIndex += 1;
+	          }
+	          for (j = 0, len1 = childNodesArr.length; j < len1; j++) {
+	            node = childNodesArr[j];
+	            fragment.appendChild(node);
+	          }
+	        } else {
+	          for (k = 0, len2 = images.length; k < len2; k++) {
+	            image = images[k];
+	            img = document.createElement('img');
+	            imageObj = image.images[this.options.resolution];
+	            if (typeof imageObj !== 'object') {
+	              eMsg = "No image found for resolution: " + this.options.resolution + ".";
+	              throw new Error(eMsg);
+	            }
+	            imageUrl = imageObj.url;
+	            httpProtocol = window.location.protocol.indexOf("http") >= 0;
+	            if (httpProtocol && !this.options.useHttp) {
+	              imageUrl = imageUrl.replace(/https?:\/\//, '//');
+	            }
+	            img.src = imageUrl;
+	            if (this.options.links === true) {
+	              anchor = document.createElement('a');
+	              anchor.href = image.link;
+	              anchor.appendChild(img);
+	              fragment.appendChild(anchor);
+	            } else {
+	              fragment.appendChild(img);
+	            }
+	          }
+	        }
+	        targetEl = this.options.target;
+	        if (typeof targetEl === 'string') {
+	          targetEl = document.getElementById(targetEl);
+	        }
+	        if (targetEl == null) {
+	          eMsg = "No element with id=\"" + this.options.target + "\" on page.";
+	          throw new Error(eMsg);
+	        }
+	        targetEl.appendChild(fragment);
+	        header = document.getElementsByTagName('head')[0];
+	        header.removeChild(document.getElementById('instafeed-fetcher'));
+	        instanceName = "instafeedCache" + this.unique;
+	        window[instanceName] = void 0;
+	        try {
+	          delete window[instanceName];
+	        } catch (_error) {
+	          e = _error;
+	        }
+	      }
+	      if ((this.options.after != null) && typeof this.options.after === 'function') {
+	        this.options.after.call(this);
+	      }
+	      return true;
+	    };
+	
+	    Instafeed.prototype._buildUrl = function() {
+	      var base, endpoint, final;
+	      base = "https://api.instagram.com/v1";
+	      switch (this.options.get) {
+	        case "popular":
+	          endpoint = "media/popular";
+	          break;
+	        case "tagged":
+	          if (!this.options.tagName) {
+	            throw new Error("No tag name specified. Use the 'tagName' option.");
+	          }
+	          endpoint = "tags/" + this.options.tagName + "/media/recent";
+	          break;
+	        case "location":
+	          if (!this.options.locationId) {
+	            throw new Error("No location specified. Use the 'locationId' option.");
+	          }
+	          endpoint = "locations/" + this.options.locationId + "/media/recent";
+	          break;
+	        case "user":
+	          if (!this.options.userId) {
+	            throw new Error("No user specified. Use the 'userId' option.");
+	          }
+	          endpoint = "users/" + this.options.userId + "/media/recent";
+	          break;
+	        default:
+	          throw new Error("Invalid option for get: '" + this.options.get + "'.");
+	      }
+	      final = base + "/" + endpoint;
+	      if (this.options.accessToken != null) {
+	        final += "?access_token=" + this.options.accessToken;
+	      } else {
+	        final += "?client_id=" + this.options.clientId;
+	      }
+	      if (this.options.limit != null) {
+	        final += "&count=" + this.options.limit;
+	      }
+	      final += "&callback=instafeedCache" + this.unique + ".parse";
+	      return final;
+	    };
+	
+	    Instafeed.prototype._genKey = function() {
+	      var S4;
+	      S4 = function() {
+	        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+	      };
+	      return "" + (S4()) + (S4()) + (S4()) + (S4());
+	    };
+	
+	    Instafeed.prototype._makeTemplate = function(template, data) {
+	      var output, pattern, ref, varName, varValue;
+	      pattern = /(?:\{{2})([\w\[\]\.]+)(?:\}{2})/;
+	      output = template;
+	      while (pattern.test(output)) {
+	        varName = output.match(pattern)[1];
+	        varValue = (ref = this._getObjectProperty(data, varName)) != null ? ref : '';
+	        output = output.replace(pattern, function() {
+	          return "" + varValue;
+	        });
+	      }
+	      return output;
+	    };
+	
+	    Instafeed.prototype._getObjectProperty = function(object, property) {
+	      var piece, pieces;
+	      property = property.replace(/\[(\w+)\]/g, '.$1');
+	      pieces = property.split('.');
+	      while (pieces.length) {
+	        piece = pieces.shift();
+	        if ((object != null) && piece in object) {
+	          object = object[piece];
+	        } else {
+	          return null;
+	        }
+	      }
+	      return object;
+	    };
+	
+	    Instafeed.prototype._sortBy = function(data, property, reverse) {
+	      var sorter;
+	      sorter = function(a, b) {
+	        var valueA, valueB;
+	        valueA = this._getObjectProperty(a, property);
+	        valueB = this._getObjectProperty(b, property);
+	        if (reverse) {
+	          if (valueA > valueB) {
+	            return 1;
+	          } else {
+	            return -1;
+	          }
+	        }
+	        if (valueA < valueB) {
+	          return 1;
+	        } else {
+	          return -1;
+	        }
+	      };
+	      data.sort(sorter.bind(this));
+	      return data;
+	    };
+	
+	    Instafeed.prototype._filter = function(images, filter) {
+	      var filteredImages, fn, i, image, len;
+	      filteredImages = [];
+	      fn = function(image) {
+	        if (filter(image)) {
+	          return filteredImages.push(image);
+	        }
+	      };
+	      for (i = 0, len = images.length; i < len; i++) {
+	        image = images[i];
+	        fn(image);
+	      }
+	      return filteredImages;
+	    };
+	
+	    return Instafeed;
+	
+	  })();
+	
+	  (function(root, factory) {
+	    if (true) {
+	      return !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof module === 'object' && module.exports) {
+	      return module.exports = factory();
+	    } else {
+	      return root.Instafeed = factory();
+	    }
+	  })(this, function() {
+	    return Instafeed;
+	  });
+	
+	}).call(this);
+
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
-	var _base = __webpack_require__(284);
+	var _base = __webpack_require__(287);
 	
 	var _base2 = _interopRequireDefault(_base);
 	
@@ -19728,7 +20216,7 @@
 	exports.default = Content;
 
 /***/ }),
-/* 284 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19737,7 +20225,7 @@
 			value: true
 	});
 	
-	var _ampersandModel = __webpack_require__(285);
+	var _ampersandModel = __webpack_require__(288);
 	
 	var _ampersandModel2 = _interopRequireDefault(_ampersandModel);
 	
@@ -19790,15 +20278,15 @@
 	exports.default = Base;
 
 /***/ }),
-/* 285 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*$AMPERSAND_VERSION*/
 	var State = __webpack_require__(159);
-	var sync = __webpack_require__(286);
+	var sync = __webpack_require__(289);
 	var assign = __webpack_require__(7);
 	var isObject = __webpack_require__(20);
-	var clone = __webpack_require__(304);
+	var clone = __webpack_require__(307);
 	var result = __webpack_require__(87);
 	
 	// Throw an error when a URL is needed, and none is supplied.
@@ -19938,22 +20426,22 @@
 
 
 /***/ }),
-/* 286 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var xhr = __webpack_require__(287);
-	module.exports = __webpack_require__(294)(xhr);
+	var xhr = __webpack_require__(290);
+	module.exports = __webpack_require__(297)(xhr);
 
 
 /***/ }),
-/* 287 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var window = __webpack_require__(288)
-	var isFunction = __webpack_require__(289)
-	var parseHeaders = __webpack_require__(290)
-	var xtend = __webpack_require__(293)
+	var window = __webpack_require__(291)
+	var isFunction = __webpack_require__(292)
+	var parseHeaders = __webpack_require__(293)
+	var xtend = __webpack_require__(296)
 	
 	module.exports = createXHR
 	createXHR.XMLHttpRequest = window.XMLHttpRequest || noop
@@ -20193,7 +20681,7 @@
 
 
 /***/ }),
-/* 288 */
+/* 291 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var win;
@@ -20213,7 +20701,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 289 */
+/* 292 */
 /***/ (function(module, exports) {
 
 	module.exports = isFunction
@@ -20234,11 +20722,11 @@
 
 
 /***/ }),
-/* 290 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var trim = __webpack_require__(291)
-	  , forEach = __webpack_require__(292)
+	var trim = __webpack_require__(294)
+	  , forEach = __webpack_require__(295)
 	  , isArray = function(arg) {
 	      return Object.prototype.toString.call(arg) === '[object Array]';
 	    }
@@ -20270,7 +20758,7 @@
 	}
 
 /***/ }),
-/* 291 */
+/* 294 */
 /***/ (function(module, exports) {
 
 	
@@ -20290,10 +20778,10 @@
 
 
 /***/ }),
-/* 292 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(289)
+	var isFunction = __webpack_require__(292)
 	
 	module.exports = forEach
 	
@@ -20342,7 +20830,7 @@
 
 
 /***/ }),
-/* 293 */
+/* 296 */
 /***/ (function(module, exports) {
 
 	module.exports = extend
@@ -20367,16 +20855,16 @@
 
 
 /***/ }),
-/* 294 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*$AMPERSAND_VERSION*/
 	var result = __webpack_require__(87);
-	var defaults = __webpack_require__(295);
+	var defaults = __webpack_require__(298);
 	var includes = __webpack_require__(216);
 	var assign = __webpack_require__(7);
-	var qs = __webpack_require__(298);
-	var mediaType = __webpack_require__(303);
+	var qs = __webpack_require__(301);
+	var mediaType = __webpack_require__(306);
 	
 	
 	module.exports = function (xhr) {
@@ -20523,13 +21011,13 @@
 
 
 /***/ }),
-/* 295 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var apply = __webpack_require__(31),
-	    assignInWith = __webpack_require__(296),
+	    assignInWith = __webpack_require__(299),
 	    baseRest = __webpack_require__(28),
-	    customDefaultsAssignIn = __webpack_require__(297);
+	    customDefaultsAssignIn = __webpack_require__(300);
 	
 	/**
 	 * Assigns own and inherited enumerable string keyed properties of source
@@ -20561,7 +21049,7 @@
 
 
 /***/ }),
-/* 296 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(26),
@@ -20605,7 +21093,7 @@
 
 
 /***/ }),
-/* 297 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var eq = __webpack_require__(25);
@@ -20640,14 +21128,14 @@
 
 
 /***/ }),
-/* 298 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var stringify = __webpack_require__(299);
-	var parse = __webpack_require__(302);
-	var formats = __webpack_require__(301);
+	var stringify = __webpack_require__(302);
+	var parse = __webpack_require__(305);
+	var formats = __webpack_require__(304);
 	
 	module.exports = {
 	    formats: formats,
@@ -20657,13 +21145,13 @@
 
 
 /***/ }),
-/* 299 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(300);
-	var formats = __webpack_require__(301);
+	var utils = __webpack_require__(303);
+	var formats = __webpack_require__(304);
 	
 	var arrayPrefixGenerators = {
 	    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
@@ -20870,7 +21358,7 @@
 
 
 /***/ }),
-/* 300 */
+/* 303 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -21058,7 +21546,7 @@
 
 
 /***/ }),
-/* 301 */
+/* 304 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -21082,12 +21570,12 @@
 
 
 /***/ }),
-/* 302 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(300);
+	var utils = __webpack_require__(303);
 	
 	var has = Object.prototype.hasOwnProperty;
 	
@@ -21255,7 +21743,7 @@
 
 
 /***/ }),
-/* 303 */
+/* 306 */
 /***/ (function(module, exports) {
 
 	/**
@@ -21368,7 +21856,7 @@
 
 
 /***/ }),
-/* 304 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseClone = __webpack_require__(161);
@@ -21410,7 +21898,7 @@
 
 
 /***/ }),
-/* 305 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21419,15 +21907,15 @@
 	
 	var _ampersandState2 = _interopRequireDefault(_ampersandState);
 	
-	var _ampersandSync = __webpack_require__(286);
+	var _ampersandSync = __webpack_require__(289);
 	
 	var _ampersandSync2 = _interopRequireDefault(_ampersandSync);
 	
-	var _qs = __webpack_require__(298);
+	var _qs = __webpack_require__(301);
 	
 	var _qs2 = _interopRequireDefault(_qs);
 	
-	var _es6Promise = __webpack_require__(306);
+	var _es6Promise = __webpack_require__(309);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21504,7 +21992,7 @@
 	module.exports = Form;
 
 /***/ }),
-/* 306 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var require;/* WEBPACK VAR INJECTION */(function(process, global) {/*!
@@ -21643,7 +22131,7 @@
 	function attemptVertx() {
 	  try {
 	    var r = require;
-	    var vertx = __webpack_require__(308);
+	    var vertx = __webpack_require__(311);
 	    vertxNext = vertx.runOnLoop || vertx.runOnContext;
 	    return useVertxTimer();
 	  } catch (e) {
@@ -22666,10 +23154,10 @@
 	})));
 	//# sourceMappingURL=es6-promise.map
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(307), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(310), (function() { return this; }())))
 
 /***/ }),
-/* 307 */
+/* 310 */
 /***/ (function(module, exports) {
 
 	// shim for using process in browser
@@ -22859,13 +23347,13 @@
 
 
 /***/ }),
-/* 308 */
+/* 311 */
 /***/ (function(module, exports) {
 
 	/* (ignored) */
 
 /***/ }),
-/* 309 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22886,15 +23374,15 @@
 	
 	var _ampersandDom2 = _interopRequireDefault(_ampersandDom);
 	
-	var _ampersandViewSwitcher = __webpack_require__(310);
+	var _ampersandViewSwitcher = __webpack_require__(313);
 	
 	var _ampersandViewSwitcher2 = _interopRequireDefault(_ampersandViewSwitcher);
 	
-	__webpack_require__(311);
+	__webpack_require__(314);
 	
-	__webpack_require__(312);
+	__webpack_require__(315);
 	
-	__webpack_require__(313);
+	__webpack_require__(316);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23103,7 +23591,7 @@
 	exports.default = MainView;
 
 /***/ }),
-/* 310 */
+/* 313 */
 /***/ (function(module, exports) {
 
 	/*$AMPERSAND_VERSION*/
@@ -23229,7 +23717,7 @@
 
 
 /***/ }),
-/* 311 */
+/* 314 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -23359,7 +23847,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 312 */
+/* 315 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -23556,7 +24044,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 313 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -29646,7 +30134,7 @@
 					if (global) {
 						_globals[n] = cl; //provides a way to avoid global namespace pollution. By default, the main classes like TweenLite, Power1, Strong, etc. are added to window unless a GreenSockGlobals is defined. So if you want to have things added to a custom object instead, just do something like window.GreenSockGlobals = {} before loading any GreenSock files. You can even set up an alias like window.GreenSockGlobals = windows.gs = {} so that you can access everything like gs.TweenLite. Also remember that ALL classes are added to the window.com.greensock object (in their respective packages, like com.greensock.easing.Power1, com.greensock.TweenLite, etc.)
 						hasModule = typeof module !== "undefined" && module.exports;
-						if (!hasModule && "function" === "function" && __webpack_require__(314)) {
+						if (!hasModule && "function" === "function" && __webpack_require__(317)) {
 							//AMD
 							!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 								return cl;
@@ -31514,7 +32002,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 314 */
+/* 317 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -31522,7 +32010,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 315 */
+/* 318 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -31638,7 +32126,7 @@
 	}(window, document);
 
 /***/ }),
-/* 316 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -31868,45 +32356,6 @@
 	  }
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module)))
-
-/***/ }),
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _base = __webpack_require__(280);
-	
-	var _base2 = _interopRequireDefault(_base);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Text = _base2.default.extend({
-		props: {
-			id: ['string', true, ''],
-			active: ['boolean', true, false],
-			parentview: ['object', true, function () {
-				return {};
-			}]
-		},
-	
-		events: {},
-	
-		render: function render() {
-			this.cacheElements({});
-			this.once('remove', this.cleanup, this);
-			return this;
-		}
-	});
-	
-	exports.default = Text;
 
 /***/ })
 /******/ ]);
