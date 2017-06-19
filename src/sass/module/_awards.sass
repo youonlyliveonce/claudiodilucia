@@ -2,10 +2,83 @@
 	position: absolute
 	right: 0
 	bottom: 0
+	font-size: 0
 	z-index: 100009
+	letter-spacing: 0
+	white-space: nowrap
 	+clearfix
+	+transform(translateX(100%))
+	+transition(all, 0.45s)
+	.openAwards &
+		+transform(translateX(0%))
+	&__inner,
+	&__bar,
 	&__title
-		float: left
-		+fontbold
+		+transition(all, 0.45s)
+	&__inner
+		// position: absolute
+		letter-spacing: 0
+		white-space: nowrap
+		.openAwards &
+			+transform(translateX(100px))
+	&__item
+		position: relative
+		height: 100px
+		padding: 0 40px
+		vertical-align: middle
+		display: inline-block
+		background-color: #333
+		text-align: center
+		img
+			height: 60%
+			margin-top: 50px
+			+transform(translateY(-50%))
+	&__bar
+		position: relative
+		display: inline-block
+		font-size: 0
+		z-index: 10
+		.openAwards &
+			+transform(translateX(-100px))
+	&__title
+		display: inline-block
+		position: relative
+		white-space: nowrap
+		word-break: normal
+		font-size: 0
+		cursor: pointer
+		margin-left: -300px
+		&:hover
+			span:last-child
+				&:after
+					width: 100%
+		span
+			vertical-align: middle
+			display: inline-block
+			text-align: center
 		span:first-child
+			+fontbold
+			line-height: 100px
+			width: 200px
+			font-size: 16px
+			white-space: nowrap
 			background-color: black
+		span:last-child
+			position: relative
+			width: 100px
+			height: 100px
+			background-color: #333
+			&:after
+				position: absolute
+				background-color: darken(#333, 10%)
+				content: ''
+				left: 0
+				width: 0%
+				height: 100%
+				z-index: 1
+				+transition(width, 0.45s)
+			svg
+				position: relative
+				z-index: 2
+				width: 40%
+				height: 100%

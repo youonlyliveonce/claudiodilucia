@@ -23,7 +23,10 @@ let Hero = Base.extend({
 		}]
 	},
 
-	events: { },
+	events: {
+		'click .Awards':'handleClickAwards'
+
+	},
 
 	render: function(){
 		this.cacheElements({
@@ -130,6 +133,13 @@ let Hero = Base.extend({
 				this.unmuteVideo();
 				dom.removeClass(this.mutebutton, 'mute');
 			}
+		}
+	},
+	handleClickAwards:function(){
+		if(this.el.classList.contains('openAwards')){
+			this.el.classList.remove('openAwards');
+		}else{
+			this.el.classList.add('openAwards');
 		}
 	},
 	cleanup: function(){
