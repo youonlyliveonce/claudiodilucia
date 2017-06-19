@@ -33,8 +33,8 @@ let Hero = Base.extend({
 			heroBody : '.Hero__body'
 		});
 		let self = this;
-		if(document.body.classList.contains('Slider--hidefullscreen')){
-			document.body.classList.remove('Slider--hidefullscreen');
+		if(document.body.classList.contains('Slider--fullscreen')){
+			document.body.classList.remove('Slider--fullscreen');
 		}
 
 		let iframes = Array.from(this.queryAll('iframe'));
