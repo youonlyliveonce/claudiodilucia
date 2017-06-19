@@ -38,6 +38,8 @@ let Slider = Base.extend({
 	events: {
 		'click .Slider__body .Slider__item':'handleClickItem',
 		'click .Slider__fullscreen .Button--close':'handleClickClose',
+		'mouseover .Slider__icon--zoom':'handleMouseOverZoom',
+		'mouseout .Slider__icon--zoom':'handleMouseOutZoom'
 	},
 
 	render: function(){
@@ -61,6 +63,14 @@ let Slider = Base.extend({
 				document.body.classList.remove('Slider--fullscreen')
 				document.body.classList.remove('Slider--hidefullscreen')
 		})
+	},
+	handleMouseOverZoom: function(event){
+		event.delegateTarget.parentNode.classList.add('hover');
+		console.log('enter', event);
+	},
+	handleMouseOutZoom: function(event){
+		event.delegateTarget.parentNode.classList.remove('hover');
+		console.log('leave', event);
 	},
 	cleanup: function(){
 		console.log("cleanup slider");

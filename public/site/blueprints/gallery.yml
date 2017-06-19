@@ -20,10 +20,14 @@ fields:
         image:
           label: Bild
           type: image
+          required: true
         alttext:
           label: Alt Text
           type: text
           required: true
         videoid:
           label: Video ID
+          type: text
+        videotitle:
+          label: Video Titel
           type: text

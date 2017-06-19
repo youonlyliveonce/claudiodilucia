@@ -8,3 +8,21 @@ fields:
   typetoggle: typetoggle
   imagefield: imagefield
   galleryfield: galleryfield
+  awards:
+    label: Award Elemente
+    type: structure
+    modalsize: large
+    entry: >
+      <u>Award</u> : {{award}}<br/>
+      <u>Anzahl</u> : {{awardcount}}<br/>
+      <u>Image</u> : {{awardimage}}
+    fields:
+      award:
+        label: Award Name
+        type: text
+      awardcount:
+        label: Award Anzahl
+        type: number
+      awardimage:
+        label: Bild
+        type: image

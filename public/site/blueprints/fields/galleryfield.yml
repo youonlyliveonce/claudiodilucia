@@ -9,7 +9,6 @@
     image:
       label: Bild
       type: image
-      required: true
     videoid:
       label: Video ID (YouTube)
       type: text

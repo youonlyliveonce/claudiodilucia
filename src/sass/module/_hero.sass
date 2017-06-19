@@ -53,18 +53,46 @@
 		margin-left: auto
 		margin-right: auto
 		position: absolute
+	&__videoblocker
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		display: block
+	&__slide--video
+		width: 100%
+		height: 100%
+		iframe
+			position: absolute
+			top: 0
+			left: 0
+			width: 100%
+			height: 100%
+			display: block
+			border: 0
 	.swiper-container
 		width: 100%
 		height: 100%
-
 	.swiper-pagination
 		z-index: 99999
 		bottom: 0px
 		+bp(large)
-			bottom: 70px
+			bottom: 30px
 		.swiper-pagination-bullet
+			opacity: 1
+			width: 14px
+			height: 14px
+			vertical-align: middle
+			border-radius: 0
+			background-color: white
+			border: 2px solid rgba(255,255,255,0)
+			+transition(all, 0.45s)
+		.swiper-pagination-bullet-active
+			width: 18px
+			height: 18px
 			background-color: transparent
-
+			border: 4px solid rgba(255,255,255,1)
 	.swiper-slide
 		margin: 0 !important
 		/* Center slide text vertically */

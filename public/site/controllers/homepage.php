@@ -20,7 +20,18 @@ return function($site, $pages, $page) {
 	} else {
 		$slide = $page->imagefield();
 	}
-	return compact('gallery', 'slides', 'slide', 'images');
+
+	// awards
+	$awards = $page->awards()->toStructure();
+	$awarded = 0;
+	foreach($awards as $key => $value){
+		$awarded = $awarded + $value->awardcount()->int();
+	}
+
+
+
+
+	return compact('gallery', 'slides', 'slide', 'images', 'next', 'awards', 'awarded');
 };
 
 ?>

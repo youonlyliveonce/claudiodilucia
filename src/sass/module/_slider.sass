@@ -50,6 +50,23 @@
 			margin-top: 0
 			padding-bottom: 0%
 			height: 100vH
+		.Slider__video
+			+transition(all, 1.25s)
+			overflow: hidden
+			position: absolute
+			top: 0
+			bottom: 0
+			left: 50%
+			width: 0%
+			iframe
+				position: absolute
+				top: 0
+				left: 50%
+				+transform(translateX(-50%))
+				width: 100%
+				height: 100%
+				display: block
+				border: 0
 		.Slider__crop
 			+transition(all, 1.25s)
 			overflow: hidden
@@ -70,7 +87,8 @@
 			.Slider__fullscreenBackground
 				+transition(opacity, 0.75s)
 				opacity: 1
-			.Slider__crop
+			.Slider__crop,
+			.Slider__video
 				+transition(all, 1.25s)
 				// background-color: red
 				top: 0
@@ -80,7 +98,8 @@
 			.Slider__fullscreenBackground
 				+transition(opacity, 0.45s)
 				opacity: 0
-			.Slider__crop
+			.Slider__crop,
+			.Slider__video
 				+transition(all, 0.45s)
 				top: 0
 				left: 50%
@@ -118,6 +137,29 @@
 				+transform(translateX(-50%))
 				width: auto
 				height: 100%
+	&__overlay
+		opacity: 0
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		height: 100%
+		background-color: rgba(255,255,255,0.5)
+		+transition(opacity, 0.5s)
+		.hover &
+			opacity: 1
+		span
+			color: black
+			text-transform: uppercase
+			font-size: 0.75em
+			letter-spacing: 0.1em
+			line-height: 1em
+			text-align: center
+			position: absolute
+			left: 0%
+			top: 50%
+			width: 100%
+			+transform(translateY(-50%))
 	&__item
 		position: relative
 		text-align: center
@@ -126,6 +168,8 @@
 		position: relative
 		text-align: left
 		color: black
+		.Slider--fullscreen &
+			color: white
 		padding-bottom: 60%
 		max-height: 100%
 		border-left: 1px solid rgba(150,150,150,1)
@@ -153,6 +197,8 @@
 		a
 			cursor: pointer
 			color: black
+			.Slider--fullscreen &
+				color: white
 			display: block
 			position: relative
 			text-transform: uppercase
@@ -167,6 +213,8 @@
 					margin-right: -7px
 					content: ''
 					border-bottom: 1px solid black
+					.Slider--fullscreen &
+						border-bottom: 1px solid white
 					width: 0%
 				&:hover
 					&:before

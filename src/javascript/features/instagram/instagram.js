@@ -26,14 +26,14 @@ let Instagram = Base.extend({
 		});
 		// useId: danielkremin = 1298879060
 		// accessToken: 1298879060.1677ed0.ec66e96c845040548e0ade8b1d100c3b
-
+		// useId: claudiodilucia = 9977201
+		// unused // 1298879060.16ded27.9254c7c94d2f4422bb7090da4a44edcc
 		feed.run();
 
 		return this;
 
 	},
 	hookToShow: function(){
-		// 1298879060.16ded27.9254c7c94d2f4422bb7090da4a44edcc
 		// this.tiles.forEach(function(item, index){
 		// 	setTimeout(function(){ item.classList.add('show'); }, index*300);
 		// })
