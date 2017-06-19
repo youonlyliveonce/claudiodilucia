@@ -3,9 +3,10 @@
 		<ul class="Contentmenu__main">
 			<?php foreach($site->children()->visible() as $item): ?>
 					<?php if($item->intendedTemplate() == 'redirect'): ?>
+						<?php if( $item->intern()->isNotEmpty() ){ $target = $item->intern(); }else{ $target = $item->redirect();} ?>
 						<li>
 							<div>
-								<a href="<?= $item->redirect(); ?>" target="_blank"><span><?= $item->title()->html() ?></span></a>
+								<a href="<?= $target; ?>" target="_blank"><span><?= $item->title()->html() ?></span></a>
 							</div>
 						</li>
 					<?php else : ?>
