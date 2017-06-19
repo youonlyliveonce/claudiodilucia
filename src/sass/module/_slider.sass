@@ -50,23 +50,6 @@
 			margin-top: 0
 			padding-bottom: 0%
 			height: 100vH
-		.Slider__video
-			+transition(all, 1.25s)
-			overflow: hidden
-			position: absolute
-			top: 0
-			bottom: 0
-			left: 50%
-			width: 0%
-			iframe
-				position: absolute
-				top: 0
-				left: 50%
-				+transform(translateX(-50%))
-				width: 100%
-				height: 100%
-				display: block
-				border: 0
 		.Slider__crop
 			+transition(all, 1.25s)
 			overflow: hidden
@@ -81,14 +64,34 @@
 				+transform(translateX(-50%))
 				width: auto
 				height: 100%
+			&--video
+				.Slider__center
+					position: absolute
+					left: 50%
+					top: 0
+					bottom: 0
+					+transform(translateX(-50%))
+					img
+						visibility: hidden
+						+transform(none)
+						position: relative
+						width: auto
+						height: 100%
+				iframe
+					position: absolute
+					top: 0%
+					left: 0%
+					width: 100%
+					height: 100%
+					display: block
+					border: 0
 		.Slider--fullscreen &
 			visibility: visible
 			opacity: 1
 			.Slider__fullscreenBackground
 				+transition(opacity, 0.75s)
 				opacity: 1
-			.Slider__crop,
-			.Slider__video
+			.Slider__crop
 				+transition(all, 1.25s)
 				// background-color: red
 				top: 0
@@ -98,8 +101,7 @@
 			.Slider__fullscreenBackground
 				+transition(opacity, 0.45s)
 				opacity: 0
-			.Slider__crop,
-			.Slider__video
+			.Slider__crop
 				+transition(all, 0.45s)
 				top: 0
 				left: 50%

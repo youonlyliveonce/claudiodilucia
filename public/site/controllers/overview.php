@@ -30,8 +30,14 @@ return function($site, $pages, $page) {
 			array_push($teaserlist, $value);
 		}
 	}
+	// awards
+	$awards = $page->awards()->toStructure();
+	$awarded = 0;
+	foreach($awards as $key => $value){
+		$awarded = $awarded + $value->awardcount()->int();
+	}
 
-	return compact('gallery', 'slides', 'slide', 'teaserlist', 'next');
+	return compact('gallery', 'slides', 'slide', 'teaserlist', 'next', 'awards', 'awarded');
 };
 
 ?>

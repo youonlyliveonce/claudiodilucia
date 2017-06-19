@@ -60,9 +60,12 @@
 						<div class="Slider__item">
 							<?php if($slide->videoid()->isNotEmpty()) : ?>
 								<!-- YOUTUBE -->
-								<div class="Slider__video">
-									<iframe data-key="<?= $key ?>" id="yt-<?= $slide->videoid(); ?>" width="420" height="315" src="https://www.youtube.com/embed/<?= $slide->videoid(); ?>?autoplay=0&modestbranding=1&rel=0&loop=1&playlist=<?= $slide->videoid(); ?>&showinfo=0&controls=0&enablejsapi=1"></iframe>
-									<!-- <div class="Hero__videoblocker"></div> -->
+								<div class="Slider__crop Slider__crop--video">
+									<div class="Slider__center">
+										<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => true))->url(); ?>" />
+										<iframe data-key="<?= $key ?>" id="yt-<?= $slide->videoid(); ?>" width="420" height="315" src="https://www.youtube.com/embed/<?= $slide->videoid(); ?>?autoplay=0&modestbranding=1&rel=0&loop=1&playlist=<?= $slide->videoid(); ?>&showinfo=0&controls=0&enablejsapi=1"></iframe>
+										<!-- <div class="Hero__videoblocker"></div> -->
+									</div>
 								</div>
 							<?php else : ?>
 								<div class="Slider__crop">

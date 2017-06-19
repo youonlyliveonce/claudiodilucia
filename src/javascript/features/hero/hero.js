@@ -33,8 +33,11 @@ let Hero = Base.extend({
 			heroBody : '.Hero__body'
 		});
 		let self = this;
-		let iframes = Array.from(this.queryAll('iframe'));
+		if(document.body.classList.contains('Slider--hidefullscreen')){
+			document.body.classList.remove('Slider--hidefullscreen');
+		}
 
+		let iframes = Array.from(this.queryAll('iframe'));
 		if(iframes.length > 0) {
 			iframes.forEach(function(item){
 				self.videoslides.push({index:item.getAttribute('data-key'), id:item.getAttribute('id'), player:null});
@@ -53,6 +56,7 @@ let Hero = Base.extend({
 				}, [], this);
 			}
 		}
+
 		TweenMax.delayedCall(0.15, function(){
 				// this.settings.onSlideChangeEnd = .bind(this);
 				this.swiper = new Swiper('#'+this.id+' .Hero__body .swiper-container', this.settings);
