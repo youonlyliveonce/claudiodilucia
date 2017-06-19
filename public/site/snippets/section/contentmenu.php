@@ -6,7 +6,7 @@
 						<li>
 							<div>
 								<?php if( $item->intern()->isNotEmpty() ): ?>
-									<a href="<?= $item->intern(); ?>"><span><?= $item->title()->html() ?></span></a>
+									<a href="/<?= $site->language() ?>/<?= $item->intern(); ?>"><span><?= $item->title()->html() ?></span></a>
 								<?php else: ?>
 									<a href="<?= $item->redirect(); ?>" target="_blank"><span><?= $item->title()->html() ?></span></a>
 								<?php endif; ?>
