@@ -39,7 +39,7 @@ let Instagram = Base.extend({
 		// })
 	},
 	cleanup: function(){
-		console.log("cleanup hero");
+		console.log("cleanup instagram");
 	}
 })
 

@@ -143,8 +143,11 @@ let Hero = Base.extend({
 		}
 	},
 	cleanup: function(){
-		this.swiper.destroy();
 		console.log("cleanup hero");
+		if(typeof this.swiper.destroy == 'function'){
+			this.swiper.destroy();
+		}
+
 	}
 })
 

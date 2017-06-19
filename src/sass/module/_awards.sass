@@ -2,15 +2,13 @@
 	position: absolute
 	right: 0
 	bottom: 0
+	height: 100px
+	overflow: hidden
 	font-size: 0
 	z-index: 100009
 	letter-spacing: 0
 	white-space: nowrap
 	+clearfix
-	+transform(translateX(100%))
-	+transition(all, 0.45s)
-	.openAwards &
-		+transform(translateX(0%))
 	&__inner,
 	&__bar,
 	&__title
@@ -19,6 +17,7 @@
 		// position: absolute
 		letter-spacing: 0
 		white-space: nowrap
+		text-align: right
 		.openAwards &
 			+transform(translateX(100px))
 	&__item
@@ -38,8 +37,10 @@
 		display: inline-block
 		font-size: 0
 		z-index: 10
+		margin-right: -100%
 		.openAwards &
 			+transform(translateX(-100px))
+			margin-right: 0%
 	&__title
 		display: inline-block
 		position: relative
@@ -48,6 +49,8 @@
 		font-size: 0
 		cursor: pointer
 		margin-left: -300px
+		.openAwards &
+			margin-left: 0px
 		&:hover
 			span:last-child
 				&:after

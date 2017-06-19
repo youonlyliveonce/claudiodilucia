@@ -76,7 +76,7 @@ let Content = PageView.extend({
 		}, [], this);
 	},
 	cleanup: function(){
-		console.log("cleanup");
+		console.log("cleanup childview");
 		_.each(this.subViews, function(item){
 			item.view.remove(true);
 		})

@@ -74,8 +74,12 @@ let Slider = Base.extend({
 	},
 	cleanup: function(){
 		console.log("cleanup slider");
-		this.swiper.destroy();
-		this.swiperFullscreen.destroy();
+		if(typeof this.swiper.destroy == 'function'){
+			this.swiper.destroy();
+		}
+		if(typeof this.swiperFullscreen.destroy == 'function'){
+			this.swiperFullscreen.destroy();
+		}
 	}
 })
 
