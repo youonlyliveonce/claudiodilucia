@@ -3,6 +3,12 @@
 	width: 80px
 	height: 80px
 	background-color: black
+	opacity: 0
+	+transform(translateX(-20px))
+	+transition(all, 0.45s, null, 0.5s)
+	.show &
+		+transform(translateX(0px))
+		opacity: 1
 	&--scroll
 		left: 50%
 		margin-top: -40px

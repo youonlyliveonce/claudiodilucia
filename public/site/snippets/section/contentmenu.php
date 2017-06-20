@@ -23,9 +23,11 @@
 		</ul>
 	</div>
 	<div class="Contentmenu__outer">
+		<?php $counter = 0; ?>
 		<?php foreach($site->children()->visible() as $item): ?>
+
 			<?php if( $item->hasVisibleChildren() ) : ?>
-				<ul class="Contentmenu__sub">
+				<ul class="Contentmenu__sub" data-aos="blend" data-aos-duration="600" data-aos-delay="<?php echo $counter*500; ?>">
 					<?php $children = $item->children()->visible(); ?>
 					<?php foreach($children as $subitem): ?>
 						<li>
@@ -34,6 +36,7 @@
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
+			<?php $counter++; ?>
 		<?php endforeach; ?>
 	</div
 </div>
