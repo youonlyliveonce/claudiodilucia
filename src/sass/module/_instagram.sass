@@ -1,7 +1,6 @@
 .Instagram
 	margin-top: 5%
 	position: relative
-
 	&__headline
 		@extend .Section__body
 		text-align: center
@@ -12,7 +11,7 @@
 	&__body
 		padding-top: 5%
 		margin-bottom: 2%
-		@extend .Section__body
+		@extend .Section__body--small
 		background-image: url(/assets/images/bg-line-center.gif)
 		background-repeat: repeat-y
 		background-position: center
@@ -41,22 +40,22 @@
 					background-image: url(/assets/images/instagram_speechbubble.svg)
 					background-repeat: no-repeat
 					background-position: center
+	&__square
+		display: block
+		width: 15px
+		height: 15px
+		position: absolute
+		top: 50%
+		right: 0
+		margin-right: -8px
+		margin-top: -92px
+		background-color: white
+		border: 1px solid rgba(100, 100, 100, 1)
 	&__item
 		position: relative
-		&:after
-			content: ''
-			position: absolute
-			left: 0
-			top: 0
-			height: 100%
-			width: 100%
-			background-color: white
-			+transition(all, 0.45s, ease-out, 0.0s)
-		// &.show
-		// 	&::after
-		// 		left: auto
-		// 		right: 0
-		// 		width: 0%
+		padding-bottom: 120px
+		&:nth-child(2)
+			margin-top: 200px
 		img
 			width: 100%
 			display: block
@@ -68,8 +67,19 @@
 			color: black
 			text-transform: uppercase
 			padding-top: 15px
-			margin-bottom: 60px
 		a
+			width: 80%
+			display: block
+			position: relative
+			&:after
+				content: ''
+				position: absolute
+				left: 0
+				top: 0
+				height: 100%
+				width: 101%
+				background-color: white
+				+transition(all, 0.45s, ease-out, 0.0s)
 			.Teaser__image
 				&:before
 					content: ''
@@ -84,10 +94,16 @@
 				.Teaser__image
 					&:before
 						border: 10px solid white
-		width: 42%
+		width: 50%
 		float: left
 		&:nth-child(even)
 			float: right
+			a
+				float: right
+			.Instagram__square
+				left: 0
+				right: auto
+				margin-left: -8px
 	&__icon--zoom
 		position: absolute
 		display: block

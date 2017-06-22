@@ -14,6 +14,7 @@
 	<div class="Navigation__inner">
 		<ul>
 			<?php foreach($site->children()->visible() as $item): ?>
+				<?php if(!$item->isHomePage()): ?>
 					<?php if($item->intendedTemplate() == 'redirect'): ?>
 
 						<li>
@@ -69,6 +70,7 @@
 							</div>
 						</li>
 					<?php endif; ?>
+				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
 	</div>

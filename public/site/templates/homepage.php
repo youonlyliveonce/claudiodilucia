@@ -18,6 +18,7 @@
 				snippet('section/hero', array('section' => $page, 'scrollhint' => false));
 				snippet('section/contentmenu', array('section' => $page));
 				snippet('section/instagram', array('section' => $page));
+				snippet('down',  array('section' => $page));
 			}
 			?>
 
