@@ -1,15 +1,16 @@
 .Teaser
 	margin-top: 10%
 	position: relative
-	&:before
-		content: ''
-		width: 5%
-		height: 1px
-		background-color: black
-		position: absolute
-		left: 0
-		top: 0
-		margin-top: -30px
+	+bp(medium)
+		&:before
+			content: ''
+			width: 5%
+			height: 1px
+			background-color: black
+			position: absolute
+			left: 0
+			top: 0
+			margin-top: -30px
 	&__body
 		@extend .Section__body
 	&__image
@@ -25,11 +26,6 @@
 			width: 100%
 			background-color: white
 			+transition(all, 0.45s, ease-out, 0.0s)
-		// &.show
-		// 	&::after
-		// 		left: auto
-		// 		right: 0
-		// 		width: 0%
 		img
 			width: 100%
 			display: block
@@ -41,7 +37,9 @@
 			color: black
 			text-transform: uppercase
 			padding-top: 15px
-			margin-bottom: 60px
+			margin-bottom: 20px
+			+bp(medium)
+				margin-bottom: 60px
 			&:before
 				+transition(all, 0.45s, ease-out, 0.0s)
 				position: relative
@@ -72,7 +70,7 @@
 					&:before
 						left: 0%
 						width: 115%
-		width: 42%
+		width: 44%
 		float: left
 		&:nth-child(even)
 			float: right

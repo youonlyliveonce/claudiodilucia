@@ -12,8 +12,12 @@
 			position: absolute
 			left: 0
 			top: 0
-			width: 100px
-		height: 8vH
+			width: 16%
+			+bp(medium)
+				width: 100px
+		height: 16vH
+		+bp(medium)
+			height: 8vH
 		+clearfix
 		div
 			text-align: left
@@ -43,19 +47,27 @@
 		>ul
 			text-align: left
 			+clearfix
-			margin-top: 8vH
+			margin-top: 14vH
+			+bp(medium)
+				margin-top: 8vH
 			+transform(translateY(-50%))
 			>li
 				cursor: pointer
 				margin: 0 auto
 				text-align: center
-				padding: 0px 70px
 				position: relative
 				+noselect
-				float: left
+				padding: 0px 50px
+				+bp(medium)
+					float: left
+					padding: 0px 70px
 				&:first-child
-					padding-left: 0
+					+bp(medium)
+						padding-left: 0
 	&__outer
+		display: none
+		+bp(medium)
+			display: block
 		+clearfix
 		div
 			text-align: left

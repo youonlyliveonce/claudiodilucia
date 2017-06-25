@@ -37,7 +37,7 @@
 											<?php if($children->count() < $mostsub): ?>
 												<?php $div = $mostsub - $children->count(); ?>
 												<?php for($x=0; $x<$div; $x++):?>
-													<li><span>&nbsp;</span></li>
+													<li class="Navigation__empty"><span>&nbsp;</span></li>
 												<?php endfor; ?>
 											<?php endif; ?>
 									</ul>
@@ -60,7 +60,7 @@
 												<?php if($children->count() < $mostsub): ?>
 													<?php $div = $mostsub - $children->count(); ?>
 													<?php for($x=0; $x<$div; $x++):?>
-														<li><span>&nbsp;</span></li>
+														<li class="Navigation__empty"><span>&nbsp;</span></li>
 													<?php endfor; ?>
 												<?php endif; ?>
 

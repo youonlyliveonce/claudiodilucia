@@ -133,7 +133,11 @@ var MainView = View.extend({
 		},
 
 		scrollTo: function(value) {
-			TweenMax.to(window, 0.3, {scrollTo:{y:value}});
+			if(window.CM.Loader.mobile) {
+					TweenMax.to(window, 0.25, {scrollTo:{y:value, autoKill:false}});
+			} else {
+					TweenMax.to(window, 0.75, {scrollTo:{x:0, y:value, autoKill:true}, overwrite:true, ease:Power2.easeOut});
+			}
 		},
 
 		/*

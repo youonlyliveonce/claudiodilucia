@@ -11,12 +11,6 @@
 		<div class="Text__inner">
 			<?= $section->textarea()->kirbytext(); ?>
 			<p><br/><br/></p>
-			<div class="Next">
-				<a class="Button Button--down" href="/<?= $site->language() ?>/<?= $next->slug() ?>/">
-					<span>Next Section:</span>
-					<span><?= $next->title() ?></span>
-				</a>
-			</div>
 		</div>
 
 	</div>

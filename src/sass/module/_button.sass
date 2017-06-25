@@ -4,7 +4,10 @@
 		display: inline-block
 		margin: 0 auto
 		line-height: 1.2
-		margin-bottom: 60px
+		margin-top: 80px
+		margin-bottom: 80px
+		+bp(medium)
+			margin-bottom: 60px
 		span
 			text-transform: uppercase
 			text-align: center
@@ -13,8 +16,10 @@
 			font-size: 0.75em
 			&:nth-child(2)
 				font-weight: bold
-				font-size: 1.4em
+				font-size: 1em
 				letter-spacing: 0.1em
+				+bp(medium)
+					font-size: 1.4em
 				&:before
 					position: absolute
 					content: ''
@@ -48,8 +53,15 @@
 		+fontblack()
 		+noselect()
 		position: absolute
-		top: 60px
-		left: 60px
+		top: 30px
+		left: 10px
+		.Page--text &
+			color: black
+			+bp(medium)
+				color: white
+		+bp(medium)
+			top: 60px
+			left: 60px
 		.Slider--fullscreen &
 			margin-top: -120px
 			margin-left: -120px
@@ -101,6 +113,10 @@
 				left: 50%
 				bottom: 9px
 				height: 1px
+				.Page--text &
+					background-color: black
+					+bp(medium)
+						background-color: white
 				background-color: white
 				width: 0%
 				margin: 0

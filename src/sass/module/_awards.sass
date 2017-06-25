@@ -2,7 +2,9 @@
 	position: absolute
 	right: 0
 	bottom: 0
-	height: 100px
+	height: 60px
+	+bp(medium)
+		height: 100px
 	overflow: hidden
 	font-size: 0
 	z-index: 100009
@@ -19,19 +21,33 @@
 		white-space: nowrap
 		text-align: right
 		.openAwards &
-			+transform(translateX(100px))
+			overflow: scroll
+			width: 100vW
+			background-color: #333
+			+bp(medium)
+				background-color: transparent
+				overflow: hidden
+				width: auto
+				+transform(translateX(100px))
 	&__item
 		position: relative
-		height: 100px
-		padding: 0 40px
+		height: 60px
+		padding: 0 30px
+		+bp(medium)
+			height: 100px
+			padding: 0 60px
 		vertical-align: middle
 		display: inline-block
 		background-color: #333
 		text-align: center
 		img
+			position: relative
 			height: 60%
-			margin-top: 50px
+			margin-top: 30px
 			+transform(translateY(-50%))
+			+bp(medium)
+				margin-top: 50px
+
 	&__bar
 		position: relative
 		display: inline-block
@@ -39,7 +55,9 @@
 		z-index: 10
 		margin-right: -100%
 		.openAwards &
-			+transform(translateX(-100px))
+			+transform(translateX(-60px))
+			+bp(medium)
+				+transform(translateX(-100px))
 			margin-right: 0%
 	&__title
 		display: inline-block
@@ -48,7 +66,9 @@
 		word-break: normal
 		font-size: 0
 		cursor: pointer
-		margin-left: -300px
+		margin-left: -180px
+		+bp(medium)
+			margin-left: -300px
 		.openAwards &
 			margin-left: 0px
 		&:hover
@@ -61,15 +81,22 @@
 			text-align: center
 		span:first-child
 			+fontbold
-			line-height: 100px
-			width: 200px
-			font-size: 16px
+			line-height: 60px
+			width: 120px
+			font-size: 12px
+			+bp(medium)
+				line-height: 100px
+				width: 200px
+				font-size: 16px
 			white-space: nowrap
 			background-color: black
 		span:last-child
 			position: relative
-			width: 100px
-			height: 100px
+			width: 60px
+			height: 60px
+			+bp(medium)
+				width: 100px
+				height: 100px
 			background-color: #333
 			&:after
 				position: absolute

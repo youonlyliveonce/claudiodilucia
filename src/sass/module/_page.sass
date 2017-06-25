@@ -22,6 +22,11 @@
 		z-index: 10
 		position: relative
 		.Navigation--show &
+			overflow: hidden
+			height: 100vH
+			+bp(medium)
+				overflow: inherit
+				height: auto
 			filter: blur(5px)
 			-webkit-filter: blur(5px)
 			-moz-filter: blur(5px)

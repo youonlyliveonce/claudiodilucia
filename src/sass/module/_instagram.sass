@@ -21,7 +21,9 @@
 		span
 			position: relative
 			padding-left: 25px
-			padding-right: 40px
+			padding-right: 20px
+			+bp(medium)
+				padding-right: 40px
 			&:before
 				content: ''
 				width: 20px
@@ -110,11 +112,14 @@
 		line-height: 0
 		width: 32px
 		height: 32px
-		right: 15px
-		bottom: 15px
+		right: 5px
+		bottom: 5px
 		background-color: rgba(0,0,0,0.5)
 		padding: 11px
 		cursor: pointer
+		+bp(medium)
+			right: 15px
+			bottom: 15px
 		+transition(all, 0.25s)
 		svg
 			+transition(all, 0.25s)
