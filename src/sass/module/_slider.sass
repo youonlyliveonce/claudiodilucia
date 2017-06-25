@@ -25,11 +25,13 @@
 		min-height: 100vH
 		z-index: 2999
 		width: 100%
+		.Slider__navitem
+			padding: 0
+			height: 100vH
 		.Slider__fullscreenInner
 			position: absolute
 			padding: 0
 			margin: 0
-			padding: 0
 			top: 0
 			bottom: 0
 			left: 0
@@ -93,7 +95,6 @@
 				opacity: 1
 			.Slider__crop
 				+transition(all, 1.25s)
-				// background-color: red
 				top: 0
 				left: 5%
 				width: 90%
@@ -109,11 +110,13 @@
 
 	&__body
 		padding-top: 160px
-		padding-bottom: 5%
+		padding-bottom: 10%
 		+bph(medium)
 			padding-top: 20vH
 		.Slider__item
-			padding-bottom: 60%
+			padding-bottom: 120%
+			+bp(medium)
+				padding-bottom: 60%
 			max-height: 100%
 			&::after
 				position: absolute
@@ -129,8 +132,11 @@
 					left: 100%
 		.Slider__crop
 			position: absolute
-			left: 15%
-			width: 70%
+			left: 6%
+			width: 88%
+			+bp(medium)
+				left: 15%
+				width: 70%
 			height: 100%
 			overflow: hidden
 			img
@@ -170,9 +176,16 @@
 		position: relative
 		text-align: left
 		color: black
-		.Slider--fullscreen &
-			color: white
-		padding-bottom: 60%
+		padding-bottom: 120%
+		+bp(medium)
+			padding-bottom: 60%
+		// .Slider--fullscreen &
+		// 	color: white
+		// 	padding-bottom: 0%
+		// 	height: 0vH
+		// 	+bp(medium)
+		// 		height: 100vH
+		// 	overflow: hidden
 		max-height: 100%
 		border-left: 1px solid rgba(150,150,150,1)
 		&::after
@@ -193,9 +206,12 @@
 				display: inline-block
 				font-size: 0.75em
 				letter-spacing: 0.1em
-				line-height: 1.24em
 				z-index: 10
-				padding: 10px 0.1em
+				line-height: 1.24em
+				padding: 5px 0.1em
+				+bp(medium)
+					line-height: 1.24em
+					padding: 10px 0.1em
 		a
 			cursor: pointer
 			color: black
@@ -238,8 +254,11 @@
 		line-height: 0
 		width: 10px
 		height: 10px
-		right: 15px
-		bottom: 15px
+		right: 5px
+		bottom: 5px
+		+bp(medium)
+			right: 15px
+			bottom: 15px
 		position: absolute
 		background-color: black
 		padding: 16px
