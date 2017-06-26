@@ -14,6 +14,8 @@
 			top: 0
 			width: 16%
 			+bp(medium)
+				width: 0px
+			+bp(large)
 				width: 100px
 		height: 16vH
 		+bp(medium)
@@ -26,7 +28,6 @@
 			color: black
 			font-size: 0.75em
 			letter-spacing: 0.1em
-			// line-height: 1.25em
 			text-transform: uppercase
 			span
 				&:before
@@ -59,6 +60,9 @@
 				+noselect
 				padding: 0px 50px
 				+bp(medium)
+					float: left
+					padding: 0px 30px
+				+bp(large)
 					float: left
 					padding: 0px 70px
 				&:first-child
@@ -96,6 +100,10 @@
 		>ul
 			text-align: left
 			padding: 0px 70px
+			+bp(medium)
+				padding: 0px 30px
+			+bp(large)
+				padding: 0px 70px
 			float: left
 			&:first-child
 				padding-left: 0

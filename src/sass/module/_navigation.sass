@@ -2,19 +2,17 @@
 .Navigation
 	position: fixed
 	z-index: 9999
-
 	top: 0
 	left: 0
 	overflow: scroll
 	-webkit-overflow-scrolling: touch
 	background-color: rgba(255,255,255,0.9)
+	visibility: hidden
+	opacity: 0
 	+bp(medium)
 		background-color: rgba(255,255,255,0.75)
 		overflow: hidden
 		+transition(all, 0.75s, ease-out)
-	visibility: hidden
-	opacity: 0
-
 	.Navigation--show &
 		width: 100%
 		height: 100vH
@@ -74,6 +72,13 @@
 				position: absolute
 				top: 0%
 				bottom: 0%
+				left: 5%
+				+clearfix
+			+bp(large)
+				text-align: left
+				position: absolute
+				top: 0%
+				bottom: 0%
 				left: 10%
 				+clearfix
 			>li
@@ -129,4 +134,4 @@
 	&__empty
 		display: none !important
 		+bp(medium)
-			display: list-item
+			display: list-item !important

@@ -12,6 +12,6 @@
 			<?= $section->textarea()->kirbytext(); ?>
 			<p><br/><br/></p>
 		</div>
-
+		<?php snippet('down',  array('section' => $page)) ?>
 	</div>
 </div>

@@ -25,6 +25,8 @@
 		h1
 			margin-top: 23px
 			+bp(medium)
+				margin-top: 23px
+			+bp(large)
 				margin-top: -23px
 		.show &
 			+transition(all, 0.45s, ease-out, 0.35s)
@@ -34,7 +36,9 @@
 	&__image,
 	&__body
 		padding-top: 100px
-		+bph(medium)
+		+bp(medium)
+			padding-top: 180px
+		+bp(large)
 			padding-top: 15%
 
 	&__image,
@@ -42,6 +46,9 @@
 		background-color: white
 		width: 100%
 		+bp(medium)
+			width: 84%
+			margin-left: 16%
+		+bp(larger)
 			width: 90%
 			margin-left: 10%
 
@@ -51,13 +58,16 @@
 	&__inner
 		margin: 0 auto
 		+bp(medium)
+			max-width: 500px
+			+transform(translateX(-10%))
+		+bp(large)
 			+transform(translateX(-10%))
 			max-width: 600px
 		color: black
 		p, h1, h2, h3, h4, h5
 			margin: 20px 40px
-			+bp(medium)
-				margin: auto
+			+bp(large)
+				margin: 20px 0
 			font-size: 0.8em
 		img
 			width: 100%

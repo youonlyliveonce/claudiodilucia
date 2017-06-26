@@ -4,6 +4,8 @@
 	bottom: 0
 	height: 60px
 	+bp(medium)
+		height: 80px
+	+bp(large)
 		height: 100px
 	overflow: hidden
 	font-size: 0
@@ -24,7 +26,7 @@
 			overflow: scroll
 			width: 100vW
 			background-color: #333
-			+bp(medium)
+			+bp(large)
 				background-color: transparent
 				overflow: hidden
 				width: auto
@@ -34,6 +36,9 @@
 		height: 60px
 		padding: 0 30px
 		+bp(medium)
+			height: 80px
+			padding: 0 40px
+		+bp(large)
 			height: 100px
 			padding: 0 60px
 		vertical-align: middle
@@ -46,6 +51,8 @@
 			margin-top: 30px
 			+transform(translateY(-50%))
 			+bp(medium)
+				margin-top: 40px
+			+bp(large)
 				margin-top: 50px
 
 	&__bar
@@ -57,6 +64,8 @@
 		.openAwards &
 			+transform(translateX(-60px))
 			+bp(medium)
+				+transform(translateX(-80px))
+			+bp(large)
 				+transform(translateX(-100px))
 			margin-right: 0%
 	&__title
@@ -68,6 +77,8 @@
 		cursor: pointer
 		margin-left: -180px
 		+bp(medium)
+			margin-left: -240px
+		+bp(large)
 			margin-left: -300px
 		.openAwards &
 			margin-left: 0px
@@ -85,6 +96,10 @@
 			width: 120px
 			font-size: 12px
 			+bp(medium)
+				line-height: 80px
+				width: 160px
+				font-size: 16px
+			+bp(large)
 				line-height: 100px
 				width: 200px
 				font-size: 16px
@@ -95,6 +110,9 @@
 			width: 60px
 			height: 60px
 			+bp(medium)
+				width: 80px
+				height: 80px
+			+bp(large)
 				width: 100px
 				height: 100px
 			background-color: #333
