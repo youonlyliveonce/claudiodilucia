@@ -57,8 +57,6 @@
 		left: 10px
 		.Page--text &
 			color: black
-			+bp(medium)
-				color: white
 		+bp(medium)
 			top: 60px
 			left: 40px
@@ -108,6 +106,8 @@
 				bottom: 4px
 				height: 1px
 				background-color: white
+				.Page--text &
+					background-color: black
 				width: 100%
 				+transition(all, 0.25s)
 			&:after
@@ -116,11 +116,9 @@
 				left: 50%
 				bottom: 9px
 				height: 1px
+				background-color: white
 				.Page--text &
 					background-color: black
-					+bp(medium)
-						background-color: white
-				background-color: white
 				width: 0%
 				margin: 0
 				+transition(all, 0.25s)

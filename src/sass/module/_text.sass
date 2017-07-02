@@ -45,12 +45,8 @@
 	&__body
 		background-color: white
 		width: 100%
-		+bp(medium)
-			width: 84%
-			margin-left: 16%
-		+bp(larger)
-			width: 90%
-			margin-left: 10%
+		margin-left: 0%
+
 
 	&__image + &__body
 		padding-top: 30px
@@ -59,9 +55,7 @@
 		margin: 0 auto
 		+bp(medium)
 			max-width: 500px
-			+transform(translateX(-10%))
 		+bp(large)
-			+transform(translateX(-10%))
 			max-width: 600px
 		color: black
 		p, h1, h2, h3, h4, h5
