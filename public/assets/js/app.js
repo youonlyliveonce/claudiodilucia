@@ -19479,6 +19479,7 @@
 		props: {
 			id: ['string', true, ''],
 			active: ['boolean', true, false],
+			mie: ['boolean', true, false],
 			parentview: ['object', true, function () {
 				return {};
 			}],
@@ -19492,6 +19493,9 @@
 				return undefined;
 			}],
 			swiperFullscreen: ['object', true, function () {
+				return undefined;
+			}],
+			swiperThumbs: ['object', true, function () {
 				return undefined;
 			}],
 			activeindex: ['number', true, -1],
@@ -19523,6 +19527,19 @@
 					grabCursor: true,
 					touchEventsTarget: 'container'
 				};
+			}],
+			settingsThumbs: ['object', true, function () {
+				return {
+					// speed: 600,
+					loop: false,
+					touchRatio: 0.2,
+					slideToClickedSlide: true,
+					centeredSlides: true,
+					slidesPerView: 'auto',
+					spaceBetween: "0%",
+					grabCursor: true,
+					touchEventsTarget: 'container'
+				};
 			}]
 		},
 	
@@ -19530,12 +19547,14 @@
 			'click .Slider__body .Slider__item': 'handleClickItem',
 			'click .Slider__fullscreen .Button--close': 'handleClickClose',
 			'mouseover .Slider__icon--zoom': 'handleMouseOverZoom',
-			'mouseout .Slider__icon--zoom': 'handleMouseOutZoom'
+			'mouseout .Slider__icon--zoom': 'handleMouseOutZoom',
+			'mousemove .Slider': 'handleMouseMove'
 		},
 	
 		render: function render() {
 			var self = this;
 			var iframes = Array.from(this.queryAll('iframe'));
+			this.mie = navigator.appName == "Microsoft Internet Explorer" ? true : false;
 	
 			if (iframes.length > 0) {
 				iframes.forEach(function (item) {
@@ -19559,9 +19578,13 @@
 			TweenMax.delayedCall(0.15, function () {
 				this.swiper = new Swiper('#' + this.id + ' .Slider__body .swiper-container', this.settings);
 				this.swiperFullscreen = new Swiper('#' + this.id + ' .Slider__fullscreen .swiper-container', this.settingsFullscreen);
-				this.swiper.params.control = this.swiperFullscreen;
-				this.swiperFullscreen.params.control = this.swiper;
+				this.swiperThumbs = new Swiper('#' + this.id + ' .Slider__thumbs .swiper-container', this.settingsThumbs);
 	
+				this.swiper.params.control = this.swiperThumbs;
+				// this.swiperFullscreen.params.control = this.swiper;
+				this.swiperThumbs.params.control = this.swiper;
+	
+				this.swiper.on('slideChangeStart', this.onSwiperToFullscreen.bind(this));
 				this.swiperFullscreen.on('slideChangeEnd', this.onSwiperCheck.bind(this));
 				this.swiperFullscreen.on('slideChangeStart', this.onSwiperChange.bind(this));
 			}, [], this);
@@ -19589,6 +19612,9 @@
 			}
 		},
 		onSwiperCheck: function onSwiperCheck(swiper) {
+			// => to normal swiper
+			this.swiper.slideTo(swiper.activeIndex);
+			// => check for video
 			if (this.videoslides.length > 0) {
 				var videoSlides = this.videoslides.find(function (item) {
 					return item.index == swiper.activeIndex;
@@ -19596,6 +19622,11 @@
 				if (videoSlides != undefined) {
 					this.playVideo(videoSlides.player);
 				}
+			}
+		},
+		onSwiperToFullscreen: function onSwiperToFullscreen(swiper) {
+			if (!document.body.classList.contains('Slider--fullscreen')) {
+				this.swiperFullscreen.slideTo(swiper.activeIndex);
 			}
 		},
 		onPlayerReady: function onPlayerReady(event) {
@@ -19642,6 +19673,22 @@
 				}
 			}
 		},
+		handleMouseMove: function handleMouseMove(event) {
+			var e = window.event || event || event.originalEvent;
+			var mouseY = 0;
+			if (!this.mie) {
+				//  mouseX = e.pageX;
+				mouseY = e.pageY;
+			} else {
+				//  mouseX = event.clientX + document.body.scrollLeft;
+				mouseY = event.clientY + document.body.scrollTop;
+			}
+			if (mouseY > this.el.offsetHeight / 2) {
+				this.el.classList.add('Slider--showthumbs');
+			} else {
+				this.el.classList.remove('Slider--showthumbs');
+			}
+		},
 		handleClickItem: function handleClickItem() {
 			document.body.classList.add('Slider--fullscreen');
 			this.onSwiperCheck(this.swiperFullscreen);
@@ -19669,6 +19716,9 @@
 			}
 			if (typeof this.swiperFullscreen.destroy == 'function') {
 				this.swiperFullscreen.destroy();
+			}
+			if (typeof this.swiperThumbs.destroy == 'function') {
+				this.swiperThumbs.destroy();
 			}
 		}
 	});

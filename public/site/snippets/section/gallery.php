@@ -47,6 +47,25 @@
 			</div>
 		</div>
 	</div>
+	<div class="Slider__thumbs">
+		<div class="Slider__thumbs-body">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<?php foreach($slides as $key => $slide): ?>
+					<div class="swiper-slide">
+						<div class="Slider__item">
+							<img src="<?= thumb($slide->image()->toFile(), array('width' => 150, 'height' => 95, 'crop' => true))->url(); ?>" />
+						</div>
+					</div>
+					<?php endforeach; ?>
+					<div class="swiper-slide">
+						<div class="Slider__item">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="Slider__fullscreen">
 		<span class="Button--close">
 			<span></span>
