@@ -19503,8 +19503,8 @@
 					centeredSlides: true,
 					keyboardControl: true,
 					spaceBetween: "0%",
-					pagination: '.Slider .swiper-pagination',
-					paginationClickable: true,
+					// pagination: '.Slider .swiper-pagination',
+					// paginationClickable: true,
 					grabCursor: true,
 					touchEventsTarget: 'container'
 				};
@@ -19516,8 +19516,10 @@
 					slidesPerView: 1,
 					centeredSlides: true,
 					spaceBetween: "0%",
-					pagination: '.Slider .swiper-pagination',
-					paginationClickable: true,
+					// pagination: '.Slider .swiper-pagination',
+					// paginationClickable: true,
+					nextButton: '.Slider__fullscreen .swiper-button-next',
+					prevButton: '.Slider__fullscreen .swiper-button-prev',
 					grabCursor: true,
 					touchEventsTarget: 'container'
 				};
