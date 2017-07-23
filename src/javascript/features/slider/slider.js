@@ -62,6 +62,9 @@ let Slider = Base.extend({
 	},
 
 	render: function(){
+		this.cacheElements({
+			sliderBody : '.Slider__body'
+		});
 		let self = this;
 		let iframes = Array.from(this.queryAll('iframe'));
 		this.mie = (navigator.appName == "Microsoft Internet Explorer") ? true : false;
@@ -124,6 +127,13 @@ let Slider = Base.extend({
 		}
 	},
 	onSwiperCheck: function(swiper){
+
+		// if last
+		if(swiper.isEnd){
+			this.sliderBody.classList.add('Slider--islast')
+		} else {
+			this.sliderBody.classList.remove('Slider--islast')
+		}
 		// => to normal swiper
 		this.swiper.slideTo(swiper.activeIndex)
 		// => check for video
@@ -196,7 +206,7 @@ let Slider = Base.extend({
 				//  mouseX = event.clientX + document.body.scrollLeft;
 				mouseY = event.clientY + document.body.scrollTop;
 		}
-		if(mouseY > this.el.offsetHeight/2){
+		if(mouseY > this.el.offsetHeight/3*2){
 			this.el.classList.add('Slider--showthumbs');
 		}else {
 			this.el.classList.remove('Slider--showthumbs');

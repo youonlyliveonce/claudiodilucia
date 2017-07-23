@@ -13,13 +13,16 @@ $aos-distance: 100px !default;
 	&:after {
 		width: 100%;
 		left: 0%;
-		transition-property: left, width;
+		opacity: 1;
+		transition-property: opacity, width;
 	}
 
 	&.aos-animate {
 		&:after {
+			opacity: 0;
+			// visibility: hidden;
 			width: 0%;
-			left: 101%;
+			left: 100%;
 		}
 	}
 }

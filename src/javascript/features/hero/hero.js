@@ -60,8 +60,11 @@ let Hero = Base.extend({
 		TweenMax.delayedCall(0.15, function(){
 				// this.settings.onSlideChangeEnd = .bind(this);
 				this.swiper = new Swiper('#'+this.id+' .Hero__body .swiper-container', this.settings);
-				this.swiper.on('slideChangeEnd', this.onSwiperCheck.bind(this));
-				this.swiper.on('slideChangeStart', this.onSwiperChange.bind(this));
+				if(typeof this.swiper.on == "function"){
+					this.swiper.on('slideChangeEnd', this.onSwiperCheck.bind(this));
+					this.swiper.on('slideChangeStart', this.onSwiperChange.bind(this));
+				}
+
 		}, [], this);
 		this.once('remove', this.cleanup, this);
 		return this;
