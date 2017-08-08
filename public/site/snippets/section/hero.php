@@ -1,4 +1,4 @@
-<div class="Hero [ Element ]" id="<?php echo $section->slug(); ?>_hero"  data-view="HeroView">
+<div class="Hero [ Element ] openAwards" id="<?php echo $section->slug(); ?>_hero"  data-view="HeroView">
 	<div class="Hero__headline"><h1><?= $section->title(); ?></h1></div>
 	<div class="Hero__body">
 		<?php if($gallery) : ?>
@@ -30,10 +30,10 @@
 			<div class="Awards__inner">
 				<div class="Awards__title">
 					<span><?= $awarded ?>X Awarded</span>
-					<span>
+					<!-- <span>
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 29 29" enable-background="new 0 0 29 29" xml:space="preserve"><path id="mauszeiger.svg" fill="#FFFFFF" d="M10.77,18.689l3.21,9.611c0.13,0.395,0.485,0.67,0.9,0.699h0.07, c0.395-0.002,0.754-0.227,0.93-0.58L28.891,1.46c0.193-0.39,0.117-0.861-0.19-1.17c-0.315-0.305-0.788-0.377-1.181-0.18L0.56,13.6, c-0.382,0.183-0.604,0.59-0.55,1.01c0.022,0.417,0.302,0.775,0.7,0.9L10.77,18.689z M25.77,3.26L15.13,25.27l-2.58-7.709, c-0.105-0.306-0.345-0.545-0.65-0.65L3.71,14.3L25.77,3.26z"/>
 						</svg>
-					</span>
+					</span> -->
 				</div>
 				<div class="Awards__bar">
 					<?php foreach($awards as $key => $value): ?>

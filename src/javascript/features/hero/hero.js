@@ -67,6 +67,9 @@ let Hero = Base.extend({
 
 		}, [], this);
 		this.once('remove', this.cleanup, this);
+		TweenMax.delayedCall(2.55, function(){
+			this.el.classList.remove('openAwards');
+		}, [], this);
 		return this;
 	},
 	onYouTubeIframeAPIReady: function(){

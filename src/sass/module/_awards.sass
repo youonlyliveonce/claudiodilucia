@@ -23,14 +23,15 @@
 		white-space: nowrap
 		text-align: right
 		.openAwards &
-			overflow: scroll
+			overflow-x: scroll
+			overflow-y: hidden
 			width: 100vW
 			background-color: #333
 			+bp(large)
 				background-color: transparent
 				overflow: hidden
 				width: auto
-				+transform(translateX(100px))
+				// +transform(translateX(100px))
 	&__item
 		position: relative
 		height: 60px
@@ -62,11 +63,11 @@
 		z-index: 10
 		margin-right: -100%
 		.openAwards &
-			+transform(translateX(-60px))
-			+bp(medium)
-				+transform(translateX(-80px))
-			+bp(large)
-				+transform(translateX(-100px))
+			// +transform(translateX(-60px))
+			// +bp(medium)
+			// 	+transform(translateX(-80px))
+			// +bp(large)
+			// 	+transform(translateX(-100px))
 			margin-right: 0%
 	&__title
 		display: inline-block
@@ -75,17 +76,17 @@
 		word-break: normal
 		font-size: 0
 		cursor: pointer
-		margin-left: -180px
+		margin-left: -120px
 		+bp(medium)
-			margin-left: -240px
+			margin-left: -160px
 		+bp(large)
-			margin-left: -300px
+			margin-left: -200px
 		.openAwards &
 			margin-left: 0px
 		&:hover
-			span:last-child
-				&:after
-					width: 100%
+			// span:last-child
+			// 	&:after
+			// 		width: 100%
 		span
 			vertical-align: middle
 			display: inline-block
@@ -105,28 +106,28 @@
 				font-size: 16px
 			white-space: nowrap
 			background-color: black
-		span:last-child
-			position: relative
-			width: 60px
-			height: 60px
-			+bp(medium)
-				width: 80px
-				height: 80px
-			+bp(large)
-				width: 100px
-				height: 100px
-			background-color: #333
-			&:after
-				position: absolute
-				background-color: darken(#333, 10%)
-				content: ''
-				left: 0
-				width: 0%
-				height: 100%
-				z-index: 1
-				+transition(width, 0.45s)
-			svg
-				position: relative
-				z-index: 2
-				width: 40%
-				height: 100%
+		// span:last-child
+		// 	position: relative
+		// 	width: 60px
+		// 	height: 60px
+		// 	+bp(medium)
+		// 		width: 80px
+		// 		height: 80px
+		// 	+bp(large)
+		// 		width: 100px
+		// 		height: 100px
+		// 	background-color: #333
+		// 	&:after
+		// 		position: absolute
+		// 		background-color: darken(#333, 10%)
+		// 		content: ''
+		// 		left: 0
+		// 		width: 0%
+		// 		height: 100%
+		// 		z-index: 1
+		// 		+transition(width, 0.45s)
+		// 	svg
+		// 		position: relative
+		// 		z-index: 2
+		// 		width: 40%
+		// 		height: 100%

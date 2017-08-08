@@ -6,7 +6,7 @@
 				<div class="swiper-slide">
 					<div class="Slider__item">
 						<div class="Slider__crop">
-							<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => true))->url(); ?>" />
+							<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => false))->url(); ?>" />
 							<?php if($slide->videotitle()->isNotEmpty()) : ?>
 								<div class="Slider__overlay">
 									<span><?= $slide->videotitle() ?></span>
@@ -89,7 +89,7 @@
 								</div>
 							<?php else : ?>
 								<div class="Slider__crop">
-									<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => true))->url(); ?>" />
+									<img src="<?= thumb($slide->image()->toFile(), array('width' => 1600, 'height' => 900, 'crop' => false))->url(); ?>" />
 								</div>
 							<?php endif; ?>
 						</div>
