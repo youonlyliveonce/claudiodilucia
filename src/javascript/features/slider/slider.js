@@ -18,7 +18,7 @@ let Slider = Base.extend({
 						slidesPerView: 1.5,
 						centeredSlides: true,
 						keyboardControl: true,
-						spaceBetween: "0%",
+						spaceBetween: "1%",
 						// pagination: '.Slider .swiper-pagination',
 						// paginationClickable: true,
 						grabCursor: true,
@@ -206,7 +206,7 @@ let Slider = Base.extend({
 				//  mouseX = event.clientX + document.body.scrollLeft;
 				mouseY = event.clientY + document.body.scrollTop;
 		}
-		if(mouseY > this.el.offsetHeight/3*2){
+		if(mouseY > this.el.offsetHeight/4*3){
 			this.el.classList.add('Slider--showthumbs');
 		}else {
 			this.el.classList.remove('Slider--showthumbs');
